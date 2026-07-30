@@ -1,0 +1,52 @@
+.booking-card{
+    border-radius:12px;
+    transition:.3s;
+}
+
+.booking-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,0,0,.12)!important;
+}
+
+.booking-no{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:3px;
+    color:#198754;
+}
+
+.booking-card label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color:#6c757d;
+    text-transform:uppercase;
+    margin-bottom:3px;
+}
+
+.booking-card p{
+    margin:0;
+    font-size:15px;
+    font-weight:500;
+    color:#212529;
+}
+
+.booking-fare{
+    font-size:18px;
+    font-weight:700;
+    color:#198754;
+}
+
+.booking-card .btn{
+    min-width:140px;
+    border-radius:8px;
+    font-weight:600;
+}
+
+@media(max-width:768px){
+
+.booking-card .btn{
+    width:100%;
+}
+
+}

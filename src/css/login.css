@@ -1,0 +1,120 @@
+.zg-header {
+    height: 70px;
+    background: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.zg-header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.menu-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: #f5f6fa;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: .3s;
+}
+
+.menu-btn:hover {
+    background: #198754;
+    color: #fff;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.logo span {
+    font-size: 20px;
+    font-weight: 700;
+    color: #198754;
+}
+
+.zg-header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: #f5f6fa;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    position: relative;
+    transition: .3s;
+}
+
+.icon-btn:hover {
+    background: #198754;
+    color: #fff;
+}
+
+.notification-dot {
+    width: 10px;
+    height: 10px;
+    background: #dc3545;
+    border-radius: 50%;
+    position: absolute;
+    top: 8px;
+    right: 9px;
+}
+
+.profile-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.profile-icon {
+    font-size: 40px;
+    color: #198754;
+}
+
+.profile-box h6 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.profile-box small {
+    color: #6c757d;
+}
+
+@media (max-width:768px) {
+
+    .logo span{
+        display:none;
+    }
+
+    .zg-header{
+        padding:0 15px;
+    }
+
+}
