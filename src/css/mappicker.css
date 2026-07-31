@@ -1,0 +1,60 @@
+.map-picker{
+    width:100%;
+}
+
+.map-toolbar{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:12px;
+}
+
+.map-container{
+    width:100%;
+    border:1px solid #ddd;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.location-details{
+    display:flex;
+    gap:15px;
+    margin-top:15px;
+}
+
+.location-box{
+    flex:1;
+}
+
+.location-box label,
+.address-box label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:600;
+}
+
+.location-box input{
+    width:100%;
+    padding:10px;
+    border:1px solid #ced4da;
+    border-radius:6px;
+}
+
+.address-box{
+    margin-top:15px;
+}
+
+.address-box textarea{
+    width:100%;
+    padding:10px;
+    border:1px solid #ced4da;
+    border-radius:6px;
+    resize:none;
+}
+
+@media(max-width:768px){
+
+.location-details{
+    flex-direction:column;
+}
+
+}
