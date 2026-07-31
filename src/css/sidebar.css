@@ -1,0 +1,92 @@
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: #0d6efd;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    transition: 0.3s;
+    box-shadow: 0 0 15px rgba(0,0,0,.15);
+}
+
+.sidebar-logo {
+    padding: 25px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.15);
+    text-align: center;
+}
+
+.sidebar-logo h4 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.sidebar-logo span {
+    font-size: 13px;
+    opacity: .8;
+}
+
+.sidebar-menu {
+    margin: 0;
+    padding: 15px 0;
+    list-style: none;
+}
+
+.sidebar-menu li {
+    margin: 4px 12px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    transition: .25s;
+    font-size: 15px;
+}
+
+.menu-link:hover {
+    background: rgba(255,255,255,.15);
+    color: #fff;
+}
+
+.menu-link.active {
+    background: #fff;
+    color: #0d6efd;
+    font-weight: 600;
+}
+
+.menu-icon {
+    font-size: 18px;
+    width: 22px;
+    text-align: center;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.35);
+    border-radius: 20px;
+}
+
+@media (max-width:992px) {
+    .sidebar {
+        width: 230px;
+    }
+}
+
+@media (max-width:768px) {
+    .sidebar {
+        left: -260px;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+}
