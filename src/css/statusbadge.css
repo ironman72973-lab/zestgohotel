@@ -1,0 +1,79 @@
+/* ===============================
+   Status Badge
+================================= */
+
+.status-badge {
+    display: inline-block;
+    min-width: 90px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-transform: capitalize;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+/* Success */
+.status-badge.success {
+    background-color: #198754;
+    border-color: #198754;
+    color: #ffffff;
+}
+
+/* Primary */
+.status-badge.primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #ffffff;
+}
+
+/* Info */
+.status-badge.info {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+    color: #000000;
+}
+
+/* Warning */
+.status-badge.warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000000;
+}
+
+/* Danger */
+.status-badge.danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #ffffff;
+}
+
+/* Secondary */
+.status-badge.secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #ffffff;
+}
+
+/* Dark */
+.status-badge.dark {
+    background-color: #212529;
+    border-color: #212529;
+    color: #ffffff;
+}
+
+/* Light */
+.status-badge.light {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    color: #212529;
+}
+
+/* Hover Effect */
+.status-badge:hover {
+    opacity: 0.9;
+    transition: opacity 0.2s ease-in-out;
+}
