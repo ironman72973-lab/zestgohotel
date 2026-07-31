@@ -1,0 +1,59 @@
+.zg-table-container {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.zg-table {
+    margin: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.zg-table thead {
+    background: #198754;
+    color: #fff;
+}
+
+.zg-table thead th {
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    border: none;
+}
+
+.zg-table tbody td {
+    padding: 14px;
+    font-size: 14px;
+    color: #444;
+    vertical-align: middle;
+    border-top: 1px solid #ececec;
+}
+
+.zg-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.zg-table tbody tr:nth-child(even) {
+    background: #fcfcfc;
+}
+
+.zg-table tbody tr:nth-child(even):hover {
+    background: #f5f5f5;
+}
+
+.zg-table .btn {
+    margin-right: 5px;
+}
+
+@media (max-width:768px){
+
+    .zg-table thead th,
+    .zg-table tbody td{
+        font-size:13px;
+        padding:10px;
+    }
+
+}
