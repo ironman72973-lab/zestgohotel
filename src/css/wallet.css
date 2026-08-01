@@ -1,0 +1,128 @@
+.wallet-page{
+    padding:30px;
+    background:#f5f7fb;
+    min-height:100vh;
+}
+
+.wallet-header{
+    margin-bottom:25px;
+}
+
+.wallet-header h2{
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.wallet-header p{
+    color:#666;
+}
+
+.wallet-card{
+    border-radius:18px;
+    color:#fff;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.wallet-card h6{
+    font-size:14px;
+    opacity:.9;
+}
+
+.wallet-card h2{
+    margin-top:10px;
+    font-weight:700;
+}
+
+.balance{
+    background:linear-gradient(135deg,#198754,#20c997);
+}
+
+.available{
+    background:linear-gradient(135deg,#0d6efd,#4dabff);
+}
+
+.pending{
+    background:linear-gradient(135deg,#fd7e14,#ffc107);
+}
+
+.earnings{
+    background:linear-gradient(135deg,#6f42c1,#9b6dff);
+}
+
+.summary-card,
+.transaction-card{
+
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+}
+
+.summary-card h5{
+    margin-bottom:20px;
+    font-weight:700;
+}
+
+.summary-item{
+
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid #eee;
+
+}
+
+.summary-item:last-child{
+    border-bottom:none;
+}
+
+.transaction-card table{
+    margin-bottom:0;
+}
+
+.transaction-card thead{
+    background:#198754;
+    color:#fff;
+}
+
+.transaction-card thead th{
+    border:none;
+}
+
+.status{
+
+    display:inline-block;
+    padding:5px 14px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+
+}
+
+.status.success{
+
+    background:#d1fae5;
+    color:#198754;
+
+}
+
+.status.pending{
+
+    background:#fff3cd;
+    color:#fd7e14;
+
+}
+
+@media(max-width:768px){
+
+.wallet-page{
+    padding:15px;
+}
+
+.summary-card{
+    margin-bottom:20px;
+}
+
+}
