@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./login.css";
 
 import logo from "../../images/logo.png";
-import bg from "../../images/login-bg.jpg";
+import bg from "../../images/hotel1.png";
 
 import {
     FaLock,
