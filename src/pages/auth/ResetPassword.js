@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./login.css";
 
-import logo from "../../assets/images/logo.png";
-import bg from "../../assets/images/login-bg.jpg";
+import logo from "../../images/logo.png";
+import bg from "../../images/login-bg.jpg";
 
 import {
     FaLock,
