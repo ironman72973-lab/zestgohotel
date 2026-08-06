@@ -17,7 +17,7 @@ import {
   FaCog
 } from "react-icons/fa";
 
-import "../assets/css/sidebar.css";
+import "../css/sidebar.css";
 
 function Sidebar() {
   const menu = [

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Airport Pickup",
+    "bookings": 185,
+    "percentage": 92
+  },
+  {
+    "name": "Airport Drop",
+    "bookings": 162,
+    "percentage": 84
+  },
+  {
+    "name": "Outstation",
+    "bookings": 140,
+    "percentage": 72
+  },
+  {
+    "name": "Transport",
+    "bookings": 98,
+    "percentage": 60
+  },
+  {
+    "name": "Events",
+    "bookings": 76,
+    "percentage": 45
+  }
+]

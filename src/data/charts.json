@@ -1,0 +1,111 @@
+{
+  "bookingOverview": [
+    {
+      "day": "Mon",
+      "bookings": 18
+    },
+    {
+      "day": "Tue",
+      "bookings": 24
+    },
+    {
+      "day": "Wed",
+      "bookings": 20
+    },
+    {
+      "day": "Thu",
+      "bookings": 32
+    },
+    {
+      "day": "Fri",
+      "bookings": 42
+    },
+    {
+      "day": "Sat",
+      "bookings": 48
+    },
+    {
+      "day": "Sun",
+      "bookings": 36
+    }
+  ],
+  "revenue": [
+    {
+      "month": "Jan",
+      "amount": 280000
+    },
+    {
+      "month": "Feb",
+      "amount": 310000
+    },
+    {
+      "month": "Mar",
+      "amount": 340000
+    },
+    {
+      "month": "Apr",
+      "amount": 390000
+    },
+    {
+      "month": "May",
+      "amount": 430000
+    },
+    {
+      "month": "Jun",
+      "amount": 485600
+    }
+  ],
+  "services": [
+    {
+      "name": "Airport",
+      "value": 35,
+      "color": "#198754"
+    },
+    {
+      "name": "Outstation",
+      "value": 25,
+      "color": "#0d6efd"
+    },
+    {
+      "name": "Rental",
+      "value": 15,
+      "color": "#ffc107"
+    },
+    {
+      "name": "Transport",
+      "value": 15,
+      "color": "#fd7e14"
+    },
+    {
+      "name": "Events",
+      "value": 10,
+      "color": "#dc3545"
+    }
+  ],
+  "commission": [
+    {
+      "month": "Jan",
+      "amount": 25000
+    },
+    {
+      "month": "Feb",
+      "amount": 32000
+    },
+    {
+      "month": "Mar",
+      "amount": 36000
+    },
+    {
+      "month": "Apr",
+      "amount": 42000
+    },
+    {
+      "month": "May",
+      "amount": 51000
+    },
+    {
+      "month": "Jun",
+      "amount": 62450
+    }
+  ]
+}

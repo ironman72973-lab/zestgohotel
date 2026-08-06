@@ -12,6 +12,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import NewBooking from "./pages/bookings/NewBooking";
 
 // Airport
+import Airport from "./pages/airport/Airport";
 import AirportPickup from "./pages/airport/AirportPickup";
 import AirportDrop from "./pages/airport/AirportDrop";
 import AirportBookings from "./pages/airport/AirportBookings";
@@ -107,7 +108,7 @@ function RoutePage() {
                 <Route path="/airport/pickup" element={<AirportPickup />} />
                 <Route path="/airport/drop" element={<AirportDrop />} />
                 <Route path="/airport/bookings" element={<AirportBookings />} />
-
+                <Route path="/airport" element={<Airport />} />
                 {/* Railway */}
                 <Route path="/railway/pickup" element={<RailwayPickup />} />
                 <Route path="/railway/drop" element={<RailwayDrop />} />

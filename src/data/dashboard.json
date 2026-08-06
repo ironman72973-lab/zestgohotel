@@ -1,0 +1,33 @@
+{
+  "hotel": {
+    "name": "Hotel Grand Palace",
+    "location": "Visakhapatnam",
+    "welcome": "Welcome Back"
+  },
+  "statistics": [
+    {
+      "title": "Today's Bookings",
+      "value": 42,
+      "icon": "calendar",
+      "color": "primary"
+    },
+    {
+      "title": "Active Trips",
+      "value": 18,
+      "icon": "car",
+      "color": "success"
+    },
+    {
+      "title": "Completed Trips",
+      "value": 356,
+      "icon": "completed",
+      "color": "warning"
+    },
+    {
+      "title": "Wallet Balance",
+      "value": "48,750",
+      "icon": "wallet",
+      "color": "danger"
+    }
+  ]
+}

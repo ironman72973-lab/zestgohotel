@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Dashboard",
+    "icon": "home",
+    "path": "/dashboard"
+  },
+  {
+    "title": "Airport",
+    "icon": "airport",
+    "path": "/airport"
+  },
+  {
+    "title": "Railway",
+    "icon": "railway",
+    "path": "/railway"
+  },
+  {
+    "title": "Rental",
+    "icon": "rental",
+    "path": "/rental"
+  },
+  {
+    "title": "Sightseeing",
+    "icon": "sightseeing",
+    "path": "/sightseeing"
+  },
+  {
+    "title": "Outstation",
+    "icon": "outstation",
+    "path": "/outstation"
+  },
+  {
+    "title": "Transport",
+    "icon": "transport",
+    "path": "/transport"
+  },
+  {
+    "title": "Events",
+    "icon": "events",
+    "path": "/events"
+  },
+  {
+    "title": "Bookings",
+    "icon": "bookings",
+    "path": "/bookings"
+  },
+  {
+    "title": "Wallet",
+    "icon": "wallet",
+    "path": "/wallet"
+  },
+  {
+    "title": "Reports",
+    "icon": "reports",
+    "path": "/reports"
+  },
+  {
+    "title": "Support",
+    "icon": "support",
+    "path": "/support"
+  },
+  {
+    "title": "Settings",
+    "icon": "settings",
+    "path": "/settings"
+  }
+]

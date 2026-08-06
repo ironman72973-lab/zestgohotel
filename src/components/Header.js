@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaBell, FaUserCircle, FaBars } from "react-icons/fa";
-import "../assets/css/header.css";
+import "../css/header.css";
 
 function Header({ toggleSidebar }) {
   return (

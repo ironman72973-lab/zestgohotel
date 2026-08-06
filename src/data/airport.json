@@ -1,0 +1,140 @@
+{
+  "banner": {
+    "title": "Airport Transfers",
+    "subtitle": "Fast, reliable airport pickup and drop services for hotel guests.",
+    "background": "/images/airport/airport-banner.jpg"
+  },
+
+  "statistics": {
+    "totalBookings": 124,
+    "pickup": 68,
+    "drop": 56,
+    "active": 12,
+    "completed": 107,
+    "cancelled": 5,
+    "revenue": "₹86,450"
+  },
+
+  "performance": {
+    "pickupSuccess": "98%",
+    "onTime": "96%",
+    "responseTime": "7 Min",
+    "guestRating": "4.9★"
+  },
+
+  "services": [
+    {
+      "id": 1,
+      "name": "Airport Pickup",
+      "title": "Airport Pickup",
+      "description": "Pickup guests directly from the airport.",
+      "image": "/images/airport/airport-pickup.jpg",
+      "icon": "FaPlaneArrival",
+      "button": "New Pickup Booking",
+      "route": "/airport/pickup",
+      "features": [
+        "Flight Tracking",
+        "Meet & Greet",
+        "Live Driver Tracking",
+        "Instant Booking"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Airport Drop",
+      "title": "Airport Drop",
+      "description": "Drop guests safely to the airport.",
+      "image": "/images/airport/airport-drop.jpg",
+      "icon": "FaPlaneDeparture",
+      "button": "New Drop Booking",
+      "route": "/airport/drop",
+      "features": [
+        "Scheduled Pickup",
+        "Flight Reminder",
+        "Premium Vehicles",
+        "Door-to-Terminal"
+      ]
+    }
+  ],
+
+  "quickActions": [
+    {
+      "title": "Airport Pickup",
+      "description": "Create a new pickup booking.",
+      "button": "New Booking",
+      "route": "/airport/pickup"
+    },
+    {
+      "title": "Airport Drop",
+      "description": "Create a new drop booking.",
+      "button": "New Booking",
+      "route": "/airport/drop"
+    },
+    {
+      "title": "Airport Bookings",
+      "description": "View all airport bookings.",
+      "button": "View Bookings",
+      "route": "/airport/bookings"
+    },
+    {
+      "title": "Daily Report",
+      "description": "Today's airport transfer report.",
+      "button": "Open Report",
+      "route": "/reports"
+    }
+  ],
+
+  "flightStatus": [
+    {
+      "flightNo": "6E5248",
+      "route": "HYD → VTZ",
+      "time": "10:30 AM",
+      "status": "On Time"
+    },
+    {
+      "flightNo": "AI672",
+      "route": "DEL → VTZ",
+      "time": "11:45 AM",
+      "status": "Delayed"
+    },
+    {
+      "flightNo": "UK876",
+      "route": "BLR → VTZ",
+      "time": "12:20 PM",
+      "status": "Landed"
+    },
+    {
+      "flightNo": "SG421",
+      "route": "BOM → VTZ",
+      "time": "02:15 PM",
+      "status": "Boarding"
+    }
+  ],
+
+  "drivers": [
+    {
+      "id": 1,
+      "name": "Ravi Kumar",
+      "vehicle": "Swift Dzire",
+      "status": "Available"
+    },
+    {
+      "id": 2,
+      "name": "Suresh",
+      "vehicle": "Ertiga",
+      "status": "On Trip"
+    },
+    {
+      "id": 3,
+      "name": "Ramesh",
+      "vehicle": "Innova Crysta",
+      "status": "Available"
+    },
+    {
+      "id": 4,
+      "name": "Mahesh",
+      "vehicle": "Kia Carens",
+      "status": "Reaching Hotel"
+    }
+  ]
+}
