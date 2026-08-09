@@ -1,0 +1,1465 @@
+/* =========================================================
+   RAILWAY PICKUP BOOKING
+   Full Screen / No Sidebar
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  background: #f6f8fa;
+  color: #10182f;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   MAIN PAGE
+   ========================================================= */
+
+.railway-page {
+  min-height: 100vh;
+  width: 100%;
+  background:
+    linear-gradient(
+      180deg,
+      #f9fbfc 0%,
+      #f5f7f9 100%
+    );
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.top-header {
+  width: 100%;
+  height: 68px;
+  background: #ffffff;
+  border-bottom: 1px solid #e4e8ec;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 32px;
+}
+
+
+/* LEFT HEADER */
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.menu-button {
+  width: 38px;
+  height: 38px;
+
+  border: none;
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #17213a;
+}
+
+.menu-button:hover {
+  background: #f3f5f6;
+  border-radius: 8px;
+}
+
+.welcome {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #11182d;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* RIGHT HEADER */
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+
+/* WALLET */
+
+.wallet-box {
+  min-width: 178px;
+  height: 51px;
+
+  border: 1px solid #dce3e7;
+  border-radius: 9px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+  padding: 7px 13px;
+
+  background: #ffffff;
+}
+
+.wallet-icon {
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #087b32;
+}
+
+.wallet-box span {
+  display: block;
+
+  font-size: 11px;
+  color: #596174;
+
+  margin-bottom: 2px;
+}
+
+.wallet-box strong {
+  display: block;
+
+  font-size: 14px;
+  color: #11182d;
+}
+
+
+/* NOTIFICATION */
+
+.notification-button {
+  position: relative;
+
+  width: 35px;
+  height: 42px;
+
+  border: none;
+  background: transparent;
+
+  color: #11182d;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-button span {
+  position: absolute;
+
+  right: -2px;
+  top: -1px;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+
+  background: #f04438;
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid #ffffff;
+}
+
+
+/* PROFILE */
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.profile-image {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #e7edf2,
+      #b8c7d1
+    );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #17213a;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile-details strong {
+  font-size: 13px;
+  color: #11182d;
+}
+
+.profile-details span {
+  font-size: 12px;
+  color: #626b7d;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.main-content {
+  width: 100%;
+  max-width: 1500px;
+
+  margin: 0 auto;
+
+  padding: 23px 30px 45px;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+   ========================================================= */
+
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 17px;
+}
+
+.page-heading h1 {
+  margin: 0 0 7px;
+
+  font-size: 25px;
+  line-height: 1.2;
+
+  color: #11182d;
+  font-weight: 700;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  font-size: 14px;
+  color: #70798b;
+}
+
+.breadcrumbs b {
+  font-size: 18px;
+  color: #a1a8b5;
+  font-weight: 400;
+}
+
+.breadcrumbs strong {
+  font-weight: 500;
+  color: #596174;
+}
+
+
+/* BACK BUTTON */
+
+.back-service {
+  height: 41px;
+
+  padding: 0 16px;
+
+  border: 1px solid #18843c;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #126b31;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.back-service:hover {
+  background: #f0faf3;
+}
+
+
+/* =========================================================
+   BOOKING LAYOUT
+   ========================================================= */
+
+.booking-layout {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    320px;
+
+  gap: 16px;
+
+  align-items: start;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+   ========================================================= */
+
+.booking-left {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   STEPS
+   ========================================================= */
+
+.steps {
+  width: 100%;
+  min-height: 94px;
+
+  background: #ffffff;
+
+  border: 1px solid #e7ebee;
+  border-radius: 12px;
+
+  padding: 18px 22px;
+
+  display: flex;
+  align-items: center;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  white-space: nowrap;
+
+  font-size: 13px;
+  color: #2f384b;
+}
+
+.step strong {
+  font-size: 13px;
+  color: #11182d;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #e9edf1;
+  color: #263044;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.step.active .step-circle {
+  background: #0d8338;
+  color: #ffffff;
+}
+
+.step.active {
+  color: #11182d;
+}
+
+.step-line {
+  height: 1px;
+
+  flex: 1;
+
+  min-width: 22px;
+
+  margin: 0 11px;
+
+  background: #d9dfe4;
+}
+
+
+/* =========================================================
+   FORM CARD
+   ========================================================= */
+
+.form-card {
+  margin-top: 13px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e9ec;
+  border-radius: 12px;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   FORM SECTION
+   ========================================================= */
+
+.form-section {
+  padding: 18px 20px 17px;
+
+  border-bottom: 1px solid #edf0f2;
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+}
+
+
+/* SECTION HEADING */
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 16px;
+
+  color: #087b32;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #11182d;
+}
+
+
+/* SUB HEADING */
+
+.sub-heading {
+  margin: 0 0 14px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #11182d;
+}
+
+
+/* =========================================================
+   FIELD GRID
+   ========================================================= */
+
+.trip-fields {
+  display: grid;
+
+  grid-template-columns:
+    1.15fr
+    1.1fr
+    1.1fr;
+
+  gap: 15px 17px;
+}
+
+.drop-fields {
+  display: grid;
+
+  grid-template-columns:
+    1.5fr
+    .8fr
+    .8fr;
+
+  gap: 15px 17px;
+}
+
+.passenger-fields {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr;
+
+  gap: 15px 17px;
+}
+
+
+/* =========================================================
+   FIELD
+   ========================================================= */
+
+.rp-field {
+  min-width: 0;
+}
+
+.rp-field label,
+.delay-box > label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  color: #18223a;
+}
+
+.required {
+  margin-left: 3px;
+
+  color: #e23a32;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.rp-input {
+  position: relative;
+
+  height: 44px;
+
+  width: 100%;
+
+  border: 1px solid #dce2e7;
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+}
+
+.rp-input:focus-within {
+  border-color: #16813b;
+
+  box-shadow:
+    0 0 0 2px
+    rgba(22, 129, 59, .08);
+}
+
+.rp-input input {
+  width: 100%;
+  height: 100%;
+
+  padding: 0 12px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #17213a;
+
+  font-size: 12.5px;
+}
+
+.rp-input input::placeholder {
+  color: #9299a6;
+}
+
+
+/* INPUT WITH ICON */
+
+.rp-input:has(.input-icon) input {
+  padding-left: 40px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+
+  display: flex;
+  align-items: center;
+
+  color: #687385;
+
+  pointer-events: none;
+}
+
+
+/* DROPDOWN */
+
+.dropdown-icon {
+  position: absolute;
+
+  right: 12px;
+
+  display: flex;
+
+  color: #273044;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   DELAY MONITORING
+   ========================================================= */
+
+.delay-box {
+  align-self: end;
+}
+
+.delay-row {
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  color: #30394b;
+
+  font-size: 12px;
+}
+
+
+/* TOGGLE */
+
+.toggle {
+  width: 36px;
+  height: 22px;
+
+  padding: 2px;
+
+  border: none;
+  border-radius: 30px;
+
+  background: #cdd4da;
+
+  transition: .2s;
+
+  display: flex;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+.toggle span {
+  width: 18px;
+  height: 18px;
+
+  background: #ffffff;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 1px 3px
+    rgba(0, 0, 0, .15);
+
+  transition: .2s;
+}
+
+.toggle.enabled {
+  background: #169141;
+  justify-content: flex-end;
+}
+
+
+/* =========================================================
+   REQUIREMENTS
+   ========================================================= */
+
+.requirements {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 9px;
+}
+
+.requirement {
+  height: 39px;
+
+  padding: 0 13px;
+
+  border: 1px solid #dce3e7;
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  color: #30394c;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 12px;
+
+  transition: .15s;
+}
+
+.requirement:hover {
+  border-color: #159042;
+  background: #f6fcf8;
+}
+
+.requirement.selected {
+  border-color: #b9ddc4;
+  background: #f1f9f3;
+
+  color: #1e6337;
+}
+
+
+/* CHECKBOX */
+
+.checkbox {
+  width: 15px;
+  height: 15px;
+
+  border: 1px solid #d5dce1;
+  border-radius: 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+}
+
+.requirement.selected .checkbox {
+  border-color: #14863c;
+  background: #14863c;
+}
+
+
+/* =========================================================
+   FORM FOOTER
+   ========================================================= */
+
+.form-footer {
+  min-height: 77px;
+
+  padding: 14px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #ffffff;
+}
+
+
+/* CONTINUE */
+
+.continue-button {
+  min-width: 134px;
+  height: 41px;
+
+  padding: 0 16px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #12883d;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: .2s;
+}
+
+.continue-button:hover {
+  background: #0b7331;
+}
+
+
+/* CLEAR */
+
+.clear-button {
+  height: 41px;
+
+  padding: 0 16px;
+
+  border: 1px solid #d4dbe1;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #30394b;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 12px;
+}
+
+.clear-button:hover {
+  background: #f7f8f9;
+}
+
+
+/* =========================================================
+   RIGHT SUMMARY
+   ========================================================= */
+
+.right-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   SUMMARY CARD
+   ========================================================= */
+
+.summary-card {
+  width: 100%;
+
+  padding: 17px 16px;
+
+  background: #ffffff;
+
+  border: 1px solid #e4e9ec;
+  border-radius: 10px;
+}
+
+.summary-card h3 {
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #11182d;
+}
+
+
+/* =========================================================
+   SUMMARY HEADER
+   ========================================================= */
+
+.summary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 13px;
+}
+
+.status-badge {
+  padding: 6px 10px;
+
+  border: 1px solid #d4e9da;
+  border-radius: 6px;
+
+  background: #f3faf5;
+
+  color: #087b32;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   TRAIN STATUS
+   ========================================================= */
+
+.train-status {
+  border: 1px solid #dce8df;
+  border-radius: 8px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f8fcf9,
+      #ffffff
+    );
+
+  padding: 13px;
+}
+
+
+/* TRAIN TITLE */
+
+.train-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: #087b32;
+
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid #e5ebe7;
+}
+
+.train-title strong {
+  color: #11182d;
+
+  font-size: 13px;
+}
+
+
+/* ROUTE */
+
+.route {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    22px
+    1fr;
+
+  gap: 7px;
+
+  padding: 13px 0;
+
+  align-items: center;
+}
+
+.route-place {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.route-place span {
+  font-size: 10px;
+  color: #697284;
+}
+
+.route-place strong {
+  font-size: 10px;
+  line-height: 1.4;
+
+  color: #344057;
+
+  font-weight: 500;
+}
+
+.route-place b {
+  font-size: 12px;
+  color: #17213a;
+}
+
+.route-arrow {
+  color: #14863c;
+  font-size: 18px;
+  text-align: center;
+}
+
+
+/* UPDATED */
+
+.updated {
+  padding-top: 10px;
+
+  border-top: 1px solid #e5ebe7;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+}
+
+.updated span {
+  font-size: 9px;
+  color: #747d8c;
+}
+
+.updated button {
+  width: 24px;
+  height: 24px;
+
+  border: none;
+  background: transparent;
+
+  color: #16813b;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.updated button:hover {
+  background: #edf7f0;
+  border-radius: 5px;
+}
+
+
+/* =========================================================
+   FARE SUMMARY
+   ========================================================= */
+
+.fare-title {
+  margin-bottom: 15px !important;
+}
+
+.fare-title span {
+  font-size: 11px;
+  color: #7a8290;
+  font-weight: 400;
+}
+
+
+/* FARE ROW */
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  min-height: 27px;
+
+  font-size: 11.5px;
+}
+
+.summary-row span {
+  color: #354057;
+}
+
+.summary-row strong {
+  color: #17213a;
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+
+.summary-row strong.negative {
+  color: #2e3749;
+}
+
+
+/* DIVIDER */
+
+.fare-divider {
+  height: 1px;
+
+  background: #e3e7ea;
+
+  margin: 9px 0 7px;
+}
+
+
+/* GRAND TOTAL */
+
+.grand-total {
+  margin-top: 7px;
+
+  padding-top: 10px;
+
+  border-top: 1px solid #e3e7ea;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.grand-total span {
+  color: #11182d;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.grand-total strong {
+  color: #07802f;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   EARNINGS
+   ========================================================= */
+
+.earnings-card {
+  padding: 15px;
+
+  border: 1px solid #f0dfb4;
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffdf7,
+      #fff7e7
+    );
+}
+
+.earnings-heading {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+}
+
+.earning-icon {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #df8c08;
+
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.earnings-heading strong {
+  flex: 1;
+
+  font-size: 12px;
+  color: #2c3545;
+}
+
+.earnings-heading > span {
+  padding: 5px 7px;
+
+  border-radius: 5px;
+
+  background: #fff0c8;
+
+  color: #80611e;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.earnings-card p {
+  margin: 12px 0 0;
+
+  font-size: 11px;
+
+  color: #4c5667;
+
+  line-height: 1.5;
+}
+
+.earnings-card p strong {
+  color: #07802f;
+}
+
+
+/* =========================================================
+   IMPORTANT NOTE
+   ========================================================= */
+
+.important-note {
+  padding: 15px;
+
+  border: 1px solid #c8e0f8;
+  border-radius: 8px;
+
+  background: #f4f9fe;
+}
+
+.note-heading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #0b65b2;
+}
+
+.note-heading strong {
+  font-size: 12px;
+}
+
+.important-note p {
+  margin: 11px 0 0;
+
+  font-size: 11px;
+
+  line-height: 1.65;
+
+  color: #37465a;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1250px) {
+
+  .booking-layout {
+    grid-template-columns:
+      minmax(0, 1fr)
+      300px;
+  }
+
+  .steps {
+    padding: 17px 14px;
+  }
+
+  .step {
+    gap: 7px;
+    font-size: 11px;
+  }
+
+  .step strong {
+    font-size: 11px;
+  }
+
+  .step-line {
+    margin: 0 6px;
+  }
+
+  .trip-fields {
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+
+  .drop-fields {
+    grid-template-columns:
+      1.3fr
+      1fr;
+  }
+
+  .passenger-fields {
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+}
+
+
+@media (max-width: 1000px) {
+
+  .top-header {
+    padding: 0 20px;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .right-summary {
+    display: grid;
+
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+
+  .important-note {
+    grid-column: span 2;
+  }
+
+  .profile-details {
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 760px) {
+
+  .top-header {
+    height: 62px;
+    padding: 0 14px;
+  }
+
+  .wallet-box {
+    display: none;
+  }
+
+  .header-right {
+    gap: 10px;
+  }
+
+  .profile {
+    gap: 5px;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .page-heading h1 {
+    font-size: 21px;
+  }
+
+  .back-service {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .steps {
+    overflow-x: auto;
+    padding: 13px;
+  }
+
+  .step-line {
+    min-width: 25px;
+  }
+
+  .form-section {
+    padding: 16px;
+  }
+
+  .trip-fields,
+  .drop-fields,
+  .passenger-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .right-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .important-note {
+    grid-column: auto;
+  }
+
+  .form-footer {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .continue-button,
+  .clear-button {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .header-left {
+    gap: 8px;
+  }
+
+  .welcome span {
+    display: none;
+  }
+
+  .notification-button {
+    display: none;
+  }
+
+  .profile-details {
+    display: none;
+  }
+
+  .page-heading h1 {
+    font-size: 19px;
+  }
+
+  .breadcrumbs {
+    font-size: 11px;
+  }
+
+  .steps {
+    border-radius: 9px;
+  }
+
+  .step-circle {
+    width: 34px;
+    height: 34px;
+  }
+
+  .step span,
+  .step strong {
+    font-size: 10px;
+  }
+
+  .step-line {
+    min-width: 15px;
+    margin: 0 5px;
+  }
+
+  .requirements {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .requirement {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 9px;
+  }
+
+  .route {
+    grid-template-columns:
+      1fr
+      20px
+      1fr;
+  }
+
+}
