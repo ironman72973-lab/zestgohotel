@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./railway.css";
+import railwayStation from "../../images/railway.png";
 function RailwayPickup() {
   /* =====================================================
      BASIC FORM STATES
@@ -547,7 +548,12 @@ function RailwayPickup() {
      RETURN
   ===================================================== */
   return (
-    <div className="railway-page">
+    <div
+      className="railway-page"
+      style={{
+        backgroundImage: `url(${railwayStation})`,
+      }}
+    >
       {/* =================================================
           HEADER
       ================================================= */}

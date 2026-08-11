@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import railwayStation from "../../images/railway.png";
 import "./railway.css";
 function RailwayDrop() {
   /* =====================================================
@@ -587,7 +588,12 @@ function RailwayDrop() {
      PAGE
   ===================================================== */
   return (
-    <div className="railway-page">
+    <div
+      className="railway-page"
+      style={{
+        backgroundImage: `url(${railwayStation})`,
+      }}
+    >
       {/* =================================================
           HEADER
       ================================================= */}
