@@ -1,72 +1,476 @@
 import React, { useState } from "react";
 import railwayStation from "../../images/railway.png";
 import "./railway.css";
+/* =====================================================
+   TRAIN API
+===================================================== */
+const TRAIN_API = "http://localhost/one/train.php";
+/* =====================================================
+   ICON
+   IMPORTANT:
+   Keep OUTSIDE RailwayDrop.
+   This prevents input remounting.
+===================================================== */
+function Icon({ name, size = 20 }) {
+  const props = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+  };
+  if (name === "menu") {
+    return (
+      <svg {...props}>
+        <path d="M4 7h16" />
+        <path d="M4 12h16" />
+        <path d="M4 17h16" />
+      </svg>
+    );
+  }
+  if (name === "chevron") {
+    return (
+      <svg {...props}>
+        <path d="m7 10 5 5 5-5" />
+      </svg>
+    );
+  }
+  if (name === "arrowLeft") {
+    return (
+      <svg {...props}>
+        <path d="M19 12H5" />
+        <path d="m11 18-6-6 6-6" />
+      </svg>
+    );
+  }
+  if (name === "arrowRight") {
+    return (
+      <svg {...props}>
+        <path d="M5 12h14" />
+        <path d="m13 6 6 6-6 6" />
+      </svg>
+    );
+  }
+  if (name === "train") {
+    return (
+      <svg {...props}>
+        <rect
+          x="5"
+          y="3"
+          width="14"
+          height="15"
+          rx="2"
+        />
+        <path d="M8 18l-2 3" />
+        <path d="M16 18l2 3" />
+        <path d="M8 7h8" />
+        <path d="M8 11h2" />
+        <path d="M14 11h2" />
+        <circle cx="9" cy="16" r="1" />
+        <circle cx="15" cy="16" r="1" />
+      </svg>
+    );
+  }
+  if (name === "calendar") {
+    return (
+      <svg {...props}>
+        <rect
+          x="3"
+          y="5"
+          width="18"
+          height="16"
+          rx="2"
+        />
+        <path d="M7 3v4" />
+        <path d="M17 3v4" />
+        <path d="M3 9h18" />
+        <path d="M8 13h.01" />
+        <path d="M12 13h.01" />
+        <path d="M16 13h.01" />
+        <path d="M8 17h.01" />
+        <path d="M12 17h.01" />
+      </svg>
+    );
+  }
+  if (name === "clock") {
+    return (
+      <svg {...props}>
+        <circle
+          cx="12"
+          cy="12"
+          r="9"
+        />
+        <path d="M12 7v5l3 2" />
+      </svg>
+    );
+  }
+  if (name === "user") {
+    return (
+      <svg {...props}>
+        <circle
+          cx="12"
+          cy="8"
+          r="3"
+        />
+        <path d="M5 20c.7-3.5 3-5.3 7-5.3s6.3 1.8 7 5.3" />
+      </svg>
+    );
+  }
+  if (name === "bag") {
+    return (
+      <svg {...props}>
+        <rect
+          x="4"
+          y="7"
+          width="16"
+          height="13"
+          rx="2"
+        />
+        <path d="M8 7V5a4 4 0 0 1 8 0v2" />
+      </svg>
+    );
+  }
+  if (name === "location") {
+    return (
+      <svg {...props}>
+        <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+        <circle
+          cx="12"
+          cy="10"
+          r="2.5"
+        />
+      </svg>
+    );
+  }
+  if (name === "bell") {
+    return (
+      <svg {...props}>
+        <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
+        <path d="M10 21h4" />
+      </svg>
+    );
+  }
+  if (name === "wallet") {
+    return (
+      <svg {...props}>
+        <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2V6Z" />
+        <path d="M4 7h16" />
+        <path d="M15 13h3" />
+        <circle
+          cx="15"
+          cy="13"
+          r=".5"
+        />
+      </svg>
+    );
+  }
+  if (name === "refresh") {
+    return (
+      <svg {...props}>
+        <path d="M20 11a8 8 0 0 0-14.7-3L3 11" />
+        <path d="M3 7v4h4" />
+        <path d="M4 13a8 8 0 0 0 14.7 3L21 13" />
+        <path d="M21 17v-4h-4" />
+      </svg>
+    );
+  }
+  if (name === "trash") {
+    return (
+      <svg {...props}>
+        <path d="M4 7h16" />
+        <path d="M10 11v6" />
+        <path d="M14 11v6" />
+        <path d="M6 7l1 14h10l1-14" />
+        <path d="M9 7V4h6v3" />
+      </svg>
+    );
+  }
+  if (name === "info") {
+    return (
+      <svg {...props}>
+        <circle
+          cx="12"
+          cy="12"
+          r="9"
+        />
+        <path d="M12 11v5" />
+        <path d="M12 8h.01" />
+      </svg>
+    );
+  }
+  if (name === "check") {
+    return (
+      <svg {...props}>
+        <path d="m5 12 4 4L19 7" />
+      </svg>
+    );
+  }
+  return null;
+}
+/* =====================================================
+   INPUT FIELD
+   IMPORTANT:
+   Keep OUTSIDE RailwayDrop.
+===================================================== */
+function InputField({
+  label,
+  required = false,
+  value,
+  setValue,
+  icon,
+  dropdown = false,
+  type = "text",
+  placeholder = "",
+}) {
+  return (
+    <div className="rp-field">
+      <label>
+        {label}
+        {required && (
+          <span className="required">
+            *
+          </span>
+        )}
+      </label>
+      <div className="rp-input">
+        {icon && (
+          <span className="input-icon">
+            <Icon
+              name={icon}
+              size={18}
+            />
+          </span>
+        )}
+        <input
+          type={type}
+          value={value}
+          onChange={(e) =>
+            setValue(e.target.value)
+          }
+          placeholder={placeholder}
+          autoComplete="off"
+        />
+        {dropdown && (
+          <span className="dropdown-icon">
+            <Icon
+              name="chevron"
+              size={17}
+            />
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+/* =====================================================
+   REQUIREMENT
+===================================================== */
+function Requirement({
+  name,
+  label,
+  requirements,
+  toggleRequirement,
+}) {
+  const selected =
+    requirements[name];
+  return (
+    <button
+      type="button"
+      className={`requirement ${
+        selected
+          ? "selected"
+          : ""
+      }`}
+      onClick={() =>
+        toggleRequirement(name)
+      }
+    >
+      <span className="checkbox">
+        {selected && (
+          <Icon
+            name="check"
+            size={12}
+          />
+        )}
+      </span>
+      <span>
+        {label}
+      </span>
+    </button>
+  );
+}
+/* =====================================================
+   SUMMARY ROW
+===================================================== */
+function SummaryRow({
+  label,
+  value,
+  negative = false,
+}) {
+  const formatMoney = (
+    amount
+  ) => {
+    return `₹ ${Number(
+      amount || 0
+    ).toLocaleString(
+      "en-IN",
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }
+    )}`;
+  };
+  return (
+    <div className="summary-row">
+      <span>
+        {label}
+      </span>
+      <strong
+        className={
+          negative
+            ? "negative"
+            : ""
+        }
+      >
+        {negative
+          ? "- "
+          : ""}
+        {formatMoney(value)}
+      </strong>
+    </div>
+  );
+}
+/* =====================================================
+   RAILWAY DROP
+===================================================== */
 function RailwayDrop() {
   /* =====================================================
      FORM STATES
   ===================================================== */
-  const [pickupLocation, setPickupLocation] = useState(
+  const [
+    pickupLocation,
+    setPickupLocation,
+  ] = useState(
     "Oceanview Palace Hotel, Rushikonda"
   );
-  const [pickupDate, setPickupDate] = useState(
-    "25 May 2025"
-  );
-  const [pickupTime, setPickupTime] = useState(
-    "04:00 PM"
-  );
-  const [trainNumber, setTrainNumber] = useState(
-    "12704"
-  );
-  const [trainName, setTrainName] = useState(
+  const [
+    pickupDate,
+    setPickupDate,
+  ] = useState("");
+  const [
+    pickupTime,
+    setPickupTime,
+  ] = useState("");
+  const [
+    trainNumber,
+    setTrainNumber,
+  ] = useState("12704");
+  const [
+    trainName,
+    setTrainName,
+  ] = useState(
     "Falaknuma Express"
   );
-  const [departureStation, setDepartureStation] =
-    useState(
-      "Visakhapatnam Junction (VSKP)"
-    );
-  const [departureDate, setDepartureDate] =
-    useState("25 May 2025");
-  const [departureTime, setDepartureTime] =
-    useState("05:20 PM");
-  const [coach, setCoach] = useState("B2");
-  const [berth, setBerth] = useState("25");
-  const [platform, setPlatform] = useState("3");
-  const [hotelContact, setHotelContact] =
-    useState("Rohit Sharma");
-  const [contactMobile, setContactMobile] =
-    useState("+91 98765 43210");
-  const [passengers, setPassengers] =
-    useState("2 Adults, 1 Child");
-  const [luggage, setLuggage] = useState(
+  const [
+    departureStation,
+    setDepartureStation,
+  ] = useState(
+    "Visakhapatnam Junction (VSKP)"
+  );
+  const [
+    departureDate,
+    setDepartureDate,
+  ] = useState("");
+  const [
+    departureTime,
+    setDepartureTime,
+  ] = useState(
+    "05:20 PM"
+  );
+  const [
+    coach,
+    setCoach,
+  ] = useState("B2");
+  const [
+    berth,
+    setBerth,
+  ] = useState("25");
+  const [
+    platform,
+    setPlatform,
+  ] = useState("3");
+  const [
+    hotelContact,
+    setHotelContact,
+  ] = useState(
+    "Rohit Sharma"
+  );
+  const [
+    contactMobile,
+    setContactMobile,
+  ] = useState(
+    "+91 98765 43210"
+  );
+  const [
+    passengers,
+    setPassengers,
+  ] = useState(
+    "2 Adults, 1 Child"
+  );
+  const [
+    luggage,
+    setLuggage,
+  ] = useState(
     "2 Medium Bags, 1 Small Bag"
   );
-  const [assistance, setAssistance] =
-    useState("No Assistance");
-  const [pickupInstructions, setPickupInstructions] =
-    useState("");
+  const [
+    assistance,
+    setAssistance,
+  ] = useState(
+    "No Assistance"
+  );
+  const [
+    pickupInstructions,
+    setPickupInstructions,
+  ] = useState("");
   /* =====================================================
-     ADDITIONAL REQUIREMENTS
+     REQUIREMENTS
   ===================================================== */
-  const [requirements, setRequirements] =
-    useState({
-      meetGreet: true,
-      porter: false,
-      babySeat: false,
-      extraLuggage: false,
-      wheelchair: false,
-      other: false,
-    });
+  const [
+    requirements,
+    setRequirements,
+  ] = useState({
+    meetGreet: true,
+    porter: false,
+    babySeat: false,
+    extraLuggage: false,
+    wheelchair: false,
+    other: false,
+  });
   /* =====================================================
      TRAIN STATUS
   ===================================================== */
-  const [trainStatus, setTrainStatus] =
-    useState("On Time");
-  const [lastUpdated, setLastUpdated] =
-    useState(
-      "25 May 2025, 10:15 AM"
-    );
+  const [
+    trainStatus,
+    setTrainStatus,
+  ] = useState("Waiting");
+  const [
+    lastUpdated,
+    setLastUpdated,
+  ] = useState("");
+  const [
+    trainLoading,
+    setTrainLoading,
+  ] = useState(false);
+  const [
+    trainError,
+    setTrainError,
+  ] = useState("");
   /* =====================================================
-     FARE SETTINGS
+     FARE
   ===================================================== */
   const BASE_FARE = 649;
   const STATION_PARKING = 40;
@@ -112,12 +516,17 @@ function RailwayDrop() {
     subtotal *
     (COMMISSION_RATE / 100);
   const grandTotal =
-    subtotal - hotelCommission;
+    subtotal -
+    hotelCommission;
   /* =====================================================
      MONEY FORMAT
   ===================================================== */
-  const formatMoney = (amount) => {
-    return `₹ ${amount.toLocaleString(
+  const formatMoney = (
+    amount
+  ) => {
+    return `₹ ${Number(
+      amount || 0
+    ).toLocaleString(
       "en-IN",
       {
         minimumFractionDigits: 2,
@@ -126,33 +535,373 @@ function RailwayDrop() {
     )}`;
   };
   /* =====================================================
-     TOGGLE REQUIREMENT
+     TRAIN TIME FORMAT
   ===================================================== */
-  const toggleRequirement = (name) => {
-    setRequirements((previous) => ({
-      ...previous,
-      [name]: !previous[name],
-    }));
+  const formatTrainTime = (
+    time
+  ) => {
+    if (!time) {
+      return "";
+    }
+    const parts =
+      String(time).split(":");
+    if (
+      parts.length < 2
+    ) {
+      return time;
+    }
+    let hours =
+      parseInt(
+        parts[0],
+        10
+      );
+    const minutes =
+      parts[1];
+    if (
+      Number.isNaN(hours)
+    ) {
+      return time;
+    }
+    const suffix =
+      hours >= 12
+        ? "PM"
+        : "AM";
+    hours =
+      hours % 12 || 12;
+    return `${String(
+      hours
+    ).padStart(
+      2,
+      "0"
+    )}:${minutes} ${suffix}`;
   };
   /* =====================================================
-     CLEAR ALL
+     TRAIN API
+     ONLY called by GET / REFRESH.
+  ===================================================== */
+  const fetchTrainStatus =
+    async (
+      number,
+      date
+    ) => {
+      if (
+        !number ||
+        !date
+      ) {
+        setTrainError(
+          "Enter train number and departure date."
+        );
+        return;
+      }
+      const cleanTrainNumber =
+        String(
+          number
+        ).trim();
+      if (
+        !/^[0-9]+$/.test(
+          cleanTrainNumber
+        )
+      ) {
+        setTrainError(
+          "Invalid train number."
+        );
+        setTrainStatus(
+          "Not Available"
+        );
+        return;
+      }
+      setTrainLoading(
+        true
+      );
+      setTrainError("");
+      setTrainStatus(
+        "Checking..."
+      );
+      try {
+        /*
+         * VSKP = Visakhapatnam Junction
+         *
+         * For Railway Drop, this is the
+         * departure station.
+         */
+        const url =
+          `${TRAIN_API}` +
+          `?trainNo=${encodeURIComponent(
+            cleanTrainNumber
+          )}` +
+          `&stationCode=VSKP` +
+          `&date=${encodeURIComponent(
+            date
+          )}`;
+        console.log(
+          "TRAIN DROP API:",
+          url
+        );
+        const response =
+          await fetch(
+            url,
+            {
+              method: "GET",
+              headers: {
+                Accept:
+                  "application/json",
+              },
+              cache: "no-store",
+            }
+          );
+        if (
+          !response.ok
+        ) {
+          throw new Error(
+            `HTTP Error ${response.status}`
+          );
+        }
+        const data =
+          await response.json();
+        console.log(
+          "TRAIN DROP RESPONSE:",
+          data
+        );
+        /* ===============================================
+           API FAILURE
+        =============================================== */
+        if (
+          !data.success
+        ) {
+          setTrainError(
+            data.error ||
+              "Train details not found."
+          );
+          setTrainStatus(
+            "Not Available"
+          );
+          return;
+        }
+        /* ===============================================
+           TRAIN NAME
+        =============================================== */
+        setTrainName(
+          data.train_name ||
+            ""
+        );
+        /* ===============================================
+           DEPARTURE TIME
+           For Railway Drop, departure_time
+           is the important time.
+        =============================================== */
+        setDepartureTime(
+          data.departure_time
+            ? formatTrainTime(
+                data.departure_time
+              )
+            : ""
+        );
+        /* ===============================================
+           PLATFORM
+        =============================================== */
+        if (
+          data.platform !==
+            null &&
+          data.platform !==
+            undefined &&
+          data.platform !== ""
+        ) {
+          setPlatform(
+            String(
+              data.platform
+            )
+          );
+        } else {
+          setPlatform("");
+        }
+        /* ===============================================
+           STATUS
+        =============================================== */
+        const delay =
+          Number(
+            data.delay_minutes ||
+              0
+          );
+        if (
+          delay > 0
+        ) {
+          setTrainStatus(
+            `Delayed ${delay} min`
+          );
+        } else {
+          setTrainStatus(
+            data.status ||
+              "On Time"
+          );
+        }
+        /* ===============================================
+           LAST UPDATED
+        =============================================== */
+        if (
+          data.last_updated
+        ) {
+          const updatedDate =
+            new Date(
+              data.last_updated
+            );
+          if (
+            !Number.isNaN(
+              updatedDate.getTime()
+            )
+          ) {
+            setLastUpdated(
+              updatedDate.toLocaleString(
+                "en-IN",
+                {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }
+              )
+            );
+          } else {
+            setLastUpdated(
+              data.last_updated
+            );
+          }
+        } else {
+          setLastUpdated(
+            new Date().toLocaleString(
+              "en-IN",
+              {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              }
+            )
+          );
+        }
+      } catch (
+        error
+      ) {
+        console.error(
+          "TRAIN DROP API ERROR:",
+          error
+        );
+        setTrainError(
+          "Unable to connect to train status service."
+        );
+        setTrainStatus(
+          "Connection Error"
+        );
+      } finally {
+        setTrainLoading(
+          false
+        );
+      }
+    };
+  /* =====================================================
+     TRAIN NUMBER CHANGE
+     NO API CALL.
+     NO LOADING.
+     NO STATUS CHANGE.
+  ===================================================== */
+  const handleTrainNumberChange =
+    (event) => {
+      const value =
+        event.target.value.replace(
+          /\D/g,
+          ""
+        );
+      setTrainNumber(
+        value
+      );
+    };
+  /* =====================================================
+     GET TRAIN DETAILS
+  ===================================================== */
+  const getTrainDetails =
+    () => {
+      const number =
+        trainNumber.trim();
+      setTrainError("");
+      if (!number) {
+        setTrainError(
+          "Enter train number."
+        );
+        return;
+      }
+      if (
+        !/^[0-9]+$/.test(
+          number
+        )
+      ) {
+        setTrainError(
+          "Invalid train number."
+        );
+        return;
+      }
+      if (!departureDate) {
+        setTrainError(
+          "Select departure date."
+        );
+        return;
+      }
+      fetchTrainStatus(
+        number,
+        departureDate
+      );
+    };
+  /* =====================================================
+     REFRESH
+  ===================================================== */
+  const refreshTrainStatus =
+    () => {
+      if (
+        !trainNumber.trim() ||
+        !departureDate
+      ) {
+        setTrainError(
+          "Enter train number and departure date first."
+        );
+        return;
+      }
+      fetchTrainStatus(
+        trainNumber.trim(),
+        departureDate
+      );
+    };
+  /* =====================================================
+     TOGGLE REQUIREMENT
+  ===================================================== */
+  const toggleRequirement =
+    (name) => {
+      setRequirements(
+        (previous) => ({
+          ...previous,
+          [name]:
+            !previous[name],
+        })
+      );
+    };
+  /* =====================================================
+     CLEAR
   ===================================================== */
   const clearAll = () => {
     setPickupLocation(
       "Oceanview Palace Hotel, Rushikonda"
     );
-    setPickupDate("25 May 2025");
-    setPickupTime("04:00 PM");
-    setTrainNumber("12704");
+    setPickupDate("");
+    setPickupTime("");
+    setTrainNumber(
+      "12704"
+    );
     setTrainName(
       "Falaknuma Express"
     );
     setDepartureStation(
       "Visakhapatnam Junction (VSKP)"
     );
-    setDepartureDate(
-      "25 May 2025"
-    );
+    setDepartureDate("");
     setDepartureTime(
       "05:20 PM"
     );
@@ -175,6 +924,14 @@ function RailwayDrop() {
       "No Assistance"
     );
     setPickupInstructions("");
+    setTrainStatus(
+      "Waiting"
+    );
+    setLastUpdated("");
+    setTrainLoading(
+      false
+    );
+    setTrainError("");
     setRequirements({
       meetGreet: true,
       porter: false,
@@ -185,405 +942,73 @@ function RailwayDrop() {
     });
   };
   /* =====================================================
-     REFRESH TRAIN STATUS
+     SAVE
   ===================================================== */
-  const refreshTrainStatus = () => {
-    setTrainStatus("Checking...");
-    setTimeout(() => {
-      setTrainStatus("On Time");
-      setLastUpdated(
-        new Date().toLocaleString(
-          "en-IN",
-          {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          }
-        )
+  const handleContinue =
+    () => {
+      const bookingData = {
+        serviceType:
+          "Railway Drop",
+        pickup: {
+          location:
+            pickupLocation,
+          date:
+            pickupDate,
+          time:
+            pickupTime,
+          instructions:
+            pickupInstructions,
+        },
+        train: {
+          number:
+            trainNumber,
+          name:
+            trainName,
+          station:
+            departureStation,
+          departureDate,
+          departureTime,
+          coach,
+          berth,
+          platform,
+        },
+        guest: {
+          contactPerson:
+            hotelContact,
+          mobile:
+            contactMobile,
+          passengers,
+          luggage,
+          assistance,
+        },
+        requirements,
+        trainStatus,
+        fare: {
+          baseFare:
+            BASE_FARE,
+          stationParking:
+            STATION_PARKING,
+          driverAllowance:
+            DRIVER_ALLOWANCE,
+          waitingCharges:
+            WAITING_CHARGES,
+          porterCharge,
+          babySeatCharge,
+          extraLuggageCharge,
+          gst,
+          subtotal,
+          hotelCommission,
+          grandTotal,
+        },
+      };
+      console.log(
+        "Railway Drop Booking:",
+        bookingData
       );
-    }, 1000);
-  };
-  /* =====================================================
-     SAVE & CONTINUE
-  ===================================================== */
-  const handleContinue = () => {
-    const bookingData = {
-      serviceType: "Railway Drop",
-      pickup: {
-        location: pickupLocation,
-        date: pickupDate,
-        time: pickupTime,
-        instructions: pickupInstructions,
-      },
-      train: {
-        number: trainNumber,
-        name: trainName,
-        station: departureStation,
-        departureDate,
-        departureTime,
-        coach,
-        berth,
-        platform,
-      },
-      guest: {
-        contactPerson: hotelContact,
-        mobile: contactMobile,
-        passengers,
-        luggage,
-        assistance,
-      },
-      requirements,
-      fare: {
-        baseFare: BASE_FARE,
-        stationParking: STATION_PARKING,
-        driverAllowance: DRIVER_ALLOWANCE,
-        waitingCharges: WAITING_CHARGES,
-        porterCharge,
-        babySeatCharge,
-        extraLuggageCharge,
-        gst,
-        subtotal,
-        hotelCommission,
-        grandTotal,
-      },
+      alert(
+        "Railway Drop details saved successfully."
+      );
     };
-    console.log(
-      "Railway Drop Booking:",
-      bookingData
-    );
-    alert(
-      "Railway Drop details saved successfully."
-    );
-  };
-  /* =====================================================
-     ICONS
-  ===================================================== */
-  const Icon = ({
-    name,
-    size = 20,
-  }) => {
-    const props = {
-      width: size,
-      height: size,
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      strokeWidth: "1.8",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-    };
-    if (name === "menu") {
-      return (
-        <svg {...props}>
-          <path d="M4 7h16" />
-          <path d="M4 12h16" />
-          <path d="M4 17h16" />
-        </svg>
-      );
-    }
-    if (name === "chevron") {
-      return (
-        <svg {...props}>
-          <path d="m7 10 5 5 5-5" />
-        </svg>
-      );
-    }
-    if (name === "arrowLeft") {
-      return (
-        <svg {...props}>
-          <path d="M19 12H5" />
-          <path d="m11 18-6-6 6-6" />
-        </svg>
-      );
-    }
-    if (name === "arrowRight") {
-      return (
-        <svg {...props}>
-          <path d="M5 12h14" />
-          <path d="m13 6 6 6-6 6" />
-        </svg>
-      );
-    }
-    if (name === "train") {
-      return (
-        <svg {...props}>
-          <rect
-            x="5"
-            y="3"
-            width="14"
-            height="15"
-            rx="2"
-          />
-          <path d="M8 18l-2 3" />
-          <path d="M16 18l2 3" />
-          <path d="M8 7h8" />
-          <path d="M8 11h2" />
-          <path d="M14 11h2" />
-          <circle
-            cx="9"
-            cy="16"
-            r="1"
-          />
-          <circle
-            cx="15"
-            cy="16"
-            r="1"
-          />
-        </svg>
-      );
-    }
-    if (name === "calendar") {
-      return (
-        <svg {...props}>
-          <rect
-            x="3"
-            y="5"
-            width="18"
-            height="16"
-            rx="2"
-          />
-          <path d="M7 3v4" />
-          <path d="M17 3v4" />
-          <path d="M3 9h18" />
-          <path d="M8 13h.01" />
-          <path d="M12 13h.01" />
-          <path d="M16 13h.01" />
-          <path d="M8 17h.01" />
-          <path d="M12 17h.01" />
-        </svg>
-      );
-    }
-    if (name === "clock") {
-      return (
-        <svg {...props}>
-          <circle
-            cx="12"
-            cy="12"
-            r="9"
-          />
-          <path d="M12 7v5l3 2" />
-        </svg>
-      );
-    }
-    if (name === "user") {
-      return (
-        <svg {...props}>
-          <circle
-            cx="12"
-            cy="8"
-            r="3"
-          />
-          <path d="M5 20c.7-3.5 3-5.3 7-5.3s6.3 1.8 7 5.3" />
-        </svg>
-      );
-    }
-    if (name === "bag") {
-      return (
-        <svg {...props}>
-          <rect
-            x="4"
-            y="7"
-            width="16"
-            height="13"
-            rx="2"
-          />
-          <path d="M8 7V5a4 4 0 0 1 8 0v2" />
-        </svg>
-      );
-    }
-    if (name === "location") {
-      return (
-        <svg {...props}>
-          <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
-          <circle
-            cx="12"
-            cy="10"
-            r="2.5"
-          />
-        </svg>
-      );
-    }
-    if (name === "bell") {
-      return (
-        <svg {...props}>
-          <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
-          <path d="M10 21h4" />
-        </svg>
-      );
-    }
-    if (name === "wallet") {
-      return (
-        <svg {...props}>
-          <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2V6Z" />
-          <path d="M4 7h16" />
-          <path d="M15 13h3" />
-          <circle
-            cx="15"
-            cy="13"
-            r=".5"
-          />
-        </svg>
-      );
-    }
-    if (name === "refresh") {
-      return (
-        <svg {...props}>
-          <path d="M20 11a8 8 0 0 0-14.7-3L3 11" />
-          <path d="M3 7v4h4" />
-          <path d="M4 13a8 8 0 0 0 14.7 3L21 13" />
-          <path d="M21 17v-4h-4" />
-        </svg>
-      );
-    }
-    if (name === "trash") {
-      return (
-        <svg {...props}>
-          <path d="M4 7h16" />
-          <path d="M10 11v6" />
-          <path d="M14 11v6" />
-          <path d="M6 7l1 14h10l1-14" />
-          <path d="M9 7V4h6v3" />
-        </svg>
-      );
-    }
-    if (name === "info") {
-      return (
-        <svg {...props}>
-          <circle
-            cx="12"
-            cy="12"
-            r="9"
-          />
-          <path d="M12 11v5" />
-          <path d="M12 8h.01" />
-        </svg>
-      );
-    }
-    if (name === "check") {
-      return (
-        <svg {...props}>
-          <path d="m5 12 4 4L19 7" />
-        </svg>
-      );
-    }
-    return null;
-  };
-  /* =====================================================
-     INPUT COMPONENT
-  ===================================================== */
-  const InputField = ({
-    label,
-    required = false,
-    value,
-    setValue,
-    icon,
-    dropdown = false,
-  }) => {
-    return (
-      <div className="rp-field">
-        <label>
-          {label}
-          {required && (
-            <span className="required">
-              *
-            </span>
-          )}
-        </label>
-        <div className="rp-input">
-          {icon && (
-            <span className="input-icon">
-              <Icon
-                name={icon}
-                size={18}
-              />
-            </span>
-          )}
-          <input
-            type="text"
-            value={value}
-            onChange={(e) =>
-              setValue(
-                e.target.value
-              )
-            }
-          />
-          {dropdown && (
-            <span className="dropdown-icon">
-              <Icon
-                name="chevron"
-                size={17}
-              />
-            </span>
-          )}
-        </div>
-      </div>
-    );
-  };
-  /* =====================================================
-     REQUIREMENT
-  ===================================================== */
-  const Requirement = ({
-    name,
-    label,
-  }) => {
-    const selected =
-      requirements[name];
-    return (
-      <button
-        type="button"
-        className={`requirement ${
-          selected
-            ? "selected"
-            : ""
-        }`}
-        onClick={() =>
-          toggleRequirement(name)
-        }
-      >
-        <span className="checkbox">
-          {selected && (
-            <Icon
-              name="check"
-              size={12}
-            />
-          )}
-        </span>
-        <span>
-          {label}
-        </span>
-      </button>
-    );
-  };
-  /* =====================================================
-     SUMMARY ROW
-  ===================================================== */
-  const SummaryRow = ({
-    label,
-    value,
-    negative = false,
-  }) => {
-    return (
-      <div className="summary-row">
-        <span>
-          {label}
-        </span>
-        <strong
-          className={
-            negative
-              ? "negative"
-              : ""
-          }
-        >
-          {negative
-            ? "- "
-            : ""}
-          {formatMoney(value)}
-        </strong>
-      </div>
-    );
-  };
   /* =====================================================
      PAGE
   ===================================================== */
@@ -591,7 +1016,8 @@ function RailwayDrop() {
     <div
       className="railway-page"
       style={{
-        backgroundImage: `url(${railwayStation})`,
+        backgroundImage:
+          `url(${railwayStation})`,
       }}
     >
       {/* =================================================
@@ -619,7 +1045,6 @@ function RailwayDrop() {
           </div>
         </div>
         <div className="header-right">
-          {/* WALLET */}
           <div className="wallet-box">
             <div className="wallet-icon">
               <Icon
@@ -636,7 +1061,6 @@ function RailwayDrop() {
               </strong>
             </div>
           </div>
-          {/* NOTIFICATION */}
           <button
             type="button"
             className="notification-button"
@@ -649,7 +1073,6 @@ function RailwayDrop() {
               12
             </span>
           </button>
-          {/* PROFILE */}
           <div className="profile">
             <div className="profile-image">
               RS
@@ -673,7 +1096,6 @@ function RailwayDrop() {
           MAIN
       ================================================= */}
       <main className="main-content">
-        {/* PAGE HEADING */}
         <div className="page-heading">
           <div>
             <h1>
@@ -709,16 +1131,14 @@ function RailwayDrop() {
           </button>
         </div>
         {/* =================================================
-            TWO COLUMN
+            LAYOUT
         ================================================= */}
         <div className="booking-layout">
           {/* =================================================
               LEFT
           ================================================= */}
           <div className="booking-left">
-            {/* =================================================
-                STEPS
-            ================================================= */}
+            {/* STEPS */}
             <div className="steps">
               <div className="step active">
                 <div className="step-circle">
@@ -768,9 +1188,7 @@ function RailwayDrop() {
                 </span>
               </div>
             </div>
-            {/* =================================================
-                FORM
-            ================================================= */}
+            {/* FORM */}
             <div className="form-card">
               {/* =================================================
                   PICKUP DETAILS
@@ -789,97 +1207,173 @@ function RailwayDrop() {
                   <InputField
                     label="Pickup Location"
                     required
-                    value={pickupLocation}
-                    setValue={setPickupLocation}
+                    value={
+                      pickupLocation
+                    }
+                    setValue={
+                      setPickupLocation
+                    }
                     icon="location"
                   />
                   <InputField
                     label="Pickup Date"
                     required
-                    value={pickupDate}
-                    setValue={setPickupDate}
+                    value={
+                      pickupDate
+                    }
+                    setValue={
+                      setPickupDate
+                    }
                     icon="calendar"
+                    type="date"
                   />
                   <InputField
                     label="Pickup Time"
                     required
-                    value={pickupTime}
-                    setValue={setPickupTime}
+                    value={
+                      pickupTime
+                    }
+                    setValue={
+                      setPickupTime
+                    }
                     icon="clock"
+                    type="time"
                   />
-                  <InputField
-                    label="Train Number"
-                    required
-                    value={trainNumber}
-                    setValue={setTrainNumber}
-                  />
+                  {/* =========================================
+                      TRAIN NUMBER + GET
+                  ========================================= */}
+                  <div className="rp-field">
+                    <label>
+                      Train Number
+                      <span className="required">
+                        *
+                      </span>
+                    </label>
+                    <div className="train-number-input">
+                      <div className="rp-input">
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          value={
+                            trainNumber
+                          }
+                          onChange={
+                            handleTrainNumberChange
+                          }
+                          placeholder="Enter train number"
+                          autoComplete="off"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        className="get-train-button"
+                        onClick={
+                          getTrainDetails
+                        }
+                        disabled={
+                          trainLoading
+                        }
+                      >
+                        {trainLoading
+                          ? "GET..."
+                          : "GET"}
+                      </button>
+                    </div>
+                  </div>
+                  {/* ERROR */}
+                  {trainError && (
+                    <div className="train-error">
+                      {trainError}
+                    </div>
+                  )}
+                  {/* LOADING */}
+                  {trainLoading && (
+                    <div className="train-loading">
+                      Checking train status...
+                    </div>
+                  )}
+                  {/* TRAIN NAME */}
                   <InputField
                     label="Train Name"
-                    value={trainName}
-                    setValue={setTrainName}
+                    value={
+                      trainName
+                    }
+                    setValue={
+                      setTrainName
+                    }
+                    placeholder="Train name"
                   />
+                  {/* DEPARTURE STATION */}
                   <InputField
                     label="Departure Station"
                     required
-                    value={departureStation}
-                    setValue={setDepartureStation}
+                    value={
+                      departureStation
+                    }
+                    setValue={
+                      setDepartureStation
+                    }
                     icon="train"
                     dropdown
                   />
+                  {/* DEPARTURE DATE */}
                   <InputField
                     label="Departure Date"
                     required
-                    value={departureDate}
-                    setValue={setDepartureDate}
+                    value={
+                      departureDate
+                    }
+                    setValue={
+                      setDepartureDate
+                    }
                     icon="calendar"
+                    type="date"
                   />
+                  {/* DEPARTURE TIME */}
                   <InputField
                     label="Departure Time"
                     required
-                    value={departureTime}
-                    setValue={setDepartureTime}
+                    value={
+                      departureTime
+                    }
+                    setValue={
+                      setDepartureTime
+                    }
                     icon="clock"
+                    placeholder="Departure time"
                   />
+                  {/* COACH */}
                   <InputField
-                    label="Coach"
-                    value={coach}
-                    setValue={setCoach}
+                    label="Coach Number"
+                    value={
+                      coach
+                    }
+                    setValue={
+                      setCoach
+                    }
+                    placeholder="Example: S4 / B2 / A1"
                   />
+                  {/* BERTH */}
                   <InputField
                     label="Berth / Seat Number"
-                    value={berth}
-                    setValue={setBerth}
+                    value={
+                      berth
+                    }
+                    setValue={
+                      setBerth
+                    }
+                    placeholder="Example: 25"
                   />
+                  {/* PLATFORM */}
                   <InputField
                     label="Platform Number"
-                    value={platform}
-                    setValue={setPlatform}
-                  />
-                </div>
-              </section>
-              {/* =================================================
-                  TRAIN DETAILS
-              ================================================= */}
-              <section className="form-section">
-                <h2 className="sub-heading">
-                  Train Details
-                </h2>
-                <div className="drop-fields">
-                  <InputField
-                    label="Train Number"
-                    required
-                    value={trainNumber}
-                    setValue={setTrainNumber}
-                  />
-                  <InputField
-                    label="Coach"
-                    value={coach}
-                    setValue={setCoach}
-                  />
-                  <InputField
-                    label="Berth / Seat"
-                    value={berth}
-                    setValue={setBerth}
+                    value={
+                      platform
+                    }
+                    setValue={
+                      setPlatform
+                    }
+                    placeholder="Platform"
                   />
                 </div>
               </section>
@@ -894,20 +1388,32 @@ function RailwayDrop() {
                   <InputField
                     label="No. of Passengers"
                     required
-                    value={passengers}
-                    setValue={setPassengers}
+                    value={
+                      passengers
+                    }
+                    setValue={
+                      setPassengers
+                    }
                     icon="user"
                   />
                   <InputField
                     label="Luggage Count"
-                    value={luggage}
-                    setValue={setLuggage}
+                    value={
+                      luggage
+                    }
+                    setValue={
+                      setLuggage
+                    }
                     icon="bag"
                   />
                   <InputField
                     label="Special Assistance"
-                    value={assistance}
-                    setValue={setAssistance}
+                    value={
+                      assistance
+                    }
+                    setValue={
+                      setAssistance
+                    }
                     dropdown
                   />
                 </div>
@@ -923,24 +1429,36 @@ function RailwayDrop() {
                   <InputField
                     label="Hotel Contact Person"
                     required
-                    value={hotelContact}
-                    setValue={setHotelContact}
+                    value={
+                      hotelContact
+                    }
+                    setValue={
+                      setHotelContact
+                    }
                   />
                   <InputField
                     label="Contact Number"
                     required
-                    value={contactMobile}
-                    setValue={setContactMobile}
+                    value={
+                      contactMobile
+                    }
+                    setValue={
+                      setContactMobile
+                    }
                   />
                   <InputField
                     label="Pickup Instructions"
-                    value={pickupInstructions}
-                    setValue={setPickupInstructions}
+                    value={
+                      pickupInstructions
+                    }
+                    setValue={
+                      setPickupInstructions
+                    }
                   />
                 </div>
               </section>
               {/* =================================================
-                  ADDITIONAL REQUIREMENTS
+                  REQUIREMENTS
               ================================================= */}
               <section className="form-section">
                 <h2 className="sub-heading">
@@ -950,26 +1468,62 @@ function RailwayDrop() {
                   <Requirement
                     name="meetGreet"
                     label="Meet & Greet"
+                    requirements={
+                      requirements
+                    }
+                    toggleRequirement={
+                      toggleRequirement
+                    }
                   />
                   <Requirement
                     name="porter"
                     label="Porter Service"
+                    requirements={
+                      requirements
+                    }
+                    toggleRequirement={
+                      toggleRequirement
+                    }
                   />
                   <Requirement
                     name="babySeat"
                     label="Baby Seat"
+                    requirements={
+                      requirements
+                    }
+                    toggleRequirement={
+                      toggleRequirement
+                    }
                   />
                   <Requirement
                     name="extraLuggage"
                     label="Extra Luggage Space"
+                    requirements={
+                      requirements
+                    }
+                    toggleRequirement={
+                      toggleRequirement
+                    }
                   />
                   <Requirement
                     name="wheelchair"
                     label="Wheelchair Access"
+                    requirements={
+                      requirements
+                    }
+                    toggleRequirement={
+                      toggleRequirement
+                    }
                   />
                   <Requirement
                     name="other"
                     label="Other"
+                    requirements={
+                      requirements
+                    }
+                    toggleRequirement={
+                      toggleRequirement
+                    }
                   />
                 </div>
               </section>
@@ -980,7 +1534,9 @@ function RailwayDrop() {
                 <button
                   type="button"
                   className="continue-button"
-                  onClick={handleContinue}
+                  onClick={
+                    handleContinue
+                  }
                 >
                   Save & Continue
                   <Icon
@@ -991,7 +1547,9 @@ function RailwayDrop() {
                 <button
                   type="button"
                   className="clear-button"
-                  onClick={clearAll}
+                  onClick={
+                    clearAll
+                  }
                 >
                   <Icon
                     name="trash"
@@ -1003,12 +1561,10 @@ function RailwayDrop() {
             </div>
           </div>
           {/* =================================================
-              RIGHT SUMMARY
+              RIGHT
           ================================================= */}
           <aside className="right-summary">
-            {/* =================================================
-                TRAIN STATUS
-            ================================================= */}
+            {/* TRAIN STATUS */}
             <div className="summary-card">
               <div className="summary-header">
                 <h3>
@@ -1025,24 +1581,32 @@ function RailwayDrop() {
                     size={23}
                   />
                   <strong>
-                    {trainName} ({trainNumber})
+                    {trainName ||
+                      "Train"}
+                    {trainNumber
+                      ? ` (${trainNumber})`
+                      : ""}
                   </strong>
                 </div>
                 <div className="route">
+                  {/* DEPARTURE */}
                   <div className="route-place">
                     <span>
                       Departure
                     </span>
                     <strong>
-                      Visakhapatnam Jn (VSKP)
+                      {departureStation ||
+                        "Visakhapatnam Jn (VSKP)"}
                     </strong>
                     <b>
-                      {departureTime}
+                      {departureTime ||
+                        "--:--"}
                     </b>
                   </div>
                   <div className="route-arrow">
                     →
                   </div>
+                  {/* DESTINATION */}
                   <div className="route-place">
                     <span>
                       Destination
@@ -1051,18 +1615,51 @@ function RailwayDrop() {
                       Hyderabad / Secunderabad Jn
                     </strong>
                     <b>
-                      05:20 PM
+                      --
                     </b>
                   </div>
                 </div>
+                {/* PLATFORM */}
+                {platform && (
+                  <div className="train-platform">
+                    Platform:
+                    <strong>
+                      {platform}
+                    </strong>
+                  </div>
+                )}
+                {/* COACH */}
+                {coach && (
+                  <div className="train-platform">
+                    Coach:
+                    <strong>
+                      {coach}
+                    </strong>
+                  </div>
+                )}
+                {/* BERTH */}
+                {berth && (
+                  <div className="train-platform">
+                    Berth:
+                    <strong>
+                      {berth}
+                    </strong>
+                  </div>
+                )}
+                {/* REFRESH */}
                 <div className="updated">
                   <span>
-                    Last Updated: {lastUpdated}
+                    Last Updated:{" "}
+                    {lastUpdated ||
+                      "Not updated"}
                   </span>
                   <button
                     type="button"
                     onClick={
                       refreshTrainStatus
+                    }
+                    disabled={
+                      trainLoading
                     }
                   >
                     <Icon
@@ -1073,9 +1670,7 @@ function RailwayDrop() {
                 </div>
               </div>
             </div>
-            {/* =================================================
-                FARE SUMMARY
-            ================================================= */}
+            {/* FARE */}
             <div className="summary-card">
               <h3 className="fare-title">
                 Fare Summary
@@ -1085,33 +1680,48 @@ function RailwayDrop() {
               </h3>
               <SummaryRow
                 label="Base Fare (Sedan)"
-                value={BASE_FARE}
+                value={
+                  BASE_FARE
+                }
               />
               <SummaryRow
                 label="Station Parking"
-                value={STATION_PARKING}
+                value={
+                  STATION_PARKING
+                }
               />
               <SummaryRow
                 label="Driver Allowance"
-                value={DRIVER_ALLOWANCE}
+                value={
+                  DRIVER_ALLOWANCE
+                }
               />
               <SummaryRow
                 label="Waiting Charges (30 mins)"
-                value={WAITING_CHARGES}
+                value={
+                  WAITING_CHARGES
+                }
               />
-              {porterCharge > 0 && (
+              {porterCharge >
+                0 && (
                 <SummaryRow
                   label="Porter Service"
-                  value={porterCharge}
+                  value={
+                    porterCharge
+                  }
                 />
               )}
-              {babySeatCharge > 0 && (
+              {babySeatCharge >
+                0 && (
                 <SummaryRow
                   label="Baby Seat"
-                  value={babySeatCharge}
+                  value={
+                    babySeatCharge
+                  }
                 />
               )}
-              {extraLuggageCharge > 0 && (
+              {extraLuggageCharge >
+                0 && (
                 <SummaryRow
                   label="Extra Luggage Space"
                   value={
@@ -1121,16 +1731,22 @@ function RailwayDrop() {
               )}
               <SummaryRow
                 label="GST (5%)"
-                value={gst}
+                value={
+                  gst
+                }
               />
               <div className="fare-divider" />
               <SummaryRow
                 label="Subtotal"
-                value={subtotal}
+                value={
+                  subtotal
+                }
               />
               <SummaryRow
                 label="Hotel Commission (10%)"
-                value={hotelCommission}
+                value={
+                  hotelCommission
+                }
                 negative
               />
               <div className="grand-total">
@@ -1144,9 +1760,7 @@ function RailwayDrop() {
                 </strong>
               </div>
             </div>
-            {/* =================================================
-                EARNINGS
-            ================================================= */}
+            {/* EARNINGS */}
             <div className="earnings-card">
               <div className="earnings-heading">
                 <div className="earning-icon">
@@ -1165,13 +1779,11 @@ function RailwayDrop() {
                   {formatMoney(
                     hotelCommission
                   )}
-                </strong>
-                {" "}on this booking
+                </strong>{" "}
+                on this booking
               </p>
             </div>
-            {/* =================================================
-                IMPORTANT NOTE
-            ================================================= */}
+            {/* NOTE */}
             <div className="important-note">
               <div className="note-heading">
                 <Icon
