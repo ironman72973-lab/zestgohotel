@@ -1,659 +1,3628 @@
-/*=========================================================
-    AIRPORT CSS
-    PART 1
-    Theme + Background + Hero
-=========================================================*/
-/*==============================
-    GOOGLE FONT
-==============================*/
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-/*==============================
-    ROOT VARIABLES
-==============================*/
-:root{
-    --primary:#16a34a;
-    --primary-dark:#15803d;
-    --secondary:#f59e0b;
-    --background:#0f172a;
-    --card:#111827;
-    --card-light:#1f2937;
-    --border:#334155;
-    --white:#ffffff;
-    --text:#cbd5e1;
-    --shadow:0 20px 50px rgba(0,0,0,.35);
-    --radius:24px;
-    --transition:.35s ease;
+/* =========================================================
+   AIRPORT PICKUP BOOKING
+   ZESTGO / LAKWAY FLEET
+========================================================= */
+
+* {
+  box-sizing: border-box;
 }
-/*==============================
-    RESET
-==============================*/
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+
 html,
-body{
-    width:100%;
-    height:100%;
-    font-family:'Poppins',sans-serif;
-    background:#0f172a;
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  font-family: Inter, Arial, sans-serif;
+  color: #081735;
 }
-img{
-    display:block;
-    max-width:100%;
+
+body {
+  background: #f7f9fb;
 }
-a{
-    text-decoration:none;
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
-button{
-    font-family:'Poppins',sans-serif;
+
+button {
+  cursor: pointer;
 }
-/*==============================
-    PAGE
-==============================*/
-.airport-page{
-    width:100%;
-    min-height:100vh;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-attachment:fixed;
-    position:relative;
+/* =========================================================
+   GET FLIGHT BUTTON
+========================================================= */
+.hidden-route-distance {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    pointer-events: none !important;
 }
-/*==============================
-    OVERLAY
-==============================*/
-.airport-overlay{
-    width:100%;
-    min-height:100vh;
+.get-flight-btn {
+    height: 44px;
+    padding: 0 18px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: linear-gradient(
+        135deg,
+        #087d35,
+        #006e2e
+    );
+
+    color: #fff;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 8px rgba(0, 110, 46, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.get-flight-btn:hover {
+    background: linear-gradient(
+        135deg,
+        #096f31,
+        #005d27
+    );
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(0, 110, 46, 0.28);
+}
+
+.get-flight-btn:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 2px 5px rgba(0, 110, 46, 0.18);
+}
+
+.get-flight-btn:disabled {
+    background: #aeb8b2;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.get-flight-btn svg {
+    flex-shrink: 0;
+}
+/* =========================================================
+   BASE
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    margin: 0;
+    min-height: 100%;
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    color: #081735;
+}
+
+body {
+    background: #f7f9fb;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+    min-height: 1024px;
+
     background:
-    linear-gradient(
-        rgba(8,15,25,.82),
-        rgba(8,15,25,.82)
-    );
-    padding:35px;
+        linear-gradient(
+            #ffffff 0,
+            #ffffff 198px,
+            #f7f9fb 198px
+        );
 }
-/*==============================
-    CONTAINER
-==============================*/
-.airport-container{
-    width:100%;
-    max-width:1600px;
-    margin:auto;
-}
-/*==============================
-    HERO
-==============================*/
-.hero-section{
-    width:100%;
-    min-height:420px;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:30px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:60px;
-    margin-bottom:45px;
-    position:relative;
-}
-/*==============================
-    HERO BACKGROUND
-==============================*/
-.hero-section::before{
-    content:"";
-    position:absolute;
-    inset:0;
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    height: 205px;
+
+    position: relative;
+
+    overflow: hidden;
+
     background:
+        linear-gradient(
+            110deg,
+            #f8fafc 0%,
+            #e9eef3 42%,
+            #6d8490 65%,
+            #263d4a 100%
+        );
+}
+
+
+/* =========================================================
+   AIRPORT BACKGROUND
+========================================================= */
+
+.airport-background {
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.55),
+            rgba(255,196,111,.08) 50%,
+            rgba(15,39,51,.15)
+        );
+}
+
+.airport-building {
+    position: absolute;
+
+    right: -30px;
+
+    top: -25px;
+
+    width: 58%;
+
+    height: 210px;
+
+    transform:
+        skewX(-17deg);
+
+    background:
+        linear-gradient(
+            110deg,
+            rgba(255,255,255,.18),
+            rgba(20,50,65,.85)
+        );
+
+    border-left:
+        2px solid rgba(255,255,255,.4);
+
+    box-shadow:
+        inset 0 -25px 40px
+        rgba(255,190,80,.45);
+}
+
+.airport-glass {
+    position: absolute;
+
+    inset:
+        20px 0 30px;
+
+    opacity: .65;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,.55) 0,
+            rgba(255,255,255,.55) 2px,
+            transparent 2px,
+            transparent 55px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.35) 0,
+            rgba(255,255,255,.35) 2px,
+            transparent 2px,
+            transparent 35px
+        );
+}
+
+.airport-light {
+    position: absolute;
+
+    bottom: 20px;
+
+    width: 120px;
+
+    height: 7px;
+
+    background: #ffc75c;
+
+    box-shadow:
+        0 0 18px #ffc75c;
+}
+
+.light1 {
+    left: 15%;
+}
+
+.light2 {
+    left: 35%;
+}
+
+.light3 {
+    left: 55%;
+}
+
+.light4 {
+    left: 75%;
+}
+
+.airplane {
+    position: absolute;
+
+    left: 42%;
+
+    top: 63px;
+
+    color: #334b58;
+
+    font-size: 45px;
+
+    transform:
+        rotate(-7deg);
+}
+
+.sun {
+    position: absolute;
+
+    left: 12%;
+
+    bottom: -50px;
+
+    width: 170px;
+
+    height: 170px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,194,94,.65),
+            rgba(255,194,94,0)
+        );
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+    position: absolute;
+
+    left: 30px;
+
+    top: 26px;
+
+    z-index: 3;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.logo-mark {
+    width: 64px;
+
+    height: 58px;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    font-style: italic;
+
+    color: #087d35;
+
+    text-shadow:
+        7px 3px 0 #ff9b00;
+}
+
+.logo-text {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.logo-text div {
+    font-size: 29px;
+
+    line-height: 30px;
+
+    font-weight: 700;
+
+    letter-spacing: -1.5px;
+}
+
+.logo-text strong {
+    color: #078238;
+}
+
+.logo-text b {
+    color: #f28b00;
+}
+
+.logo-text small {
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    color: #1b2736;
+
+    margin-top: 3px;
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.hero-title {
+    position: absolute;
+
+    left: 302px;
+
+    top: 27px;
+
+    z-index: 3;
+}
+
+.hero-title h1 {
+    margin: 0;
+
+    font-size: 20px;
+
+    line-height: 27px;
+
+    font-weight: 700;
+
+    letter-spacing: -.35px;
+}
+
+.hero-title span {
+    display: block;
+
+    width: 34px;
+
+    height: 4px;
+
+    border-radius: 4px;
+
+    background: #007d38;
+
+    margin-top: 8px;
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.header-actions {
+    position: absolute;
+
+    z-index: 5;
+
+    right: 27px;
+
+    top: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+.help-btn {
+    height: 45px;
+
+    border:
+        1px solid rgba(0,0,0,.55);
+
+    background:
+        rgba(12,27,47,.45);
+
+    color: #fff;
+
+    border-radius: 17px;
+
+    padding:
+        0 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-weight: 600;
+}
+
+.bell {
+    border: 0;
+
+    background: transparent;
+
+    color: #fff;
+
+    position: relative;
+
+    padding: 8px;
+}
+
+.bell em {
+    position: absolute;
+
+    top: -2px;
+
+    right: -1px;
+
+    font-size: 10px;
+
+    font-style: normal;
+
+    background: #f44316;
+
+    border-radius: 50%;
+
+    min-width: 22px;
+
+    height: 22px;
+
+    display: grid;
+
+    place-items: center;
+
+    font-weight: 700;
+
+    border: 2px solid #fff;
+}
+
+.profile {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #fff;
+}
+
+.profile-avatar {
+    width: 43px;
+
+    height: 43px;
+
+    border-radius: 50%;
+
+    display: grid;
+
+    place-items: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #263c51,
+            #e0a36c
+        );
+
+    border:
+        2px solid #fff;
+
+    color: #fff;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.profile div:nth-child(2) {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 128px;
+}
+
+.profile strong {
+    font-size: 13px;
+}
+
+.profile small {
+    font-size: 11px;
+
+    margin-top: 2px;
+
+    opacity: .9;
+}
+
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+.page {
+    width:
+        calc(100% - 76px);
+
+    margin:
+        -59px auto 20px;
+
+    position: relative;
+
+    z-index: 5;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        350px;
+
+    gap: 10px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   BOOKING CARD
+========================================================= */
+
+.booking-card {
+    background: #fff;
+
+    border:
+        1px solid #e4e8ed;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(23,44,63,.08);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   STEPS
+========================================================= */
+
+.steps {
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        0 118px;
+
+    border-bottom:
+        1px solid #e9edf0;
+}
+
+.step {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    white-space: nowrap;
+
+    font-size: 13px;
+
+    color: #1e2941;
+}
+
+.step > span {
+    width: 30px;
+
+    height: 30px;
+
+    border-radius: 50%;
+
+    background: #eef1f4;
+
+    display: grid;
+
+    place-items: center;
+
+    font-weight: 600;
+}
+
+.step.active > span {
+    background: #00762f;
+
+    color: #fff;
+}
+
+.step.active label {
+    font-weight: 600;
+}
+
+.step-line {
+    height: 1px;
+
+    background: #d9dfe4;
+
+    flex: 1;
+
+    min-width: 30px;
+
+    margin:
+        0 16px;
+}
+
+
+/* =========================================================
+   BOOKING CONTENT
+========================================================= */
+
+.booking-content {
+    padding:
+        25px 13px 14px;
+}
+
+
+/* =========================================================
+   SERVICE
+========================================================= */
+
+.service-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+    margin:
+        0 15px 19px;
+}
+
+.plane-tile {
+    width: 59px;
+
+    height: 59px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #2e9258,
+            #176b37
+        );
+
+    color: #fff;
+
+    display: grid;
+
+    place-items: center;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(255,255,255,.12);
+}
+
+.service-heading h2 {
+    font-size: 22px;
+
+    margin:
+        0 0 5px;
+
+    letter-spacing: -.5px;
+}
+
+.service-heading p {
+    margin: 0;
+
+    font-size: 13px;
+
+    color: #33405d;
+}
+
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.panel {
+    border:
+        1px solid #e7ebef;
+
+    border-radius: 11px;
+
+    padding:
+        19px 21px 18px;
+
+    margin-bottom: 10px;
+
+    background: #fff;
+}
+
+.panel h3 {
+    margin:
+        0 0 15px;
+
+    font-size: 17px;
+
+    letter-spacing: -.25px;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid {
+    display: grid;
+
+    gap: 20px;
+}
+
+.grid.four {
+    grid-template-columns:
+        1.2fr
+        1fr
+        1fr
+        1fr;
+}
+
+.pickup-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.25fr
+        .75fr
+        1.25fr;
+
+    gap: 25px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.field {
+    display: block;
+
+    min-width: 0;
+}
+
+.field-label {
+    display: block;
+
+    font-size: 12px;
+
+    color: #263451;
+
+    margin:
+        0 0 7px;
+}
+
+.field-label b {
+    color: #ee3d31;
+
+    margin-left: 4px;
+}
+
+.field-box {
+    height: 44px;
+
+    border:
+        1px solid #dfe5eb;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding:
+        0 13px;
+
+    background: #fff;
+}
+
+.field-box:focus-within {
+    border-color: #6aab84;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(0,118,47,.08);
+}
+
+.field-box input {
+    min-width: 0;
+
+    flex: 1;
+
+    width: 100%;
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    color: #12203c;
+
+    font-size: 13px;
+}
+
+.field-box input::placeholder {
+    color: #9aa3ae;
+}
+
+.field-icon {
+    color: #23324f;
+
+    display: flex;
+
+    flex-shrink: 0;
+}
+
+.field-chevron {
+    margin-left: auto;
+
+    color: #13203b;
+
+    display: flex;
+}
+
+
+/* =========================================================
+   CURRENT LOCATION
+========================================================= */
+
+.pickup-location-field {
+    min-width: 0;
+}
+
+.pickup-location-box {
+    width: 100%;
+}
+
+.current-location-btn {
+    margin-top: 7px;
+
+    height: 32px;
+
+    padding:
+        0 11px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    border:
+        1px solid #b9d9c2;
+
+    border-radius: 6px;
+
+    background: #f3faf5;
+
+    color: #087436;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+.current-location-btn:hover {
+    background: #e8f6ec;
+
+    border-color: #8fc59e;
+
+    transform: translateY(-1px);
+}
+
+.current-location-btn:active {
+    transform: translateY(0);
+}
+
+.current-location-btn:disabled {
+    opacity: .65;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+.current-location-btn svg {
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   HIDDEN LOCATION DATA
+========================================================= */
+
+.pickup-coordinates,
+.hotel-airport-distance {
+    display: none;
+}
+
+
+/* =========================================================
+   FLIGHT SEARCH
+========================================================= */
+
+.flight-search-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr
+        170px;
+
+    gap: 20px;
+
+    align-items: end;
+}
+
+.get-flight-wrapper {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   GET FLIGHT BUTTON
+========================================================= */
+
+.get-flight-btn {
+    width: 100%;
+
+    height: 44px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding:
+        0 18px;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087d35,
+            #006e2e
+        );
+
+    color: #fff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 8px
+        rgba(0,110,46,.20);
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.get-flight-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #096f31,
+            #005d27
+        );
+
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 5px 12px
+        rgba(0,110,46,.28);
+}
+
+.get-flight-btn:active {
+    transform:
+        translateY(0);
+}
+
+.get-flight-btn:disabled {
+    background: #aeb8b2;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+.get-flight-btn svg {
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   FLIGHT API FIELDS
+========================================================= */
+
+.flight-api-fields {
+    margin-top: 20px;
+
+    padding-top: 18px;
+
+    border-top:
+        1px dashed #dfe5e1;
+}
+
+
+/* =========================================================
+   FLIGHT MESSAGE
+========================================================= */
+
+.flight-message {
+    margin-top: 13px;
+
+    padding:
+        9px 12px;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+.flight-message.success {
+    background: #edf9f0;
+
+    border:
+        1px solid #bde2c7;
+
+    color: #087436;
+}
+
+.flight-message.error {
+    background: #fff2f1;
+
+    border:
+        1px solid #f0c2bd;
+
+    color: #c5362d;
+}
+
+
+/* =========================================================
+   PREFERENCES
+========================================================= */
+
+.preferences {
+    padding-bottom: 15px;
+}
+
+.preference-row {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr
+        1.08fr
+        1.08fr;
+
+    gap: 16px;
+}
+
+.pref {
+    height: 39px;
+
+    border:
+        1px solid #e1e7ec;
+
+    background: #fff;
+
+    border-radius: 7px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        0 10px;
+
+    color: #17304b;
+
+    font-size: 11px;
+
+    text-align: left;
+}
+
+.pref.selected {
+    background: #f4fbf6;
+
+    border-color: #a8d7b5;
+
+    color: #076c30;
+}
+
+.check-box {
+    width: 17px;
+
+    height: 17px;
+
+    border:
+        1px solid #d9e0e6;
+
+    border-radius: 4px;
+
+    display: grid;
+
+    place-items: center;
+
+    color: #fff;
+
+    background: #fff;
+}
+
+.pref.selected .check-box {
+    background: #07803a;
+
+    border-color: #07803a;
+}
+
+.pref small {
+    margin-left: auto;
+
+    background: #f5f7f9;
+
+    border-radius: 12px;
+
+    padding:
+        3px 7px;
+
+    color: #263451;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   CONTINUE
+========================================================= */
+
+.continue {
+    width: 100%;
+
+    height: 45px;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background: #006e2e;
+
+    color: #fff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    font-weight: 700;
+
+    font-size: 14px;
+
+    box-shadow:
+        0 3px 7px
+        rgba(0,104,45,.18);
+
+    transition: .2s;
+}
+
+.continue:hover {
+    background: #005d27;
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary {
+    background: #fff;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 20px
+        rgba(23,44,63,.08);
+
+    border:
+        1px solid #e3e8ec;
+}
+
+.summary-title {
+    height: 51px;
+
+    background: #00732f;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    display: flex;
+
+    align-items: center;
+
+    padding:
+        0 17px;
+}
+
+.summary-body {
+    padding:
+        16px 17px 14px;
+}
+
+.summary-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    margin-bottom: 15px;
+
+    font-size: 12px;
+
+    color: #263451;
+
+    line-height: 16px;
+}
+
+.summary-row strong {
+    font-weight: 500;
+
+    text-align: right;
+
+    color: #14213b;
+
+    max-width: 190px;
+}
+
+
+/* =========================================================
+   FARE
+========================================================= */
+
+.fare-box {
+    margin-top: 5px;
+
+    border:
+        1px solid #e3eae5;
+
+    border-radius: 8px;
+
+    padding:
+        13px 11px 10px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fbfdfb,
+            #fff
+        );
+}
+
+.fare-box h4 {
+    color: #2b7042;
+
+    margin:
+        0 0 10px;
+
+    font-size: 13px;
+}
+
+.fare-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 11px;
+
+    color: #263451;
+
+    margin-bottom: 9px;
+}
+
+.fare-row strong {
+    font-weight: 500;
+}
+
+.fare-row.negative strong {
+    color: #57390c;
+}
+
+.fare-divider {
+    border-top:
+        1px dashed #d9dfe1;
+
+    margin:
+        8px 0 11px;
+}
+
+.grand {
+    border-top:
+        1px solid #dfe4e4;
+
+    padding-top: 12px;
+
+    margin-top: 3px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    font-weight: 700;
+}
+
+.grand span {
+    font-size: 14px;
+}
+
+.grand strong {
+    color: #087e35;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   EARN
+========================================================= */
+
+.earn {
+    border:
+        1px solid #f1d99c;
+
+    background:
+        linear-gradient(
+            110deg,
+            #fffdf4,
+            #fff6df
+        );
+
+    border-radius: 8px;
+
+    padding:
+        11px 12px 10px;
+
+    margin-top: 15px;
+}
+
+.earn-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    color: #17223b;
+
+    font-size: 11px;
+
+    margin-bottom: 10px;
+}
+
+.earn-top b {
+    background: #ffefc6;
+
+    padding:
+        5px 8px;
+
+    border-radius: 6px;
+
+    font-size: 9px;
+
+    font-weight: 500;
+}
+
+.earn > strong {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 12px;
+}
+
+.earn > strong i {
+    color: #087d36;
+
+    font-style: normal;
+
+    font-size: 14px;
+}
+
+.earn p {
+    margin:
+        5px 0 0;
+
+    font-size: 10px;
+
+    color: #263451;
+}
+
+
+/* =========================================================
+   TRUST
+========================================================= */
+
+.trust {
+    margin-top: 17px;
+
+    border:
+        1px solid #e8ecef;
+
+    border-radius: 8px;
+
+    min-height: 97px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+}
+
+.trust-item {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    border-right:
+        1px solid #e5e8ea;
+
+    color: #087a36;
+
+    text-align: center;
+
+    padding:
+        8px 2px;
+}
+
+.trust-item:last-child {
+    border-right: 0;
+}
+
+.trust-item span {
+    color: #15223c;
+
+    font-size: 10px;
+
+    line-height: 12px;
+}
+
+.trust-item small {
+    color: #15223c;
+
+    font-size: 10px;
+
+    line-height: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE 1250
+========================================================= */
+
+@media (max-width: 1250px) {
+
+    .page {
+        width:
+            calc(100% - 32px);
+
+        grid-template-columns:
+            minmax(0,1fr)
+            315px;
+    }
+
+    .steps {
+        padding:
+            0 30px;
+    }
+
+    .grid.four {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .pickup-grid {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .preference-row {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .flight-search-grid {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .get-flight-wrapper {
+        grid-column:
+            span 2;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE 900
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .hero {
+        height: 150px;
+    }
+
+    .hero-title {
+        left: 25px;
+
+        top: 95px;
+    }
+
+    .brand {
+        left: 20px;
+
+        top: 18px;
+    }
+
+    .header-actions {
+        display: none;
+    }
+
+    .page {
+        margin:
+            -25px 12px 20px;
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .summary {
+        order: 2;
+    }
+
+    .steps {
+        overflow-x: auto;
+
+        padding:
+            0 15px;
+    }
+
+    .step-line {
+        min-width: 15px;
+
+        margin:
+            0 8px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE 560
+========================================================= */
+
+@media (max-width: 560px) {
+
+    .booking-content {
+        padding:
+            18px 8px 10px;
+    }
+
+    .service-heading {
+        margin-left: 7px;
+    }
+
+    .panel {
+        padding:
+            16px 12px;
+    }
+
+    .grid.four,
+    .pickup-grid,
+    .preference-row {
+        grid-template-columns:
+            1fr;
+    }
+
+    .flight-search-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .get-flight-wrapper {
+        grid-column:
+            auto;
+    }
+
+    .get-flight-btn {
+        width: 100%;
+    }
+
+    .step label {
+        display: none;
+    }
+
+    .steps {
+        justify-content: center;
+    }
+
+    .summary-row strong {
+        max-width: 160px;
+    }
+}
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+  min-height: 100vh;
+  background-color: #f7f9fb;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+  height: 205px;
+  position: relative;
+  overflow: hidden;
+
+  background:
     linear-gradient(
-        90deg,
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.35),
-        rgba(0,0,0,.05)
-    );
-    z-index:1;
-}
-/*==============================
-    HERO CONTENT
-==============================*/
-.hero-left{
-    width:50%;
-    position:relative;
-    z-index:2;
-}
-.hero-right{
-    width:45%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    position:relative;
-    z-index:2;
-}
-/*==============================
-    HERO TAG
-==============================*/
-.hero-tag{
-    display:inline-block;
-    padding:10px 22px;
-    border-radius:40px;
-    background:var(--primary);
-    color:#fff;
-    font-size:13px;
-    font-weight:600;
-    letter-spacing:1px;
-    margin-bottom:22px;
-}
-/*==============================
-    HERO TITLE
-==============================*/
-.hero-left h1{
-    font-size:58px;
-    font-weight:700;
-    color:#ffffff;
-    margin-bottom:20px;
-    line-height:1.2;
-}
-/*==============================
-    HERO DESCRIPTION
-==============================*/
-.hero-left p{
-    max-width:580px;
-    color:var(--text);
-    font-size:18px;
-    line-height:1.9;
-}
-/*==============================
-    HERO BUTTONS
-==============================*/
-.hero-buttons{
-    display:flex;
-    gap:18px;
-    margin-top:35px;
-}
-.btn-primary-custom{
-    background:var(--primary);
-    color:#fff;
-    padding:15px 34px;
-    border-radius:14px;
-    font-weight:600;
-    transition:var(--transition);
-}
-.btn-primary-custom:hover{
-    background:var(--primary-dark);
-    transform:translateY(-3px);
-}
-.btn-secondary-custom{
-    border:1px solid var(--border);
-    color:#fff;
-    padding:15px 34px;
-    border-radius:14px;
-    transition:var(--transition);
-}
-.btn-secondary-custom:hover{
-    background:#ffffff10;
-}
-/*==============================
-    HERO IMAGE
-==============================*/
-.hero-right img{
-    width:100%;
-    max-width:500px;
-    animation:heroFloat 5s ease-in-out infinite;
-}
-/*==============================
-    ANIMATION
-==============================*/
-@keyframes heroFloat{
-    0%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-12px);
-    }
-    100%{
-        transform:translateY(0);
-    }
-}
-/*=========================================================
-    SERVICE SECTION
-=========================================================*/
-.service-section{
-    margin-bottom:60px;
-}
-.service-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:35px;
-}
-.service-header h2{
-    color:var(--white);
-    font-size:36px;
-    font-weight:700;
-    margin-bottom:10px;
-}
-.service-header p{
-    color:var(--text);
-    font-size:16px;
-}
-.section-tag{
-    display:inline-block;
-    background:#16a34a20;
-    color:#22c55e;
-    border:1px solid #16a34a;
-    padding:8px 20px;
-    border-radius:50px;
-    font-size:13px;
-    font-weight:600;
-    margin-bottom:15px;
-}
-/*=========================================================
-    GRID
-=========================================================*/
-.service-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:30px;
-}
-/*=========================================================
-    CARD
-=========================================================*/
-.service-card{
-    position:relative;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:28px;
-    overflow:hidden;
-    transition:.35s;
-    min-height:400px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:35px;
-    box-shadow:0 15px 40px rgba(0,0,0,.30);
-}
-.service-card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 25px 60px rgba(0,0,0,.45);
-}
-/*=========================================================
-    BACKGROUND GLOW
-=========================================================*/
-.service-card::before{
-    content:"";
-    position:absolute;
-    width:260px;
-    height:260px;
-    border-radius:50%;
-    top:-100px;
-    right:-80px;
-    opacity:.08;
-}
-.pickup-card::before{
-    background:rgba(0,0,0,.05);
-}
-.drop-card::before{
-    background:#f59e0b;
-}
-/*=========================================================
-    LEFT
-=========================================================*/
-.service-left{
-    width:58%;
-    z-index:2;
-}
-.service-label{
-    display:inline-flex;
-    align-items:center;
-    gap:12px;
-    padding:8px 18px 8px 8px;
-    border-radius:40px;
-    background:#1e293b;
-    border:1px solid #334155;
-    color:#fff;
-}
-span{
-    color:white;
-}
-.service-label img{
-    width:36px;
-    height:36px;
-    padding:6px;
-    background:rgba(0,0,0,.05);
-    border-radius:50%;
-}
-.service-left h3{
-    color:#fff;
-    font-size:32px;
-    font-weight:700;
-    line-height:1.3;
-    margin-bottom:18px;
-}
-.service-left p{
-    color:#cbd5e1;
-    font-size:15px;
-    line-height:1.9;
-    margin-bottom:22px;
-}
-/*=========================================================
-    FEATURES
-=========================================================*/
-.service-left ul{
-    list-style:none;
-    padding:0;
-    margin:0;
-}
-.service-left ul li{
-    color:#94a3b8;
-    margin-bottom:12px;
-    padding-left:28px;
-    position:relative;
-}
-.service-left ul li::before{
-    content:"✔";
-    position:absolute;
-    left:0;
-    color:#22c55e;
-    font-weight:700;
-}
-/*=========================================================
-    BUTTON
-=========================================================*/
-.service-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    margin-top:25px;
-    padding:14px 28px;
-    border-radius:14px;
-    font-size:15px;
-    font-weight:600;
-    color:#fff;
-    transition:.35s;
-}
-.pickup-btn{
-    background:#16a34a;
-}
-.pickup-btn:hover{
-    background:#15803d;
-    color:#fff;
-}
-.drop-btn{
-    background:#f59e0b;
-}
-.drop-btn:hover{
-    background:#d97706;
-    color:#fff;
-}
-/*=========================================================
-    RIGHT
-=========================================================*/
-.service-right{
-    width:40%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-.service-right img{
-    width:100%;
-    max-width:240px;
-    transition:.4s;
-    filter:drop-shadow(0 20px 35px rgba(0,0,0,.45));
-}
-.service-card:hover img{
-    transform:scale(1.08);
-}
-/*=========================================================
-    PICKUP BORDER
-=========================================================*/
-.pickup-card{
-    border-left:6px solid #16a34a;
-}
-/*=========================================================
-    DROP BORDER
-=========================================================*/
-.drop-card{
-    border-left:6px solid #f59e0b;
-}
-/*=========================================================
-    RESPONSIVE
-=========================================================*/
-@media(max-width:1200px){
-    .service-grid{
-        grid-template-columns:1fr;
-    }
-    .service-card{
-        min-height:auto;
-    }
-}
-@media(max-width:768px){
-    .service-card{
-        flex-direction:column;
-        text-align:center;
-    }
-    .service-left{
-        width:100%;
-    }
-    .service-right{
-        width:100%;
-        margin-top:30px;
-    }
-    .service-left ul li{
-        padding-left:0;
-    }
-    .service-left ul li::before{
-        display:none;
-    }
-}
-/*=========================================================
-    STATISTICS SECTION
-=========================================================*/
-.stats-section{
-    margin:60px 0;
-}
-.stats-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:35px;
-}
-.stats-header h2{
-    font-size:36px;
-    font-weight:700;
-    color:var(--white);
-    margin-bottom:10px;
-}
-.stats-header p{
-    color:var(--text);
-    font-size:16px;
-}
-/*=========================================================
-    GRID
-=========================================================*/
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:25px;
-}
-/*=========================================================
-    CARD
-=========================================================*/
-.stats-card{
-    position:relative;
-    background:linear-gradient(
-        180deg,
-        #1f2937,
-        #111827
-    );
-    border:1px solid #334155;
-    border-radius:24px;
-    padding:28px;
-    overflow:hidden;
-    transition:.35s;
-    cursor:pointer;
-}
-.stats-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 20px 50px rgba(0,0,0,.35);
-    border-color:#16a34a;
-}
-/*=========================================================
-    GLOW
-=========================================================*/
-.stats-card::before{
-    content:"";
-    position:absolute;
-    top:-70px;
-    right:-70px;
-    width:170px;
-    height:170px;
-    border-radius:50%;
-    opacity:.08;
-}
-.total-card::before{
-    background:#3b82f6;
-}
-.pickup-total-card::before{
-    background:#16a34a;
-}
-.drop-total-card::before{
-    background:#f59e0b;
-}
-.completed-card::before{
-    background:#22c55e;
-}
-.cancelled-card::before{
-    background:#ef4444;
-}
-/*=========================================================
-    ICON
-=========================================================*/
-.stats-icon{
-    width:70px;
-    height:70px;
-    border-radius:20px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:30px;
-    margin-bottom:22px;
-    color:#fff;
-}
-.total-card .stats-icon{
-    background:linear-gradient(
-        135deg,
-        #2563eb,
-        #60a5fa
+      110deg,
+      #f8fafc 0%,
+      #e9eef3 42%,
+      #6d8490 65%,
+      #263d4a 100%
     );
 }
-.pickup-total-card .stats-icon{
-    background:linear-gradient(
-        135deg,
-        #16a34a,
-        #4ade80
+
+/* =========================================================
+   AIRPORT BACKGROUND
+========================================================= */
+
+.airport-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 196, 111, 0.08) 50%,
+      rgba(15, 39, 51, 0.15)
     );
 }
-.drop-total-card .stats-icon{
-    background:linear-gradient(
-        135deg,
-        #ea580c,
-        #fbbf24
+
+.airport-building {
+  position: absolute;
+  right: -30px;
+  top: -25px;
+
+  width: 58%;
+  height: 210px;
+
+  transform: skewX(-17deg);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(20, 50, 65, 0.85)
+    );
+
+  border-left: 2px solid rgba(255, 255, 255, 0.4);
+
+  box-shadow:
+    inset 0 -25px 40px rgba(255, 190, 80, 0.45);
+}
+
+.airport-glass {
+  position: absolute;
+  inset: 20px 0 30px;
+
+  opacity: 0.65;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.55) 0,
+      rgba(255, 255, 255, 0.55) 2px,
+      transparent 2px,
+      transparent 55px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.35) 0,
+      rgba(255, 255, 255, 0.35) 2px,
+      transparent 2px,
+      transparent 35px
     );
 }
-.completed-card .stats-icon{
-    background:linear-gradient(
-        135deg,
-        #15803d,
-        #22c55e
+
+.airport-light {
+  position: absolute;
+  bottom: 20px;
+
+  width: 120px;
+  height: 7px;
+
+  background: #ffc75c;
+
+  box-shadow:
+    0 0 18px #ffc75c;
+}
+
+.light1 {
+  left: 15%;
+}
+
+.light2 {
+  left: 35%;
+}
+
+.light3 {
+  left: 55%;
+}
+
+.light4 {
+  left: 75%;
+}
+
+.airplane {
+  position: absolute;
+
+  left: 42%;
+  top: 63px;
+
+  color: #334b58;
+
+  font-size: 45px;
+
+  transform: rotate(-7deg);
+}
+
+.sun {
+  position: absolute;
+
+  left: 12%;
+  bottom: -50px;
+
+  width: 170px;
+  height: 170px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 194, 94, 0.65),
+      rgba(255, 194, 94, 0)
     );
 }
-.cancelled-card .stats-icon{
-    background:linear-gradient(
-        135deg,
-        #dc2626,
-        #ef4444
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+  position: absolute;
+
+  left: 30px;
+  top: 26px;
+
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.logo-mark {
+  width: 64px;
+  height: 58px;
+
+  display: grid;
+  place-items: center;
+
+  font-size: 42px;
+  font-weight: 800;
+  font-style: italic;
+
+  color: #087d35;
+
+  text-shadow:
+    7px 3px 0 #ff9b00;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text div {
+  font-size: 29px;
+  line-height: 30px;
+
+  font-weight: 700;
+
+  letter-spacing: -1.5px;
+}
+
+.logo-text strong {
+  color: #078238;
+}
+
+.logo-text b {
+  color: #f28b00;
+}
+
+.logo-text small {
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  color: #1b2736;
+
+  margin-top: 3px;
+}
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.hero-title {
+  position: absolute;
+
+  left: 302px;
+  top: 27px;
+
+  z-index: 3;
+}
+
+.hero-title h1 {
+  margin: 0;
+
+  font-size: 20px;
+  line-height: 27px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.35px;
+}
+
+.hero-title span {
+  display: block;
+
+  width: 34px;
+  height: 4px;
+
+  border-radius: 4px;
+
+  background: #007d38;
+
+  margin-top: 8px;
+}
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.header-actions {
+  position: absolute;
+
+  z-index: 5;
+
+  right: 27px;
+  top: 18px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+}
+
+.help-btn {
+  height: 45px;
+
+  border: 1px solid rgba(0, 0, 0, 0.55);
+
+  background: rgba(12, 27, 47, 0.45);
+
+  color: #fff;
+
+  border-radius: 17px;
+
+  padding: 0 17px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.help-btn:hover {
+  background: rgba(12, 27, 47, 0.65);
+}
+
+.bell {
+  border: 0;
+
+  background: transparent;
+
+  color: #fff;
+
+  position: relative;
+
+  padding: 8px;
+}
+
+.bell em {
+  position: absolute;
+
+  top: -2px;
+  right: -1px;
+
+  font-size: 10px;
+
+  font-style: normal;
+
+  background: #f44316;
+
+  border-radius: 50%;
+
+  min-width: 22px;
+  height: 22px;
+
+  display: grid;
+  place-items: center;
+
+  font-weight: 700;
+
+  border: 2px solid #fff;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: #fff;
+}
+
+.profile-avatar {
+  width: 43px;
+  height: 43px;
+
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      #263c51,
+      #e0a36c
+    );
+
+  border: 2px solid #fff;
+
+  color: #fff;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.profile > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 128px;
+}
+
+.profile strong {
+  font-size: 13px;
+}
+
+.profile small {
+  font-size: 11px;
+
+  margin-top: 2px;
+
+  opacity: 0.9;
+}
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+.page {
+  width: calc(100% - 76px);
+
+  margin: -59px auto 20px;
+
+  position: relative;
+
+  z-index: 5;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    350px;
+
+  gap: 10px;
+
+  align-items: start;
+}
+
+/* =========================================================
+   BOOKING CARD
+========================================================= */
+
+.booking-card {
+  background: #fff;
+
+  border: 1px solid #e4e8ed;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 5px 20px rgba(23, 44, 63, 0.08);
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   STEPS
+========================================================= */
+
+.steps {
+  min-height: 58px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 0 118px;
+
+  border-bottom: 1px solid #e9edf0;
+}
+
+.step {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  white-space: nowrap;
+
+  font-size: 13px;
+
+  color: #1e2941;
+}
+
+.step > span {
+  width: 30px;
+  height: 30px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #eef1f4;
+
+  display: grid;
+  place-items: center;
+
+  font-weight: 600;
+}
+
+.step.active > span {
+  background: #00762f;
+
+  color: #fff;
+}
+
+.step.active label {
+  font-weight: 600;
+}
+
+.step-line {
+  height: 1px;
+
+  background: #d9dfe4;
+
+  flex: 1;
+
+  min-width: 30px;
+
+  margin: 0 16px;
+}
+
+/* =========================================================
+   BOOKING CONTENT
+========================================================= */
+
+.booking-content {
+  padding: 25px 13px 14px;
+}
+
+/* =========================================================
+   SERVICE HEADING
+========================================================= */
+
+.service-heading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 22px;
+
+  margin: 0 15px 19px;
+}
+
+.plane-tile {
+  width: 59px;
+  height: 59px;
+
+  flex-shrink: 0;
+
+  border-radius: 17px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #2e9258,
+      #176b37
+    );
+
+  color: #fff;
+
+  display: grid;
+  place-items: center;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.service-heading h2 {
+  font-size: 22px;
+
+  margin: 0 0 5px;
+
+  letter-spacing: -0.5px;
+}
+
+.service-heading p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #33405d;
+}
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.panel {
+  border: 1px solid #e7ebef;
+
+  border-radius: 11px;
+
+  padding: 19px 21px 18px;
+
+  margin-bottom: 10px;
+
+  background: #fff;
+}
+
+.panel h3 {
+  margin: 0 0 15px;
+
+  font-size: 17px;
+
+  letter-spacing: -0.25px;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid {
+  display: grid;
+
+  gap: 20px;
+}
+
+.grid.four {
+  grid-template-columns:
+    1.2fr
+    1fr
+    1fr
+    1fr;
+}
+
+.drop-grid {
+  grid-template-columns:
+    1.25fr
+    0.75fr
+    1.25fr;
+
+  gap: 25px;
+}
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.field {
+  display: block;
+
+  min-width: 0;
+}
+
+.field-label {
+  display: block;
+
+  font-size: 12px;
+
+  color: #263451;
+
+  margin: 0 0 7px;
+}
+
+.field-label b {
+  color: #ee3d31;
+
+  margin-left: 4px;
+}
+
+.field-box {
+  height: 44px;
+
+  border: 1px solid #dfe5eb;
+
+  border-radius: 7px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 13px;
+
+  background: #fff;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.field-box:focus-within {
+  border-color: #6aab84;
+
+  box-shadow:
+    0 0 0 2px rgba(0, 118, 47, 0.08);
+}
+
+.field-box input {
+  min-width: 0;
+
+  flex: 1;
+
+  width: 100%;
+
+  border: 0;
+
+  outline: 0;
+
+  background: transparent;
+
+  color: #12203c;
+
+  font-size: 13px;
+}
+
+.field-box input::placeholder {
+  color: #9aa3ae;
+}
+
+.field-icon {
+  color: #23324f;
+
+  display: flex;
+
+  flex-shrink: 0;
+}
+
+.field-chevron {
+  margin-left: auto;
+
+  color: #13203b;
+
+  display: flex;
+
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   FLIGHT GET BUTTON
+========================================================= */
+
+.flight-get-button {
+  height: 44px;
+
+  padding: 0 16px;
+
+  border: 0;
+
+  border-radius: 7px;
+
+  background: #00732f;
+
+  color: #fff;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  white-space: nowrap;
+
+  transition: 0.2s;
+}
+
+.flight-get-button:hover {
+  background: #005d27;
+
+  transform: translateY(-1px);
+}
+
+.flight-get-button:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* =========================================================
+   FLIGHT ACTION AREA
+========================================================= */
+
+.flight-action {
+  display: flex;
+
+  align-items: flex-end;
+
+  gap: 10px;
+}
+
+.flight-action .field {
+  flex: 1;
+}
+
+/* =========================================================
+   FLIGHT LOADING
+========================================================= */
+
+.flight-loading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 10px;
+
+  font-size: 11px;
+
+  color: #68758a;
+}
+
+.flight-loading-spinner {
+  width: 14px;
+  height: 14px;
+
+  border: 2px solid #d7e5dc;
+
+  border-top-color: #00732f;
+
+  border-radius: 50%;
+
+  animation: flightSpin 0.8s linear infinite;
+}
+
+@keyframes flightSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   FLIGHT ERROR
+========================================================= */
+
+.flight-error {
+  margin-top: 10px;
+
+  padding: 10px 12px;
+
+  border-radius: 7px;
+
+  border: 1px solid #f1c8c4;
+
+  background: #fff5f4;
+
+  color: #b42318;
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   FLIGHT STATUS
+========================================================= */
+
+.flight-status {
+  min-height: 66px;
+
+  border: 1px solid #cfe4d6;
+
+  border-radius: 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #fbfdfb,
+      #f8fbf9
+    );
+
+  margin-top: 19px;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr
+    1.05fr;
+
+  align-items: center;
+}
+
+.flight-status > div {
+  padding: 0 25px;
+
+  border-right: 1px solid #dfe7e1;
+
+  min-height: 42px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  gap: 7px;
+}
+
+.flight-status span {
+  font-size: 12px;
+
+  color: #006b2e;
+}
+
+.flight-status b {
+  width: max-content;
+
+  padding: 4px 12px;
+
+  border-radius: 15px;
+
+  background: #dff2e3;
+
+  color: #087436;
+
+  font-size: 11px;
+
+  font-weight: 500;
+}
+
+.flight-status strong {
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+.flight-status button {
+  border: 0;
+
+  background: transparent;
+
+  color: #006d2f;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 11px;
+
+  font-size: 12px;
+}
+
+.flight-status button:hover {
+  color: #004f22;
+}
+
+/* =========================================================
+   FLIGHT INFORMATION HIGHLIGHT
+========================================================= */
+
+.flight-found {
+  margin-top: 10px;
+
+  padding: 9px 12px;
+
+  border-radius: 7px;
+
+  background: #f2faf4;
+
+  border: 1px solid #cce5d3;
+
+  color: #087436;
+
+  font-size: 11px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.flight-found-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #087436;
+}
+
+/* =========================================================
+   PREFERENCES
+========================================================= */
+
+.preferences {
+  padding-bottom: 15px;
+}
+
+.preference-row {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1.08fr
+    1.08fr;
+
+  gap: 16px;
+}
+
+.pref {
+  height: 39px;
+
+  border: 1px solid #e1e7ec;
+
+  background: #fff;
+
+  border-radius: 7px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 0 10px;
+
+  color: #17304b;
+
+  font-size: 11px;
+
+  text-align: left;
+
+  transition: 0.2s;
+}
+
+.pref:hover {
+  border-color: #b9d5c2;
+}
+
+.pref.selected {
+  background: #f4fbf6;
+
+  border-color: #a8d7b5;
+
+  color: #076c30;
+}
+
+.check-box {
+  width: 17px;
+  height: 17px;
+
+  flex-shrink: 0;
+
+  border: 1px solid #d9e0e6;
+
+  border-radius: 4px;
+
+  display: grid;
+
+  place-items: center;
+
+  color: #fff;
+
+  background: #fff;
+}
+
+.pref.selected .check-box {
+  background: #07803a;
+
+  border-color: #07803a;
+}
+
+.pref small {
+  margin-left: auto;
+
+  background: #f5f7f9;
+
+  border-radius: 12px;
+
+  padding: 3px 7px;
+
+  color: #263451;
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   CONTINUE
+========================================================= */
+
+.continue {
+  width: 100%;
+
+  height: 45px;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: #006e2e;
+
+  color: #fff;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  font-weight: 700;
+
+  font-size: 14px;
+
+  box-shadow:
+    0 3px 7px rgba(0, 104, 45, 0.18);
+
+  transition: 0.2s;
+}
+
+.continue:hover {
+  background: #005d27;
+
+  transform: translateY(-1px);
+}
+
+.continue:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary {
+  background: #fff;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 5px 20px rgba(23, 44, 63, 0.08);
+
+  border: 1px solid #e3e8ec;
+
+  position: sticky;
+
+  top: 15px;
+}
+
+.summary-title {
+  min-height: 51px;
+
+  background: #00732f;
+
+  color: #fff;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 0 17px;
+}
+
+.summary-body {
+  padding: 16px 17px 14px;
+}
+
+/* =========================================================
+   SUMMARY ROW
+========================================================= */
+
+.summary-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 14px;
+
+  margin-bottom: 15px;
+
+  font-size: 12px;
+
+  color: #263451;
+
+  line-height: 16px;
+}
+
+.summary-row strong {
+  font-weight: 500;
+
+  text-align: right;
+
+  color: #14213b;
+
+  max-width: 190px;
+}
+
+/* =========================================================
+   FARE
+========================================================= */
+
+.fare-box {
+  margin-top: 5px;
+
+  border: 1px solid #e3eae5;
+
+  border-radius: 8px;
+
+  padding: 13px 11px 10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fbfdfb,
+      #fff
     );
 }
-/*=========================================================
-    TEXT
-=========================================================*/
-.stats-info h5{
-    color:#94a3b8;
-    font-size:14px;
-    font-weight:500;
-    margin-bottom:12px;
+
+.fare-box h4 {
+  color: #2b7042;
+
+  margin: 0 0 10px;
+
+  font-size: 13px;
 }
-.stats-info h2{
-    color:#ffffff;
-    font-size:42px;
-    font-weight:700;
-    margin-bottom:10px;
+
+.fare-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  font-size: 11px;
+
+  color: #263451;
+
+  margin-bottom: 9px;
 }
-.stats-info span{
-    color:#22c55e;
-    font-size:13px;
-    font-weight:500;
+
+.fare-row strong {
+  font-weight: 500;
 }
-/*=========================================================
-    TOP STRIP
-=========================================================*/
-.stats-card::after{
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    height:5px;
+
+.fare-row.negative strong {
+  color: #57390c;
 }
-.total-card::after{
-    background:#3b82f6;
+
+.fare-divider {
+  border-top: 1px dashed #d9dfe1;
+
+  margin: 8px 0 11px;
 }
-.pickup-total-card::after{
-    background:#16a34a;
+
+.grand {
+  border-top: 1px solid #dfe4e4;
+
+  padding-top: 12px;
+
+  margin-top: 3px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  font-weight: 700;
 }
-.drop-total-card::after{
-    background:#f59e0b;
+
+.grand span {
+  font-size: 14px;
 }
-.completed-card::after{
-    background:#22c55e;
+
+.grand strong {
+  color: #087e35;
+
+  font-size: 18px;
 }
-.cancelled-card::after{
-    background:#ef4444;
+
+/* =========================================================
+   EARNINGS
+========================================================= */
+
+.earn {
+  border: 1px solid #f1d99c;
+
+  background:
+    linear-gradient(
+      110deg,
+      #fffdf4,
+      #fff6df
+    );
+
+  border-radius: 8px;
+
+  padding: 11px 12px 10px;
+
+  margin-top: 15px;
 }
-/*=========================================================
-    HOVER
-=========================================================*/
-.stats-card:hover .stats-icon{
-    transform:rotate(8deg) scale(1.08);
-    transition:.35s;
+
+.earn-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  color: #17223b;
+
+  font-size: 11px;
+
+  margin-bottom: 10px;
 }
-.stats-card:hover h2{
-    color:#22c55e;
+
+.earn-top b {
+  background: #ffefc6;
+
+  padding: 5px 8px;
+
+  border-radius: 6px;
+
+  font-size: 9px;
+
+  font-weight: 500;
 }
-/*=========================================================
-    RESPONSIVE
-=========================================================*/
-@media(max-width:1400px){
-.stats-grid{
-    grid-template-columns:repeat(3,1fr);
+
+.earn > strong {
+  display: flex;
+
+  justify-content: space-between;
+
+  font-size: 12px;
 }
+
+.earn > strong i {
+  color: #087d36;
+
+  font-style: normal;
+
+  font-size: 14px;
 }
-@media(max-width:991px){
-.stats-grid{
-    grid-template-columns:repeat(2,1fr);
+
+.earn p {
+  margin: 5px 0 0;
+
+  font-size: 10px;
+
+  color: #263451;
 }
+
+/* =========================================================
+   TRUST
+========================================================= */
+
+.trust {
+  margin-top: 17px;
+
+  border: 1px solid #e8ecef;
+
+  border-radius: 8px;
+
+  min-height: 97px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
 }
-@media(max-width:576px){
-.stats-grid{
-    grid-template-columns:1fr;
+
+.trust-item {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  border-right: 1px solid #e5e8ea;
+
+  color: #087a36;
+
+  text-align: center;
+
+  padding: 8px 2px;
 }
-.stats-card{
-    text-align:center;
+
+.trust-item:last-child {
+  border-right: 0;
 }
-.stats-icon{
-    margin:auto auto 20px;
+
+.trust-item span {
+  color: #15223c;
+
+  font-size: 10px;
+
+  line-height: 12px;
 }
+
+.trust-item small {
+  color: #15223c;
+
+  font-size: 10px;
+
+  line-height: 12px;
+}
+
+/* =========================================================
+   SUCCESS / API RESPONSE
+========================================================= */
+
+.api-success {
+  margin-top: 10px;
+
+  padding: 11px 12px;
+
+  background: #f0faf3;
+
+  border: 1px solid #c5e3ce;
+
+  border-radius: 8px;
+
+  color: #086d32;
+
+  font-size: 11px;
+}
+
+.api-success strong {
+  display: block;
+
+  font-size: 12px;
+
+  margin-bottom: 4px;
+}
+
+/* =========================================================
+   DISABLED / LOADING INPUT
+========================================================= */
+
+.field-box.loading {
+  background: #f8faf9;
+}
+
+.field-box.readonly {
+  background: #f8fafb;
+}
+
+.field-box.readonly input {
+  color: #536174;
+}
+
+/* =========================================================
+   BUTTON SPINNER
+========================================================= */
+
+.button-spinner {
+  width: 15px;
+  height: 15px;
+
+  border: 2px solid rgba(255, 255, 255, 0.35);
+
+  border-top-color: #fff;
+
+  border-radius: 50%;
+
+  animation: flightSpin 0.8s linear infinite;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1350px) {
+  .page {
+    width: calc(100% - 40px);
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      330px;
+  }
+
+  .steps {
+    padding: 0 45px;
+  }
+
+  .grid.four {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .drop-grid {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .preference-row {
+    grid-template-columns:
+      1fr 1fr;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+  .page {
+    width: calc(100% - 28px);
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      300px;
+  }
+
+  .steps {
+    padding: 0 25px;
+  }
+
+  .step {
+    font-size: 12px;
+  }
+
+  .step-line {
+    margin: 0 10px;
+
+    min-width: 20px;
+  }
+
+  .header-actions {
+    right: 18px;
+
+    gap: 10px;
+  }
+
+  .hero-title {
+    left: 270px;
+  }
+
+  .profile > div:nth-child(2) {
+    min-width: 100px;
+  }
+}
+
+/* =========================================================
+   MOBILE / TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .app {
+    min-height: 100vh;
+
+    background-attachment: scroll;
+  }
+
+  .hero {
+    height: 150px;
+  }
+
+  .hero-title {
+    left: 25px;
+
+    top: 95px;
+  }
+
+  .hero-title h1 {
+    font-size: 18px;
+  }
+
+  .brand {
+    left: 20px;
+
+    top: 18px;
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  .page {
+    margin: -25px 12px 20px;
+
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    order: 2;
+
+    position: static;
+  }
+
+  .steps {
+    overflow-x: auto;
+
+    padding: 0 15px;
+
+    justify-content: flex-start;
+
+    scrollbar-width: thin;
+  }
+
+  .step {
+    flex-shrink: 0;
+  }
+
+  .step-line {
+    min-width: 15px;
+
+    margin: 0 8px;
+  }
+
+  .grid.four {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .drop-grid {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .preference-row {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .flight-status {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .flight-status > div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .flight-status > div:nth-child(3) {
+    border-top: 1px solid #dfe7e1;
+  }
+
+  .flight-status button {
+    border-top: 1px solid #dfe7e1;
+
+    min-height: 55px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 560px) {
+  .hero {
+    height: 145px;
+  }
+
+  .brand {
+    left: 14px;
+    top: 12px;
+  }
+
+  .logo-mark {
+    width: 48px;
+    height: 45px;
+
+    font-size: 32px;
+  }
+
+  .logo-text div {
+    font-size: 22px;
+
+    line-height: 23px;
+  }
+
+  .logo-text small {
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+  }
+
+  .hero-title {
+    left: 18px;
+
+    top: 88px;
+  }
+
+  .hero-title h1 {
+    font-size: 16px;
+  }
+
+  .page {
+    width: calc(100% - 16px);
+
+    margin: -20px 8px 15px;
+  }
+
+  .booking-content {
+    padding: 18px 8px 10px;
+  }
+
+  .service-heading {
+    margin-left: 7px;
+
+    gap: 13px;
+  }
+
+  .plane-tile {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 14px;
+  }
+
+  .service-heading h2 {
+    font-size: 19px;
+  }
+
+  .service-heading p {
+    font-size: 11px;
+  }
+
+  .panel {
+    padding: 16px 12px;
+  }
+
+  .panel h3 {
+    font-size: 15px;
+  }
+
+  .grid.four,
+  .drop-grid,
+  .preference-row {
+    grid-template-columns: 1fr;
+  }
+
+  .flight-action {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .flight-get-button {
+    width: 100%;
+  }
+
+  .flight-status {
+    grid-template-columns: 1fr;
+
+    height: auto;
+  }
+
+  .flight-status > div {
+    border-right: 0;
+
+    border-bottom: 1px solid #dfe7e1;
+
+    min-height: 50px;
+  }
+
+  .flight-status > div:nth-child(2),
+  .flight-status > div:nth-child(3) {
+    border-top: 0;
+  }
+
+  .flight-status button {
+    height: 48px;
+
+    border-top: 0;
+  }
+
+  .step label {
+    display: none;
+  }
+
+  .steps {
+    justify-content: center;
+  }
+
+  .summary-row strong {
+    max-width: 160px;
+  }
+
+  .trust {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .trust-item:nth-child(2) {
+    border-right: 0;
+  }
+
+  .trust-item:nth-child(3),
+  .trust-item:nth-child(4) {
+    border-top: 1px solid #e5e8ea;
+  }
+
+  .trust-item:nth-child(4) {
+    border-right: 0;
+  }
+
+  .pref {
+    min-height: 42px;
+
+    height: auto;
+
+    padding: 8px 10px;
+  }
+}
+
+/* =========================================================
+   EXTRA SMALL DEVICES
+========================================================= */
+
+@media (max-width: 380px) {
+  .summary-body {
+    padding: 14px 12px;
+  }
+
+  .summary-row {
+    font-size: 11px;
+  }
+
+  .fare-box {
+    padding: 11px 9px;
+  }
+
+  .grand strong {
+    font-size: 16px;
+  }
+
+  .earn > strong {
+    font-size: 11px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #00732f;
+
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection {
+  background: #bde5c9;
+
+  color: #063e1e;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f3f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b9c4cc;
+
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8796a2;
 }
