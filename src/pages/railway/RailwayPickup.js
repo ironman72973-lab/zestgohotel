@@ -2,26 +2,19 @@ import React, { useState } from "react";
 import "./railway.css";
 import railwayStation from "../../images/railway.png";
 /* =========================================================
-   API
+   APIs
 ========================================================= */
 const TRAIN_API = "http://localhost/one/train.php";
-/* =========================================================
-   DEFAULT RAILWAY STATION
-========================================================= */
-const DEFAULT_STATION = {
-    name: "Visakhapatnam Junction",
-    code: "VSKP",
-    /*
-     * Replace these with the exact coordinates
-     * of your railway station if required.
-     */
-    latitude: 17.7231,
-    longitude: 83.3012,
+const OSRM_API = "https://router.project-osrm.org/route/v1/driving";
+const NOMINATIM_API = "https://nominatim.openstreetmap.org/reverse";
+
+const getTodayISO = () => {
+    const now = new Date();
+    const offset = now.getTimezoneOffset();
+    return new Date(now.getTime() - offset * 60000)
+        .toISOString()
+        .slice(0, 10);
 };
-/* =========================================================
-   ROUTING
-========================================================= */
-const RATE_PER_KM = 25.5;
 /* =========================================================
    ICON
 ========================================================= */
@@ -112,11 +105,7 @@ function Icon({ name, size = 20 }) {
     if (name === "clock") {
         return (
             <svg {...commonProps}>
-                <circle
-                    cx="12"
-                    cy="12"
-                    r="9"
-                />
+                <circle cx="12" cy="12" r="9" />
                 <path d="M12 7v5l3 2" />
             </svg>
         );
@@ -124,11 +113,7 @@ function Icon({ name, size = 20 }) {
     if (name === "user") {
         return (
             <svg {...commonProps}>
-                <circle
-                    cx="12"
-                    cy="8"
-                    r="3"
-                />
+                <circle cx="12" cy="8" r="3" />
                 <path d="M5 20c.7-3.5 3-5.3 7-5.3s6.3 1.8 7 5.3" />
             </svg>
         );
@@ -151,31 +136,19 @@ function Icon({ name, size = 20 }) {
         return (
             <svg {...commonProps}>
                 <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
-                <circle
-                    cx="12"
-                    cy="10"
-                    r="2.5"
-                />
+                <circle cx="12" cy="10" r="2.5" />
             </svg>
         );
     }
     if (name === "currentLocation") {
         return (
             <svg {...commonProps}>
-                <circle
-                    cx="12"
-                    cy="12"
-                    r="3"
-                />
-                <path d="M12 2v4" />
-                <path d="M12 18v4" />
-                <path d="M2 12h4" />
-                <path d="M18 12h4" />
-                <circle
-                    cx="12"
-                    cy="12"
-                    r="8"
-                />
+                <circle cx="12" cy="12" r="7" />
+                <circle cx="12" cy="12" r="2.5" />
+                <path d="M12 2v3" />
+                <path d="M12 19v3" />
+                <path d="M2 12h3" />
+                <path d="M19 12h3" />
             </svg>
         );
     }
@@ -193,11 +166,7 @@ function Icon({ name, size = 20 }) {
                 <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2V6Z" />
                 <path d="M4 7h16" />
                 <path d="M15 13h3" />
-                <circle
-                    cx="15"
-                    cy="13"
-                    r=".5"
-                />
+                <circle cx="15" cy="13" r=".5" />
             </svg>
         );
     }
@@ -225,11 +194,7 @@ function Icon({ name, size = 20 }) {
     if (name === "info") {
         return (
             <svg {...commonProps}>
-                <circle
-                    cx="12"
-                    cy="12"
-                    r="9"
-                />
+                <circle cx="12" cy="12" r="9" />
                 <path d="M12 11v5" />
                 <path d="M12 8h.01" />
             </svg>
@@ -256,6 +221,8 @@ function InputField({
     dropdown = false,
     type = "text",
     placeholder = "",
+    readOnly = false,
+    min,
 }) {
     return (
         <div className="rp-field">
@@ -280,10 +247,13 @@ function InputField({
                     type={type}
                     value={value}
                     onChange={(e) =>
+                        setValue &&
                         setValue(e.target.value)
                     }
                     placeholder={placeholder}
                     autoComplete="off"
+                    readOnly={readOnly}
+                    min={min}
                 />
                 {dropdown && (
                     <span className="dropdown-icon">
@@ -335,7 +305,7 @@ function Requirement({
     );
 }
 /* =========================================================
-   SUMMARY MONEY
+   SUMMARY MONEY ROW
 ========================================================= */
 function SummaryRow({
     label,
@@ -380,7 +350,7 @@ function SummaryRow({
 ========================================================= */
 function RailwayPickup() {
     /* =====================================================
-       BASIC FORM
+       BASIC DETAILS
     ===================================================== */
     const [
         pickupStation,
@@ -421,12 +391,37 @@ function RailwayPickup() {
         setPlatform,
     ] = useState("");
     /* =====================================================
-       LOCATION
+       TRAIN STATUS
+    ===================================================== */
+    const [
+        trainStatus,
+        setTrainStatus,
+    ] = useState("Waiting");
+    const [
+        lastUpdated,
+        setLastUpdated,
+    ] = useState("");
+    const [
+        trainLoading,
+        setTrainLoading,
+    ] = useState(false);
+    const [
+        trainError,
+        setTrainError,
+    ] = useState("");
+    const [
+        delayMonitoring,
+        setDelayMonitoring,
+    ] = useState(true);
+    /* =====================================================
+       DROP LOCATION
     ===================================================== */
     const [
         dropLocation,
         setDropLocation,
-    ] = useState("");
+    ] = useState(
+        "Oceanview Palace Hotel, Rushikonda"
+    );
     const [
         dropLatitude,
         setDropLatitude,
@@ -451,10 +446,6 @@ function RailwayPickup() {
         setRouteDistance,
     ] = useState(0);
     const [
-        routeDuration,
-        setRouteDuration,
-    ] = useState(0);
-    const [
         routeLoading,
         setRouteLoading,
     ] = useState(false);
@@ -463,12 +454,8 @@ function RailwayPickup() {
         setRouteError,
     ] = useState("");
     /* =====================================================
-       OTHER FORM
+       CONTACT
     ===================================================== */
-    const [
-        delayMonitoring,
-        setDelayMonitoring,
-    ] = useState(true);
     const [
         contactPerson,
         setContactPerson,
@@ -481,12 +468,13 @@ function RailwayPickup() {
     ] = useState(
         "+91 98765 43210"
     );
+    /* =====================================================
+       PASSENGERS
+    ===================================================== */
     const [
         passengers,
         setPassengers,
-    ] = useState(
-        "2 Adults, 1 Child"
-    );
+    ] = useState("2");
     const [
         luggage,
         setLuggage,
@@ -500,27 +488,6 @@ function RailwayPickup() {
         "No Assistance"
     );
     /* =====================================================
-       TRAIN STATUS
-    ===================================================== */
-    const [
-        trainStatus,
-        setTrainStatus,
-    ] = useState(
-        "Waiting"
-    );
-    const [
-        lastUpdated,
-        setLastUpdated,
-    ] = useState("");
-    const [
-        trainLoading,
-        setTrainLoading,
-    ] = useState(false);
-    const [
-        trainError,
-        setTrainError,
-    ] = useState("");
-    /* =====================================================
        REQUIREMENTS
     ===================================================== */
     const [
@@ -528,6 +495,8 @@ function RailwayPickup() {
         setRequirements,
     ] = useState({
         meetGreet: true,
+        parking: false,
+        waiting: false,
         porter: false,
         babySeat: false,
         extraLuggage: false,
@@ -537,6 +506,7 @@ function RailwayPickup() {
     /* =====================================================
        FARE SETTINGS
     ===================================================== */
+    const PER_KM_RATE = 20.5;
     const STATION_PARKING = 40;
     const DRIVER_ALLOWANCE = 50;
     const WAITING_CHARGES = 20;
@@ -545,13 +515,22 @@ function RailwayPickup() {
     const EXTRA_LUGGAGE_CHARGE = 100;
     const GST_RATE = 5;
     const COMMISSION_RATE = 10;
-    /*
-     * Meet & Greet is intentionally ₹0.
-     */
-    const MEET_GREET_CHARGE = 0;
     /* =====================================================
        ADDITIONAL CHARGES
+       Meet & Greet = ₹0
     ===================================================== */
+    const meetGreetCharge = 0;
+
+    const parkingCharge =
+        requirements.parking
+            ? STATION_PARKING
+            : 0;
+
+    const waitingCharge =
+        requirements.waiting
+            ? WAITING_CHARGES
+            : 0;
+
     const porterCharge =
         requirements.porter
             ? PORTER_CHARGE
@@ -565,21 +544,21 @@ function RailwayPickup() {
             ? EXTRA_LUGGAGE_CHARGE
             : 0;
     /* =====================================================
-       AUTOMATIC BASE FARE
-       OSRM distance × ₹25.50
+       BASE FARE FROM ROUTE DISTANCE
+       distance × ₹12.50
     ===================================================== */
     const baseFare =
         Number(routeDistance || 0) *
-        RATE_PER_KM;
+        PER_KM_RATE;
     /* =====================================================
        FARE CALCULATION
     ===================================================== */
     const fareBeforeGST =
         baseFare +
-        STATION_PARKING +
+        parkingCharge +
+        waitingCharge +
         DRIVER_ALLOWANCE +
-        WAITING_CHARGES +
-        MEET_GREET_CHARGE +
+        meetGreetCharge +
         porterCharge +
         babySeatCharge +
         extraLuggageCharge;
@@ -587,8 +566,7 @@ function RailwayPickup() {
         fareBeforeGST *
         (GST_RATE / 100);
     const subtotal =
-        fareBeforeGST +
-        gst;
+        fareBeforeGST + gst;
     const hotelCommission =
         subtotal *
         (COMMISSION_RATE / 100);
@@ -612,7 +590,7 @@ function RailwayPickup() {
         )}`;
     };
     /* =====================================================
-       TRAIN TIME
+       TRAIN TIME FORMAT
     ===================================================== */
     const formatTrainTime = (
         time
@@ -622,7 +600,9 @@ function RailwayPickup() {
         }
         const parts =
             String(time).split(":");
-        if (parts.length < 2) {
+        if (
+            parts.length < 2
+        ) {
             return time;
         }
         let hours =
@@ -651,285 +631,7 @@ function RailwayPickup() {
         )}:${minutes} ${suffix}`;
     };
     /* =====================================================
-       OSRM ROUTING
-       Hotel/current location
-       →
-       Visakhapatnam Railway Station
-       DISTANCE IS KEPT HIDDEN.
-    ===================================================== */
-    const calculateRoute =
-        async (
-            latitude,
-            longitude
-        ) => {
-            if (
-                latitude === null ||
-                longitude === null ||
-                latitude === undefined ||
-                longitude === undefined
-            ) {
-                setRouteError(
-                    "Location coordinates are not available."
-                );
-                return;
-            }
-            setRouteLoading(true);
-            setRouteError("");
-            try {
-                const fromLat =
-                    Number(latitude);
-                const fromLng =
-                    Number(longitude);
-                const toLat =
-                    Number(
-                        DEFAULT_STATION.latitude
-                    );
-                const toLng =
-                    Number(
-                        DEFAULT_STATION.longitude
-                    );
-                /*
-                 * OSRM coordinate order:
-                 *
-                 * longitude,latitude
-                 */
-                const osrmUrl =
-                    "https://router.project-osrm.org/route/v1/driving/" +
-                    `${fromLng},${fromLat};` +
-                    `${toLng},${toLat}` +
-                    "?overview=false";
-                console.log(
-                    "OSRM ROUTE:",
-                    osrmUrl
-                );
-                const response =
-                    await fetch(
-                        osrmUrl,
-                        {
-                            method: "GET",
-                            headers: {
-                                Accept:
-                                    "application/json",
-                            },
-                            cache: "no-store",
-                        }
-                    );
-                if (
-                    !response.ok
-                ) {
-                    throw new Error(
-                        `OSRM HTTP Error ${response.status}`
-                    );
-                }
-                const data =
-                    await response.json();
-                console.log(
-                    "OSRM RESPONSE:",
-                    data
-                );
-                if (
-                    data.code !== "Ok" ||
-                    !data.routes ||
-                    !data.routes.length
-                ) {
-                    throw new Error(
-                        "OSRM could not find a driving route."
-                    );
-                }
-                const route =
-                    data.routes[0];
-                /*
-                 * OSRM distance:
-                 * meters → kilometers
-                 */
-                const distanceKm =
-                    Number(
-                        route.distance
-                    ) / 1000;
-                /*
-                 * OSRM duration:
-                 * seconds → minutes
-                 */
-                const durationMinutes =
-                    Number(
-                        route.duration
-                    ) / 60;
-                if (
-                    !Number.isFinite(
-                        distanceKm
-                    ) ||
-                    distanceKm <= 0
-                ) {
-                    throw new Error(
-                        "Invalid route distance received from OSRM."
-                    );
-                }
-                /*
-                 * Distance is stored
-                 * internally only.
-                 */
-                setRouteDistance(
-                    Number(
-                        distanceKm.toFixed(2)
-                    )
-                );
-                setRouteDuration(
-                    Math.round(
-                        durationMinutes
-                    )
-                );
-            } catch (
-                error
-            ) {
-                console.error(
-                    "OSRM ROUTING ERROR:",
-                    error
-                );
-                setRouteDistance(0);
-                setRouteDuration(0);
-                setRouteError(
-                    error.message ||
-                    "Unable to calculate road distance."
-                );
-            } finally {
-                setRouteLoading(false);
-            }
-        };
-    /* =====================================================
-       CURRENT LOCATION
-       GPS
-       →
-       Reverse Geocoding
-       →
-       Address
-       →
-       OSRM
-       Everything happens automatically.
-    ===================================================== */
-    const getCurrentLocation =
-        () => {
-            if (
-                !navigator.geolocation
-            ) {
-                setLocationError(
-                    "Location is not supported by this browser."
-                );
-                return;
-            }
-            setLocationLoading(
-                true
-            );
-            setLocationError("");
-            setRouteError("");
-            navigator.geolocation.getCurrentPosition(
-                async (
-                    position
-                ) => {
-                    const latitude =
-                        position.coords.latitude;
-                    const longitude =
-                        position.coords.longitude;
-                    /*
-                     * Save coordinates
-                     */
-                    setDropLatitude(
-                        latitude
-                    );
-                    setDropLongitude(
-                        longitude
-                    );
-                    /*
-                     * Reverse geocoding
-                     *
-                     * GPS coordinates
-                     * →
-                     * readable address
-                     */
-                    try {
-                        const response =
-                            await fetch(
-                                `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`,
-                                {
-                                    headers: {
-                                        Accept:
-                                            "application/json",
-                                    },
-                                }
-                            );
-                        if (
-                            !response.ok
-                        ) {
-                            throw new Error(
-                                "Address lookup failed."
-                            );
-                        }
-                        const data =
-                            await response.json();
-                        const address =
-                            data.display_name ||
-                            `${latitude}, ${longitude}`;
-                        setDropLocation(
-                            address
-                        );
-                    } catch (
-                        error
-                    ) {
-                        console.error(
-                            "ADDRESS ERROR:",
-                            error
-                        );
-                        setDropLocation(
-                            `${latitude}, ${longitude}`
-                        );
-                    }
-                    /*
-                     * AUTOMATIC OSRM
-                     */
-                    await calculateRoute(
-                        latitude,
-                        longitude
-                    );
-                    setLocationLoading(
-                        false
-                    );
-                },
-                (
-                    error
-                ) => {
-                    console.error(
-                        "GEOLOCATION ERROR:",
-                        error
-                    );
-                    setLocationLoading(
-                        false
-                    );
-                    if (
-                        error.code === 1
-                    ) {
-                        setLocationError(
-                            "Location permission was denied."
-                        );
-                    } else if (
-                        error.code === 2
-                    ) {
-                        setLocationError(
-                            "Unable to determine your location."
-                        );
-                    } else {
-                        setLocationError(
-                            "Unable to get current location."
-                        );
-                    }
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 15000,
-                    maximumAge: 0,
-                }
-            );
-        };
-    /* =====================================================
-       TRAIN STATUS API
+       FETCH TRAIN STATUS
     ===================================================== */
     const fetchTrainStatus =
         async (
@@ -946,7 +648,8 @@ function RailwayPickup() {
                 return;
             }
             const cleanTrainNumber =
-                String(number).trim();
+                String(number)
+                    .trim();
             if (
                 !/^[0-9]+$/.test(
                     cleanTrainNumber
@@ -977,10 +680,6 @@ function RailwayPickup() {
                     `&date=${encodeURIComponent(
                         date
                     )}`;
-                console.log(
-                    "TRAIN API REQUEST:",
-                    url
-                );
                 const response =
                     await fetch(
                         url,
@@ -990,7 +689,8 @@ function RailwayPickup() {
                                 Accept:
                                     "application/json",
                             },
-                            cache: "no-store",
+                            cache:
+                                "no-store",
                         }
                     );
                 if (
@@ -1002,10 +702,6 @@ function RailwayPickup() {
                 }
                 const data =
                     await response.json();
-                console.log(
-                    "TRAIN API RESPONSE:",
-                    data
-                );
                 if (
                     !data.success
                 ) {
@@ -1019,16 +715,12 @@ function RailwayPickup() {
                     );
                     return;
                 }
-                /*
-                 * TRAIN NAME
-                 */
+                /* TRAIN NAME */
                 setTrainName(
                     data.train_name ||
                     ""
                 );
-                /*
-                 * ARRIVAL
-                 */
+                /* ARRIVAL */
                 setArrivalTime(
                     data.arrival_time
                         ? formatTrainTime(
@@ -1036,9 +728,7 @@ function RailwayPickup() {
                         )
                         : ""
                 );
-                /*
-                 * DEPARTURE
-                 */
+                /* DEPARTURE */
                 setDepartureTime(
                     data.departure_time
                         ? formatTrainTime(
@@ -1046,12 +736,12 @@ function RailwayPickup() {
                         )
                         : ""
                 );
-                /*
-                 * PLATFORM
-                 */
+                /* PLATFORM */
                 if (
-                    data.platform !== null &&
-                    data.platform !== undefined &&
+                    data.platform !==
+                        null &&
+                    data.platform !==
+                        undefined &&
                     data.platform !== ""
                 ) {
                     setPlatform(
@@ -1062,9 +752,7 @@ function RailwayPickup() {
                 } else {
                     setPlatform("");
                 }
-                /*
-                 * DELAY
-                 */
+                /* DELAY */
                 const delay =
                     Number(
                         data.delay_minutes ||
@@ -1082,9 +770,7 @@ function RailwayPickup() {
                         "On Time"
                     );
                 }
-                /*
-                 * LAST UPDATED
-                 */
+                /* LAST UPDATED */
                 if (
                     data.last_updated
                 ) {
@@ -1128,9 +814,7 @@ function RailwayPickup() {
                         )
                     );
                 }
-            } catch (
-                error
-            ) {
+            } catch (error) {
                 console.error(
                     "TRAIN API ERROR:",
                     error
@@ -1149,8 +833,6 @@ function RailwayPickup() {
         };
     /* =====================================================
        TRAIN NUMBER
-       ONLY changes input.
-       NO API REQUEST.
     ===================================================== */
     const handleTrainNumberChange =
         (event) => {
@@ -1187,7 +869,9 @@ function RailwayPickup() {
                 );
                 return;
             }
-            if (!arrivalDate) {
+            if (
+                !arrivalDate
+            ) {
                 setTrainError(
                     "Select arrival date."
                 );
@@ -1199,7 +883,7 @@ function RailwayPickup() {
             );
         };
     /* =====================================================
-       REFRESH TRAIN STATUS
+       REFRESH TRAIN
     ===================================================== */
     const refreshTrainStatus =
         () => {
@@ -1218,12 +902,196 @@ function RailwayPickup() {
             );
         };
     /* =====================================================
+       OSRM ROUTING
+       Customer / Current Location -> Visakhapatnam Junction (VSKP)
+       Since this is Railway Pickup, route starts at the
+       customer's current/drop location and ends at VSKP.
+    ===================================================== */
+    const calculateRoute =
+        async (
+            fromLat,
+            fromLng
+        ) => {
+            if (
+                fromLat == null ||
+                fromLng == null ||
+                !Number.isFinite(Number(fromLat)) ||
+                !Number.isFinite(Number(fromLng))
+            ) {
+                setRouteError(
+                    "Current location is required to calculate route distance."
+                );
+                return;
+            }
+            /* VSKP approximate coordinates */
+            const VSKP_LATITUDE = 17.72159;
+            const VSKP_LONGITUDE = 83.289514;
+            setRouteLoading(
+                true
+            );
+            setRouteError("");
+            setRouteDistance(0);
+            try {
+                const url =
+                    `${OSRM_API}/` +
+                    `${fromLng},${fromLat};` +
+                    `${VSKP_LONGITUDE},${VSKP_LATITUDE}` +
+                    `?overview=false&steps=false`;
+                const response =
+                    await fetch(
+                        url
+                    );
+                if (
+                    !response.ok
+                ) {
+                    throw new Error(
+                        `OSRM HTTP ${response.status}`
+                    );
+                }
+                const data =
+                    await response.json();
+                if (
+                    data.code !==
+                    "Ok" ||
+                    !data.routes ||
+                    !data.routes.length
+                ) {
+                    throw new Error(
+                        "No route found."
+                    );
+                }
+                const distanceMeters =
+                    data.routes[0]
+                        .distance;
+                const distanceKm =
+                    distanceMeters /
+                    1000;
+                setRouteDistance(
+                    Number(
+                        distanceKm.toFixed(
+                            2
+                        )
+                    )
+                );
+            } catch (
+                error
+            ) {
+                console.error(
+                    "OSRM ROUTING ERROR:",
+                    error
+                );
+                setRouteDistance(
+                    0
+                );
+                setRouteError(
+                    "Unable to calculate road distance."
+                );
+            } finally {
+                setRouteLoading(
+                    false
+                );
+            }
+        };
+    /* =====================================================
+       GET LOCATION + ROUTE
+    ===================================================== */
+    const getLocationAndRoute =
+        () => {
+            if (
+                !navigator.geolocation
+            ) {
+                setLocationError(
+                    "Geolocation is not supported."
+                );
+                return;
+            }
+            setLocationLoading(
+                true
+            );
+            setLocationError("");
+            navigator.geolocation.getCurrentPosition(
+                async (
+                    position
+                ) => {
+                    const latitude =
+                        position.coords.latitude;
+                    const longitude =
+                        position.coords.longitude;
+                    setDropLatitude(
+                        latitude
+                    );
+                    setDropLongitude(
+                        longitude
+                    );
+                    try {
+                        const response =
+                            await fetch(
+                                `${NOMINATIM_API}?lat=${latitude}&lon=${longitude}&format=json`,
+                                {
+                                    headers: {
+                                        Accept:
+                                            "application/json",
+                                    },
+                                }
+                            );
+                        if (
+                            !response.ok
+                        ) {
+                            throw new Error(
+                                "Address lookup failed"
+                            );
+                        }
+                        const data =
+                            await response.json();
+                        setDropLocation(
+                            data.display_name ||
+                            `${latitude.toFixed(
+                                6
+                            )}, ${longitude.toFixed(
+                                6
+                            )}`
+                        );
+                    } catch (
+                        error
+                    ) {
+                        setDropLocation(
+                            `${latitude.toFixed(
+                                6
+                            )}, ${longitude.toFixed(
+                                6
+                            )}`
+                        );
+                    }
+                    setLocationLoading(
+                        false
+                    );
+                    await calculateRoute(
+                        latitude,
+                        longitude
+                    );
+                },
+                () => {
+                    setLocationLoading(
+                        false
+                    );
+                    setLocationError(
+                        "Unable to get current location. Please allow location access."
+                    );
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 15000,
+                    maximumAge: 0,
+                }
+            );
+        };
+    /* =====================================================
        REQUIREMENT TOGGLE
     ===================================================== */
     const toggleRequirement =
         (name) => {
             setRequirements(
-                (previous) => ({
+                previous => ({
                     ...previous,
                     [name]:
                         !previous[name],
@@ -1231,82 +1099,130 @@ function RailwayPickup() {
             );
         };
     /* =====================================================
-       CLEAR
+       CLEAR ALL
     ===================================================== */
-    const clearAll =
-        () => {
-            setPickupStation(
-                "Visakhapatnam Junction (VSKP)"
-            );
-            setTrainNumber("");
-            setTrainName("");
-            setArrivalDate("");
-            setArrivalTime("");
-            setDepartureTime("");
-            setCoach("");
-            setBerth("");
-            setPlatform("");
-            setTrainStatus(
-                "Waiting"
-            );
-            setLastUpdated("");
-            setTrainLoading(
-                false
-            );
-            setTrainError("");
-            setDropLocation("");
-            setDropLatitude(
-                null
-            );
-            setDropLongitude(
-                null
-            );
-            setLocationLoading(
-                false
-            );
-            setLocationError("");
-            setRouteDistance(
-                0
-            );
-            setRouteDuration(
-                0
-            );
-            setRouteLoading(
-                false
-            );
-            setRouteError("");
-            setDelayMonitoring(
-                true
-            );
-            setContactPerson(
-                "Rohit Sharma"
-            );
-            setContactMobile(
-                "+91 98765 43210"
-            );
-            setPassengers(
-                "2 Adults, 1 Child"
-            );
-            setLuggage(
-                "2 Medium Bags, 1 Small Bag"
-            );
-            setAssistance(
-                "No Assistance"
-            );
-            setRequirements({
-                meetGreet: true,
-                porter: false,
-                babySeat: false,
-                extraLuggage: false,
-                wheelchair: false,
-                other: false,
-            });
-        };
+    const clearAll = () => {
+        setPickupStation(
+            "Visakhapatnam Junction (VSKP)"
+        );
+        setTrainNumber("");
+        setTrainName("");
+        setArrivalDate("");
+        setArrivalTime("");
+        setDepartureTime("");
+        setCoach("");
+        setBerth("");
+        setPlatform("");
+        setTrainStatus(
+            "Waiting"
+        );
+        setLastUpdated("");
+        setTrainLoading(
+            false
+        );
+        setTrainError("");
+        setDelayMonitoring(
+            true
+        );
+        setDropLocation(
+            "Oceanview Palace Hotel, Rushikonda"
+        );
+        setDropLatitude(
+            null
+        );
+        setDropLongitude(
+            null
+        );
+        setLocationLoading(
+            false
+        );
+        setLocationError("");
+        setRouteDistance(
+            0
+        );
+        setRouteLoading(
+            false
+        );
+        setRouteError("");
+        setContactPerson(
+            "Rohit Sharma"
+        );
+        setContactMobile(
+            "+91 98765 43210"
+        );
+        setPassengers("2");
+        setLuggage(
+            "2 Medium Bags, 1 Small Bag"
+        );
+        setAssistance(
+            "No Assistance"
+        );
+        setRequirements({
+            meetGreet: true,
+            parking: false,
+            waiting: false,
+            porter: false,
+            babySeat: false,
+            extraLuggage: false,
+            wheelchair: false,
+            other: false,
+        });
+    };
     /* =====================================================
-       SAVE
+       SAVE & CONTINUE
     ===================================================== */
     const handleContinue =
         () => {
+            setTrainError("");
+            setLocationError("");
+            setRouteError("");
+
+            if (!pickupStation.trim()) {
+                setTrainError("Pickup station is required.");
+                return;
+            }
+
+            if (!trainNumber.trim()) {
+                setTrainError("Enter train number.");
+                return;
+            }
+
+            if (!arrivalDate) {
+                setTrainError("Select arrival date.");
+                return;
+            }
+
+            if (!arrivalTime) {
+                setTrainError("Arrival time is required.");
+                return;
+            }
+
+            if (!dropLocation.trim()) {
+                setLocationError("Drop location is required.");
+                return;
+            }
+
+            if (!contactPerson.trim()) {
+                setLocationError("Hotel contact person is required.");
+                return;
+            }
+
+            const mobileDigits = contactMobile.replace(/\D/g, "");
+            if (mobileDigits.length < 10) {
+                setLocationError("Enter a valid contact number.");
+                return;
+            }
+
+            if (Number(passengers) <= 0 || !Number.isFinite(Number(passengers))) {
+                setLocationError("Enter a valid passenger count.");
+                return;
+            }
+
+            if (Number(routeDistance) <= 0) {
+                setRouteError("Get the current location to calculate the route distance before continuing.");
+                return;
+            }
+
             const bookingData = {
                 serviceType:
                     "Railway Pickup",
@@ -1324,17 +1240,9 @@ function RailwayPickup() {
                 dropLocation,
                 dropLatitude,
                 dropLongitude,
-                /*
-                 * Internal route data.
-                 */
-                route: {
-                    distanceKm:
-                        routeDistance,
-                    durationMinutes:
-                        routeDuration,
-                    ratePerKm:
-                        RATE_PER_KM,
-                },
+                routeDistance,
+                ratePerKm:
+                    PER_KM_RATE,
                 contactPerson,
                 contactMobile,
                 passengers,
@@ -1344,13 +1252,12 @@ function RailwayPickup() {
                 fare: {
                     baseFare,
                     stationParking:
-                        STATION_PARKING,
+                        parkingCharge,
                     driverAllowance:
                         DRIVER_ALLOWANCE,
                     waitingCharges:
-                        WAITING_CHARGES,
-                    meetGreet:
-                        MEET_GREET_CHARGE,
+                        waitingCharge,
+                    meetGreetCharge,
                     porterCharge,
                     babySeatCharge,
                     extraLuggageCharge,
@@ -1489,15 +1396,11 @@ function RailwayPickup() {
                         Back to Services
                     </button>
                 </div>
-                {/* =================================================
-                    TWO COLUMN
-                ================================================= */}
                 <div className="booking-layout">
                     {/* =================================================
                         LEFT
                     ================================================= */}
                     <div className="booking-left">
-                        {/* STEPS */}
                         <div className="steps">
                             <div className="step active">
                                 <div className="step-circle">
@@ -1547,7 +1450,6 @@ function RailwayPickup() {
                                 </span>
                             </div>
                         </div>
-                        {/* FORM */}
                         <div className="form-card">
                             {/* =================================================
                                 TRIP DETAILS
@@ -1566,14 +1468,16 @@ function RailwayPickup() {
                                     <InputField
                                         label="Pickup Station"
                                         required
-                                        value={pickupStation}
+                                        value={
+                                            pickupStation
+                                        }
                                         setValue={
                                             setPickupStation
                                         }
                                         icon="train"
                                         dropdown
                                     />
-                                    {/* TRAIN NUMBER */}
+                                    {/* TRAIN NUMBER + GET */}
                                     <div className="rp-field">
                                         <label>
                                             Train Number
@@ -1624,7 +1528,9 @@ function RailwayPickup() {
                                     )}
                                     <InputField
                                         label="Train Name"
-                                        value={trainName}
+                                        value={
+                                            trainName
+                                        }
                                         setValue={
                                             setTrainName
                                         }
@@ -1633,17 +1539,22 @@ function RailwayPickup() {
                                     <InputField
                                         label="Arrival Date"
                                         required
-                                        value={arrivalDate}
+                                        value={
+                                            arrivalDate
+                                        }
                                         setValue={
                                             setArrivalDate
                                         }
                                         icon="calendar"
                                         type="date"
+                                        min={getTodayISO()}
                                     />
                                     <InputField
                                         label="Arrival Time"
                                         required
-                                        value={arrivalTime}
+                                        value={
+                                            arrivalTime
+                                        }
                                         setValue={
                                             setArrivalTime
                                         }
@@ -1652,7 +1563,9 @@ function RailwayPickup() {
                                     />
                                     <InputField
                                         label="Departure Time"
-                                        value={departureTime}
+                                        value={
+                                            departureTime
+                                        }
                                         setValue={
                                             setDepartureTime
                                         }
@@ -1661,7 +1574,9 @@ function RailwayPickup() {
                                     />
                                     <InputField
                                         label="Coach Number"
-                                        value={coach}
+                                        value={
+                                            coach
+                                        }
                                         setValue={
                                             setCoach
                                         }
@@ -1669,7 +1584,9 @@ function RailwayPickup() {
                                     />
                                     <InputField
                                         label="Berth / Seat Number"
-                                        value={berth}
+                                        value={
+                                            berth
+                                        }
                                         setValue={
                                             setBerth
                                         }
@@ -1677,7 +1594,9 @@ function RailwayPickup() {
                                     />
                                     <InputField
                                         label="Platform Number"
-                                        value={platform}
+                                        value={
+                                            platform
+                                        }
                                         setValue={
                                             setPlatform
                                         }
@@ -1717,82 +1636,88 @@ function RailwayPickup() {
                                 <h2 className="sub-heading">
                                     Drop Location
                                 </h2>
-                                <div className="drop-fields">
-                                    <div className="location-field-wrapper">
-                                        <div className="location-input-row">
-                                            <div className="location-input-main">
-                                                <InputField
-                                                    label="Drop Location"
-                                                    required
-                                                    value={dropLocation}
-                                                    setValue={
-                                                        setDropLocation
-                                                    }
-                                                    icon="location"
-                                                    placeholder="Hotel / destination address"
-                                                />
-                                            </div>
-                                            <button
-                                                type="button"
-                                                className="current-location-button"
-                                                onClick={
-                                                    getCurrentLocation
-                                                }
-                                                disabled={
-                                                    locationLoading
-                                                }
-                                            >
-                                                <Icon
-                                                    name="currentLocation"
-                                                    size={17}
-                                                />
-                                                {locationLoading
-                                                    ? "Locating..."
-                                                    : "Current Location"}
-                                            </button>
-                                        </div>
-                                        {locationError && (
-                                            <div className="location-error">
-                                                {locationError}
-                                            </div>
-                                        )}
-                                        {routeLoading && (
-                                            <div className="route-loading">
-                                                Calculating road route automatically...
-                                            </div>
-                                        )}
-                                        {routeError && (
-                                            <div className="route-error">
-                                                {routeError}
-                                            </div>
-                                        )}
-                                        {/* =================================================
-                                            HIDDEN ROUTE INFORMATION
-                                        ================================================= */}
-                                        <span
-                                            className="hidden-route-distance"
-                                            aria-hidden="true"
-                                        >
-                                            {routeDistance}
-                                        </span>
-                                        <span
-                                            className="hidden-route-duration"
-                                            aria-hidden="true"
-                                        >
-                                            {routeDuration}
-                                        </span>
+                                <div className="drop-location-row">
+                                    <div className="drop-location-input">
+                                        <InputField
+                                            label="Drop Location"
+                                            required
+                                            value={
+                                                dropLocation
+                                            }
+                                            setValue={
+                                                setDropLocation
+                                            }
+                                            icon="location"
+                                        />
                                     </div>
+                                    <button
+                                        type="button"
+                                        className="current-location-button"
+                                        onClick={
+                                            getLocationAndRoute
+                                        }
+                                        disabled={
+                                            locationLoading ||
+                                            routeLoading
+                                        }
+                                    >
+                                        <Icon
+                                            name="currentLocation"
+                                            size={17}
+                                        />
+                                        {locationLoading
+                                            ? "Locating..."
+                                            : routeLoading
+                                            ? "Routing..."
+                                            : "Current Location"}
+                                    </button>
+                                </div>
+                                {locationError && (
+                                    <div className="location-error">
+                                        {locationError}
+                                    </div>
+                                )}
+                                {routeError && (
+                                    <div className="route-error">
+                                        {routeError}
+                                    </div>
+                                )}
+                                {/* ROUTE DISTANCE - SINGLE SOURCE OF TRUTH */}
+                                <div className="route-distance-display">
+                                    <span>
+                                        Road Distance to VSKP
+                                    </span>
+                                    <strong>
+                                        {routeLoading
+                                            ? "Calculating..."
+                                            : routeDistance > 0
+                                            ? `${routeDistance.toFixed(2)} km`
+                                            : "Not calculated"}
+                                    </strong>
+                                </div>
+
+                                <span
+                                    className="hidden-route-distance"
+                                    data-distance={routeDistance}
+                                >
+                                    {routeDistance}
+                                </span>
+                                <div className="drop-fields">
                                     <InputField
                                         label="Hotel Contact Person"
                                         required
-                                        value={contactPerson}
+                                        value={
+                                            contactPerson
+                                        }
                                         setValue={
                                             setContactPerson
                                         }
                                     />
                                     <InputField
                                         label="Contact Number"
-                                        value={contactMobile}
+                                        value={
+                                            contactMobile
+                                        }
                                         setValue={
                                             setContactMobile
                                         }
@@ -1810,15 +1735,21 @@ function RailwayPickup() {
                                     <InputField
                                         label="No. of Passengers"
                                         required
-                                        value={passengers}
+                                        value={
+                                            passengers
+                                        }
                                         setValue={
                                             setPassengers
                                         }
                                         icon="user"
+                                        type="number"
+                                        placeholder="Enter passenger count"
                                     />
                                     <InputField
                                         label="Luggage Count"
-                                        value={luggage}
+                                        value={
+                                            luggage
+                                        }
                                         setValue={
                                             setLuggage
                                         }
@@ -1826,7 +1757,9 @@ function RailwayPickup() {
                                     />
                                     <InputField
                                         label="Special Assistance"
-                                        value={assistance}
+                                        value={
+                                            assistance
+                                        }
                                         setValue={
                                             setAssistance
                                         }
@@ -1845,6 +1778,26 @@ function RailwayPickup() {
                                     <Requirement
                                         name="meetGreet"
                                         label="Meet & Greet"
+                                        requirements={
+                                            requirements
+                                        }
+                                        toggleRequirement={
+                                            toggleRequirement
+                                        }
+                                    />
+                                    <Requirement
+                                        name="parking"
+                                        label="Station Parking"
+                                        requirements={
+                                            requirements
+                                        }
+                                        toggleRequirement={
+                                            toggleRequirement
+                                        }
+                                    />
+                                    <Requirement
+                                        name="waiting"
+                                        label="Waiting Charges (30 mins)"
                                         requirements={
                                             requirements
                                         }
@@ -1941,9 +1894,7 @@ function RailwayPickup() {
                         RIGHT SUMMARY
                     ================================================= */}
                     <aside className="right-summary">
-                        {/* =================================================
-                            TRAIN STATUS
-                        ================================================= */}
+                        {/* TRAIN STATUS */}
                         <div className="summary-card">
                             <div className="summary-header">
                                 <h3>
@@ -2044,7 +1995,7 @@ function RailwayPickup() {
                             </div>
                         </div>
                         {/* =================================================
-                            FARE
+                            FARE SUMMARY
                         ================================================= */}
                         <div className="summary-card">
                             <h3 className="fare-title">
@@ -2054,29 +2005,33 @@ function RailwayPickup() {
                                 </span>
                             </h3>
                             <SummaryRow
-                                label={`Base Fare (${routeDistance > 0 ? "Route" : "Waiting"})`}
+                                label="Route Fare"
                                 value={
                                     baseFare
                                 }
                             />
-                            <SummaryRow
-                                label="Station Parking"
-                                value={
-                                    STATION_PARKING
-                                }
-                            />
+                            {parkingCharge > 0 && (
+                                <SummaryRow
+                                    label="Station Parking"
+                                    value={
+                                        parkingCharge
+                                    }
+                                />
+                            )}
                             <SummaryRow
                                 label="Driver Allowance"
                                 value={
                                     DRIVER_ALLOWANCE
                                 }
                             />
-                            <SummaryRow
-                                label="Waiting Charges (30 mins)"
-                                value={
-                                    WAITING_CHARGES
-                                }
-                            />
+                            {waitingCharge > 0 && (
+                                <SummaryRow
+                                    label="Waiting Charges (30 mins)"
+                                    value={
+                                        waitingCharge
+                                    }
+                                />
+                            )}
                             {porterCharge > 0 && (
                                 <SummaryRow
                                     label="Porter Service"
@@ -2102,24 +2057,23 @@ function RailwayPickup() {
                                 />
                             )}
                             <SummaryRow
-                                label="Meet & Greet"
-                                value={
-                                    0
-                                }
-                            />
-                            <SummaryRow
                                 label="GST (5%)"
                                 value={
                                     gst
                                 }
                             />
                             <div className="fare-divider" />
-                            <SummaryRow
-                                label="Subtotal"
-                                value={
-                                    subtotal
-                                }
-                            />
+                            {/* SUBTOTAL */}
+                            <div className="summary-row subtotal">
+                                <span>
+                                    Subtotal
+                                </span>
+                                <strong>
+                                    {formatMoney(
+                                        subtotal
+                                    )}
+                                </strong>
+                            </div>
                             <SummaryRow
                                 label="Hotel Commission (10%)"
                                 value={
@@ -2177,13 +2131,12 @@ function RailwayPickup() {
                                 </strong>
                             </div>
                             <p>
-                                Driver will wait for
-                                30 minutes from the
-                                train arrival time at
-                                no extra cost.
-                                Additional waiting
-                                time will be charged
-                                as per policy.
+                                Waiting charges apply only when
+                                "Waiting Charges (30 mins)" is
+                                selected under Additional
+                                Requirements. Additional waiting
+                                time will be charged as per
+                                policy.
                             </p>
                         </div>
                     </aside>
