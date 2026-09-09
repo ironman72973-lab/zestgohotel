@@ -1,0 +1,1668 @@
+
+* {
+    box-sizing: border-box;
+}
+
+.registration-page,
+.registration-page * {
+    box-sizing: border-box;
+}
+
+.registration-page {
+    min-height: 100vh;
+    width: 100%;
+
+    position: relative;
+
+    padding: 32px 20px;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    font-family:
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    color: #26352b;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND OVERLAY
+   ========================================================= */
+
+.overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 0;
+
+    background:rgba(0, 0, 0, 0.50);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   MAIN WRAPPER
+   ========================================================= */
+
+.registration-wrapper {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    max-width: 1080px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.registration-header {
+    width: 100%;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    margin-bottom: 18px;
+}
+
+
+.registration-logo {
+    display: block;
+
+    width: 145px;
+    max-width: 45%;
+
+    height: auto;
+
+    margin: 0 auto 9px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 5px 12px rgba(0, 0, 0, 0.30)
+        );
+}
+
+
+.registration-header h1 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 29px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    letter-spacing: -0.4px;
+
+    text-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.25);
+}
+
+
+.registration-header p {
+    margin: 5px 0 0;
+
+    color:
+        rgba(255, 255, 255, 0.92);
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    font-weight: 500;
+
+    letter-spacing: 0.1px;
+}
+
+
+/* =========================================================
+   REGISTRATION CARD
+   ========================================================= */
+
+.registration-card {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 23px 26px 20px;
+
+    background:
+        rgba(255, 255, 255, 0.975);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.80);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 28px 70px rgba(0, 0, 0, 0.28),
+        0 8px 25px rgba(0, 0, 0, 0.10);
+
+    backdrop-filter: blur(16px);
+
+    -webkit-backdrop-filter: blur(16px);
+
+    animation:
+        registrationCardIn
+        0.55s
+        ease
+        both;
+}
+
+
+@keyframes registrationCardIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   FORM SECTIONS
+   ========================================================= */
+
+.form-section {
+    width: 100%;
+
+    margin: 0 0 10px !important;
+
+    padding: 0 !important;
+}
+
+
+.form-section:last-of-type {
+    margin-bottom: 7px !important;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+.form-section-title {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 3px 0 9px;
+
+    padding: 8px 12px;
+
+    color: #176b31;
+
+    background:
+        linear-gradient(
+            100deg,
+            rgba(27, 143, 62, 0.10),
+            rgba(255, 140, 0, 0.075)
+        );
+
+    border-left:
+        4px solid #1B8F3E;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    line-height: 17px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.1px;
+}
+
+
+.form-section-title svg {
+    flex-shrink: 0;
+
+    color: #FF8C00;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   FORM ROW
+   COMPACT — NO VERTICAL ROW GAPS
+   ========================================================= */
+
+.form-row {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    column-gap: 16px;
+
+    row-gap: 0 !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+}
+
+
+/* =========================================================
+   FORM COLUMNS
+   ========================================================= */
+
+.form-col {
+    width: 100%;
+
+    min-width: 0;
+
+    margin: 0 !important;
+
+    padding:
+        0 0 8px !important;
+}
+
+
+.form-col-full {
+    width: 100%;
+
+    min-width: 0;
+
+    grid-column: 1 / -1;
+
+    margin: 0 !important;
+
+    padding:
+        0 0 8px !important;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.form-col label,
+.form-col-full label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    width: 100%;
+
+    margin:
+        0 0 4px !important;
+
+    padding: 0;
+
+    color: #34453a;
+
+    font-size: 11.5px;
+
+    line-height: 16px;
+
+    font-weight: 700;
+}
+
+
+.optional {
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 1px 5px;
+
+    border-radius: 10px;
+
+    background:
+        #f2f5f3;
+
+    color:
+        #87928b;
+
+    font-size: 8.5px;
+
+    line-height: 13px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ICON INPUT CONTAINER
+   ========================================================= */
+
+.icon-input {
+    position: relative;
+
+    width: 100%;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   FIELD ICON
+   ========================================================= */
+
+.field-icon {
+    position: absolute;
+
+    left: 12px;
+
+    top: 50%;
+
+    z-index: 3;
+
+    width: 14px;
+
+    height: 14px;
+
+    color: #1B8F3E;
+
+    font-size: 13px;
+
+    transform:
+        translateY(-50%);
+
+    pointer-events: none;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* =========================================================
+   WHATSAPP ICON
+   ========================================================= */
+
+.whatsapp-icon {
+    color: #1B8F3E;
+}
+
+
+/* =========================================================
+   INPUT / SELECT
+   ========================================================= */
+
+.icon-input .form-control {
+    position: relative;
+
+    width: 100%;
+
+    height: 38px;
+
+    min-height: 38px;
+
+    margin: 0 !important;
+
+    padding:
+        7px 12px 7px 36px;
+
+    border:
+        1px solid #d8e2db;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background:
+        #ffffff;
+
+    color: #26352b;
+
+    font-family:
+        inherit;
+
+    font-size: 12.5px;
+
+    line-height: 22px;
+
+    font-weight: 500;
+
+    box-shadow:
+        0 1px 2px
+        rgba(20, 50, 30, 0.025);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+.icon-input .form-control::placeholder {
+    color: #a2aaa5;
+
+    opacity: 1;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.icon-input:hover .form-control {
+    border-color:
+        #a9c8b2;
+
+    background:
+        #fcfffd;
+}
+
+
+.icon-input:hover .field-icon {
+    color:
+        #FF8C00;
+}
+
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+
+.icon-input:focus-within .form-control {
+    border-color:
+        #1B8F3E;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(27, 143, 62, 0.09),
+        0 4px 12px
+        rgba(27, 143, 62, 0.08);
+
+    transform:
+        translateY(-1px);
+}
+
+
+.icon-input:focus-within .field-icon {
+    color:
+        #FF8C00;
+
+    transform:
+        translateY(-50%)
+        scale(1.08);
+}
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+.icon-input select.form-control {
+    cursor: pointer;
+
+    appearance: auto;
+
+    padding-right: 30px;
+}
+
+
+/* =========================================================
+   READ ONLY
+   ========================================================= */
+
+.icon-input .form-control[readonly] {
+    background:
+        linear-gradient(
+            90deg,
+            #f4f8f5,
+            #fffaf3
+        );
+
+    border-color:
+        #d8e4db;
+
+    color:
+        #54705c;
+
+    font-weight: 700;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   PASSWORD EYE BUTTON
+   ========================================================= */
+
+.icon-input .password-eye {
+    position: absolute;
+
+    right: 5px;
+
+    top: 50%;
+
+    z-index: 5;
+
+    width: 30px;
+
+    height: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 0;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 6px;
+
+    outline: none;
+
+    background:
+        transparent;
+
+    color:
+        #829088;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transform:
+        translateY(-50%);
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.icon-input .password-eye:hover {
+    color:
+        #1B8F3E;
+
+    background:
+        rgba(27, 143, 62, 0.08);
+
+    transform:
+        translateY(-50%)
+        scale(1.04);
+}
+
+
+/* =========================================================
+   PASSWORD FIELD RIGHT SPACE
+   ========================================================= */
+
+.icon-input:has(.password-eye) .form-control {
+    padding-right: 42px;
+}
+
+
+/* =========================================================
+   GPS AREA
+   ========================================================= */
+
+.location-action {
+    width: 100%;
+
+    min-height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 14px;
+
+    margin:
+        0 0 9px;
+
+    padding:
+        10px 12px;
+
+    border:
+        1px solid
+        rgba(27, 143, 62, 0.16);
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            105deg,
+            rgba(27, 143, 62, 0.07),
+            rgba(255, 140, 0, 0.065)
+        );
+}
+
+
+/* =========================================================
+   LOCATION INFORMATION
+   ========================================================= */
+
+.location-info {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.location-info > svg {
+    flex-shrink: 0;
+
+    width: 19px;
+
+    height: 19px;
+
+    color:
+        #FF8C00;
+
+    font-size: 18px;
+}
+
+
+.location-info strong {
+    display: block;
+
+    margin: 0;
+
+    color:
+        #285b38;
+
+    font-size: 11.5px;
+
+    line-height: 16px;
+
+    font-weight: 800;
+}
+
+
+.location-info span {
+    display: block;
+
+    margin-top: 1px;
+
+    color:
+        #7b8780;
+
+    font-size: 9.5px;
+
+    line-height: 14px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   LOCATION BUTTON
+   ========================================================= */
+
+.location-btn {
+    flex-shrink: 0;
+
+    min-width: 178px;
+
+    height: 37px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    padding:
+        0 15px;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1B8F3E,
+            #28a950
+        );
+
+    color:
+        #ffffff;
+
+    font-family:
+        inherit;
+
+    font-size: 11px;
+
+    line-height: 1;
+
+    font-weight: 750;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 14px
+        rgba(27, 143, 62, 0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+.location-btn svg {
+    font-size: 13px;
+}
+
+
+.location-btn:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 19px
+        rgba(27, 143, 62, 0.29);
+
+    filter:
+        brightness(1.04);
+}
+
+
+.location-btn:active {
+    transform:
+        translateY(0);
+}
+
+
+.location-btn:disabled {
+    opacity: 0.68;
+
+    cursor: wait;
+
+    transform: none;
+
+    box-shadow:
+        none;
+}
+
+
+/* =========================================================
+   LOCATION MESSAGE
+   ========================================================= */
+
+.location-message {
+    width: 100%;
+
+    margin:
+        0 0 8px;
+
+    padding:
+        7px 10px;
+
+    border-left:
+        3px solid #1B8F3E;
+
+    border-radius: 6px;
+
+    background:
+        #f1faf4;
+
+    color:
+        #28713d;
+
+    font-size: 10px;
+
+    line-height: 15px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   GPS FIELDS BOX
+   ========================================================= */
+
+.gps-fields {
+    width: 100%;
+
+    margin: 0;
+
+    padding:
+        9px 10px 1px;
+
+    border:
+        1px solid #edf1ee;
+
+    border-radius: 10px;
+
+    background:
+        #fafcfb;
+}
+
+
+/* =========================================================
+   TERMS BOX
+   ========================================================= */
+
+.terms-box {
+    width: 100%;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 9px;
+
+    margin:
+        3px 0 12px;
+
+    padding:
+        10px 12px;
+
+    border:
+        1px solid #e1e8e3;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            105deg,
+            #f8fcf9,
+            #fffaf4
+        );
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.terms-box:hover {
+    border-color:
+        #c9dace;
+
+    box-shadow:
+        0 3px 10px
+        rgba(27, 143, 62, 0.05);
+}
+
+
+.terms-box input[type="checkbox"] {
+    flex-shrink: 0;
+
+    width: 16px;
+
+    height: 16px;
+
+    margin:
+        1px 0 0;
+
+    padding: 0;
+
+    accent-color:
+        #1B8F3E;
+
+    cursor: pointer;
+}
+
+
+.terms-box label {
+    display: block;
+
+    margin: 0 !important;
+
+    padding: 0;
+
+    color:
+        #69756e;
+
+    font-size: 10.5px;
+
+    line-height: 16px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+
+.terms-box label strong {
+    color:
+        #1B8F3E;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   REGISTER BUTTON
+   ========================================================= */
+
+.register-btn {
+    width: 100%;
+
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin: 0;
+
+    padding: 0 18px;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1B8F3E 0%,
+            #239b46 50%,
+            #FF8C00 100%
+        );
+
+    color:
+        #ffffff;
+
+    font-family:
+        inherit;
+
+    font-size: 13px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    letter-spacing: 0.1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px
+        rgba(27, 143, 62, 0.23);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+.register-btn svg {
+    font-size: 13px;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.register-btn:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 26px
+        rgba(27, 143, 62, 0.30);
+
+    filter:
+        brightness(1.04);
+}
+
+
+.register-btn:hover svg {
+    transform:
+        translateX(4px);
+}
+
+
+.register-btn:active {
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   SECURITY BOX
+   ========================================================= */
+
+.security-box {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin:
+        10px 0 7px;
+
+    color:
+        #77827b;
+
+    font-size: 9.5px;
+
+    line-height: 14px;
+
+    font-weight: 600;
+}
+
+
+.security-box svg {
+    flex-shrink: 0;
+
+    color:
+        #1B8F3E;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   LOGIN LINK
+   ========================================================= */
+
+.login-link {
+    width: 100%;
+
+    margin:
+        5px 0 0;
+
+    padding: 0;
+
+    text-align: center;
+
+    color:
+        #77817b;
+
+    font-size: 10.5px;
+
+    line-height: 16px;
+
+    font-weight: 500;
+}
+
+
+.login-link a {
+    color:
+        #1B8F3E;
+
+    font-weight: 800;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease;
+}
+
+
+.login-link a:hover {
+    color:
+        #FF8C00;
+
+    text-decoration:
+        underline;
+}
+
+
+/* =========================================================
+   COPYRIGHT
+   ========================================================= */
+
+.copyright {
+    width: 100%;
+
+    margin:
+        11px 0 0;
+
+    text-align: center;
+
+    color:
+        rgba(255, 255, 255, 0.86);
+
+    font-size: 9.5px;
+
+    line-height: 14px;
+
+    font-weight: 500;
+
+    text-shadow:
+        0 1px 5px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   INPUT VALIDATION
+   ========================================================= */
+
+.icon-input .form-control:required:invalid:not(:placeholder-shown) {
+    border-color:
+        #dfa0a0;
+}
+
+
+.icon-input .form-control:required:valid:not([readonly]) {
+    border-color:
+        #b8d8c1;
+}
+
+
+/* =========================================================
+   DISABLED
+   ========================================================= */
+
+.form-control:disabled {
+    background:
+        #f4f6f5;
+
+    cursor:
+        not-allowed;
+
+    opacity:
+        0.7;
+}
+
+
+/* =========================================================
+   SELECTION
+   ========================================================= */
+
+.registration-page ::selection {
+    background:
+        rgba(27, 143, 62, 0.20);
+
+    color:
+        #176b31;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.registration-page::-webkit-scrollbar {
+    width: 7px;
+}
+
+
+.registration-page::-webkit-scrollbar-track {
+    background:
+        rgba(255, 255, 255, 0.12);
+}
+
+
+.registration-page::-webkit-scrollbar-thumb {
+    background:
+        rgba(27, 143, 62, 0.68);
+
+    border-radius: 10px;
+}
+
+
+.registration-page::-webkit-scrollbar-thumb:hover {
+    background:
+        rgba(27, 143, 62, 0.85);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .registration-page {
+        padding:
+            25px 15px;
+
+        background-attachment:
+            scroll;
+    }
+
+
+    .registration-card {
+        padding:
+            21px 20px 18px;
+
+        border-radius:
+            17px;
+    }
+
+
+    .registration-header h1 {
+        font-size:
+            26px;
+    }
+
+
+    .form-row {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        column-gap:
+            12px;
+    }
+
+
+    .location-action {
+        align-items:
+            stretch;
+    }
+
+
+    .location-info {
+        flex: 1;
+    }
+
+
+    .location-btn {
+        min-width:
+            170px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .registration-page {
+        padding:
+            18px 10px;
+    }
+
+
+    .registration-wrapper {
+        max-width:
+            100%;
+    }
+
+
+    .registration-header {
+        margin-bottom:
+            13px;
+    }
+
+
+    .registration-logo {
+        width:
+            125px;
+    }
+
+
+    .registration-header h1 {
+        font-size:
+            22px;
+
+        letter-spacing:
+            -0.2px;
+    }
+
+
+    .registration-header p {
+        font-size:
+            11.5px;
+    }
+
+
+    .registration-card {
+        padding:
+            17px 14px;
+
+        border-radius:
+            15px;
+    }
+
+
+    .form-row {
+        grid-template-columns:
+            1fr;
+
+        column-gap:
+            0;
+
+        row-gap:
+            0 !important;
+    }
+
+
+    .form-col,
+    .form-col-full {
+        grid-column:
+            auto;
+
+        padding-left:
+            0 !important;
+
+        padding-right:
+            0 !important;
+    }
+
+
+    .location-action {
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+        gap:
+            9px;
+    }
+
+
+    .location-info {
+        width:
+            100%;
+    }
+
+
+    .location-btn {
+        width:
+            100%;
+
+        min-width:
+            100%;
+    }
+
+
+    .form-section-title {
+        margin-bottom:
+            8px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .registration-page {
+        padding:
+            14px 8px;
+    }
+
+
+    .registration-logo {
+        width:
+            115px;
+
+        margin-bottom:
+            7px;
+    }
+
+
+    .registration-header h1 {
+        font-size:
+            20px;
+    }
+
+
+    .registration-header p {
+        font-size:
+            10.5px;
+    }
+
+
+    .registration-card {
+        padding:
+            15px 11px;
+
+        border-radius:
+            13px;
+    }
+
+
+    .form-section {
+        margin-bottom:
+            8px !important;
+    }
+
+
+    .form-section-title {
+        padding:
+            7px 9px;
+
+        font-size:
+            12px;
+
+        border-left-width:
+            3px;
+    }
+
+
+    .form-col,
+    .form-col-full {
+        padding-bottom:
+            7px !important;
+    }
+
+
+    .form-col label,
+    .form-col-full label {
+        font-size:
+            10.5px;
+
+        margin-bottom:
+            3px !important;
+    }
+
+
+    .icon-input,
+    .icon-input .form-control {
+        height:
+            37px;
+
+        min-height:
+            37px;
+    }
+
+
+    .icon-input .form-control {
+        padding-left:
+            34px;
+
+        font-size:
+            12px;
+    }
+
+
+    .field-icon {
+        left:
+            11px;
+
+        font-size:
+            12px;
+    }
+
+
+    .location-info strong {
+        font-size:
+            10.5px;
+    }
+
+
+    .location-info span {
+        font-size:
+            9px;
+    }
+
+
+    .terms-box {
+        padding:
+            9px;
+
+        margin-bottom:
+            10px;
+    }
+
+
+    .terms-box label {
+        font-size:
+            9.5px;
+
+        line-height:
+            15px;
+    }
+
+
+    .register-btn {
+        height:
+            43px;
+
+        font-size:
+            12px;
+    }
+
+
+    .security-box {
+        font-size:
+            9px;
+    }
+
+
+    .login-link {
+        font-size:
+            9.5px;
+    }
+
+
+    .copyright {
+        font-size:
+            9px;
+    }
+}
+
+
+/* =========================================================
+   EXTRA SMALL DEVICES
+   ========================================================= */
+
+@media (max-width: 350px) {
+
+    .registration-page {
+        padding:
+            10px 6px;
+    }
+
+
+    .registration-card {
+        padding:
+            13px 9px;
+    }
+
+
+    .registration-header h1 {
+        font-size:
+            18px;
+    }
+
+
+    .form-section-title {
+        font-size:
+            11px;
+    }
+
+
+    .icon-input .form-control {
+        font-size:
+            11px;
+
+        padding-left:
+            32px;
+    }
+
+
+    .field-icon {
+        left:
+            10px;
+
+        font-size:
+            11px;
+    }
+
+
+    .register-btn {
+        font-size:
+            11px;
+    }
+}
+

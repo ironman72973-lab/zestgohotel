@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
+import Registration from "./pages/auth/Register";
 
 // Dashboard
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -97,6 +98,7 @@ function RoutePage() {
                 <Route path="/" element={<Login />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/register" element={<Registration />} />
 
                 {/* Dashboard */}
                 <Route path="/dashboard" element={<Dashboard />} />
