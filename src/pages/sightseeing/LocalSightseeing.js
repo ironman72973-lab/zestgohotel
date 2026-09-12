@@ -1,203 +1,310 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Menu,
-  HelpCircle,
-  Bell,
-  ChevronDown,
   ChevronRight,
-  ChevronLeft,
+  ChevronDown,
+  Bell,
+  CircleHelp,
   CalendarDays,
-  Users,
-  Bookmark,
-  ArrowRight,
-  ShieldCheck,
-  CircleDollarSign,
-  Building2,
-  Headphones,
-  MapPin,
   Clock3,
+  MapPin,
+  Users,
+  Info,
   Check,
-  Info
+  ArrowRight,
+  Bookmark,
+  Headphones,
+  BadgeCheck,
+  Building2,
+  WalletCards,
+  LockKeyhole,
+  CircleArrowRight,
 } from "lucide-react";
 import "./ls.css";
-import vizagHero from "../../images/hotel.png";
-import vizagCity from "../../images/hotel.png";
-import arakuValley from "../../images/hotel.png";
-import simhachalam from "../../images/hotel.png";
-import borraCaves from "../../images/hotel.png";
-import manager from "../../images/hotel.png";
+/* =========================================================
+   IMAGE IMPORTS
+========================================================= */
+import backgroundImage from "../../images/hotel1.png";
+import heroVizag from "../../images/hotel1.png";
+import vizagTour from "../../images/hotel1.png";
+import arakuTour from "../../images/hotel1.png";
+import simhachalam from "../../images/hotel1.png";
+import borraCaves from "../../images/hotel1.png";
+import profileImage from "../../images/hotel1.png";
 /* =========================================================
    PACKAGE DATA
 ========================================================= */
 const packages = [
   {
     id: 1,
-    title: "Vizag City Tour",
-    image: vizagCity,
-    duration: "8 Hours",
-    distance: "90 KM",
+    name: "Vizag City Tour",
+    hours: "8 Hours",
+    distance: "60 KM",
     description:
-      "Explore the best of Visakhapatnam city attractions.",
-    price: 2499
+      "Explore the best of Visakhapatnam attractions.",
+    price: "₹ 3,499",
+    priceValue: 3499,
+    people: "Up to 4 People",
+    image: vizagTour,
   },
   {
     id: 2,
-    title: "Araku Valley Tour",
-    image: arakuValley,
-    duration: "10 Hours",
+    name: "Araku Valley Tour",
+    hours: "1 day",
     distance: "220 KM",
     description:
       "Scenic beauty, waterfalls, coffee plantations & tribal culture.",
-    price: 4499
+    price: "₹ 4,499",
+    priceValue: 4499,
+    people: "Up to 4 People",
+    image: arakuTour,
   },
   {
     id: 3,
-    title: "Simhachalam & Rushikonda",
-    image: simhachalam,
-    duration: "6 Hours",
+    name: "Simhachalam & Rushikonda",
+    hours: "6 Hours",
     distance: "70 KM",
     description:
       "Visit Simhachalam Temple and Rushikonda Beach.",
-    price: 1999
+    price: "₹ 1,999",
+    priceValue: 1999,
+    people: "Up to 4 People",
+    image: simhachalam,
   },
   {
     id: 4,
-    title: "Borra Caves & Ananthagiri",
-    image: borraCaves,
-    duration: "9 Hours",
+    name: "Borra Caves & Ananthagiri",
+    hours: "9 Hours",
     distance: "160 KM",
     description:
       "Borra Caves, Ananthagiri Hills and Duduma Waterfalls.",
-    price: 3499
-  }
+    price: "₹ 3,499",
+    priceValue: 3499,
+    people: "Up to 4 People",
+    image: borraCaves,
+  },
 ];
-/* =========================================================
-   MONEY FORMAT
-========================================================= */
-function money(value) {
-  return `₹ ${Number(value).toLocaleString("en-IN", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  })}`;
-}
-/* =========================================================
-   SUMMARY ROW
-========================================================= */
-function SummaryRow({ label, value }) {
-  return (
-    <div className="summary-row">
-      <span>{label}</span>
-      <strong>{value}</strong>
-    </div>
-  );
-}
-/* =========================================================
-   PRICE ROW
-========================================================= */
-function PriceRow({ label, value, commission = false }) {
-  return (
-    <div
-      className={`price-row ${
-        commission ? "commission-row" : ""
-      }`}
-    >
-      <span>{label}</span>
-      <strong>{value}</strong>
-    </div>
-  );
-}
 /* =========================================================
    MAIN COMPONENT
 ========================================================= */
 export default function LocalSightseeing() {
-  const [selectedPackage, setSelectedPackage] = useState(
-    packages[0]
-  );
+  const navigate = useNavigate();
   /* =======================================================
-     CALCULATIONS
+     STATES
   ======================================================= */
-  const pricing = useMemo(() => {
-    const packageFare = Number(selectedPackage.price);
-    const extraHour = 0;
-    const extraKm = 0;
-    const gst = packageFare * 0.05;
-    const subtotal =
+  const [selectedPackage, setSelectedPackage] = useState(1);
+  const [pickupDate, setPickupDate] =
+    useState("25 May 2025");
+  const [pickupTime, setPickupTime] =
+    useState("09:00 AM");
+  const [pickupLocation, setPickupLocation] =
+    useState("Oceanview Palace Hotel");
+  const [passengers, setPassengers] =
+    useState("2 Adults, 1 Child");
+  const [duration, setDuration] =
+    useState("8 Hours (Approx.)");
+  const [specialInstructions, setSpecialInstructions] =
+    useState("");
+  /* =======================================================
+     SELECTED PACKAGE
+  ======================================================= */
+  const selected =
+    packages.find(
+      (item) => item.id === selectedPackage
+    ) || packages[0];
+  /* =======================================================
+     FARE CALCULATION
+  ======================================================= */
+  const packageFare = selected.priceValue;
+  const extraHour = 0;
+  const extraKm = 0;
+  const gst = Number(
+    (
+      (packageFare + extraHour + extraKm) *
+      0.05
+    ).toFixed(2)
+  );
+  const subtotal = Number(
+    (
       packageFare +
       extraHour +
       extraKm +
-      gst;
-    const commission = packageFare * 0.1;
-    const grandTotal =
-      subtotal - commission;
-    return {
-      packageFare,
-      extraHour,
-      extraKm,
-      gst,
-      subtotal,
-      commission,
-      grandTotal
+      gst
+    ).toFixed(2)
+  );
+  const hotelCommission = Number(
+    (packageFare * 0.1).toFixed(2)
+  );
+  const grandTotal = Number(
+    (subtotal - hotelCommission).toFixed(2)
+  );
+  /* =======================================================
+     CONTINUE TO BOOKING
+  ======================================================= */
+  const handleContinue = () => {
+    const bookingData = {
+      serviceType: "Local Sightseeing",
+      package: {
+        id: selected.id,
+        name: selected.name,
+        hours: selected.hours,
+        distance: selected.distance,
+        description: selected.description,
+        price: selected.price,
+        priceValue: selected.priceValue,
+        people: selected.people,
+        image: selected.image,
+      },
+      tripDetails: {
+        pickupDate,
+        pickupTime,
+        pickupLocation,
+        passengers,
+        duration,
+        specialInstructions,
+      },
+      fare: {
+        packageFare,
+        extraHour,
+        extraKm,
+        gst,
+        subtotal,
+        hotelCommission,
+        grandTotal,
+      },
     };
-  }, [selectedPackage]);
+    console.log(
+      "Booking Data:",
+      bookingData
+    );
+    navigate("/booking", {
+      state: bookingData,
+    });
+  };
+  /* =======================================================
+     CHANGE SERVICE
+  ======================================================= */
+  const handleChangeService = () => {
+    navigate("/services");
+  };
+  /* =======================================================
+     SAVE DRAFT
+  ======================================================= */
+  const handleSaveDraft = () => {
+    const draftData = {
+      serviceType: "Local Sightseeing",
+      package: selected,
+      tripDetails: {
+        pickupDate,
+        pickupTime,
+        pickupLocation,
+        passengers,
+        duration,
+        specialInstructions,
+      },
+      fare: {
+        packageFare,
+        extraHour,
+        extraKm,
+        gst,
+        subtotal,
+        hotelCommission,
+        grandTotal,
+      },
+    };
+    localStorage.setItem(
+      "localSightseeingDraft",
+      JSON.stringify(draftData)
+    );
+    alert("Booking saved as draft.");
+  };
+  /* =======================================================
+     RETURN
+  ======================================================= */
   return (
-    <div className="zestgo-page">
+    <div
+      className="app"
+      style={{
+        backgroundImage: `
+          linear-gradient(
+            rgba(247, 250, 249, 0.90),
+            rgba(247, 250, 249, 0.90)
+          ),
+          url(${backgroundImage})
+        `,
+      }}
+    >
       {/* ===================================================
-          TOP HEADER
+          HEADER
       =================================================== */}
-      <header className="top-header">
-        {/* LEFT */}
-        <div className="header-left">
-          <button
-            type="button"
-            className="menu-button"
-            aria-label="Open menu"
-          >
-            <Menu size={24} />
-          </button>
-          <div className="breadcrumb">
-            <span>Dashboard</span>
-            <ChevronRight size={15} />
-            <span>New Booking</span>
-            <ChevronRight size={15} />
-            <strong>Local Sightseeing</strong>
+      <header className="topbar">
+        <div className="logoArea">
+          <div className="logoMark">
+            <span>Z</span>
+          </div>
+          <div className="logoText">
+            <div>
+              <span className="zest">
+                Zest
+              </span>
+              <span className="go">
+                Go
+              </span>
+            </div>
+            <small>
+              LAKWA FLEET
+            </small>
           </div>
         </div>
-        {/* RIGHT */}
-        <div className="header-right">
-          {/* HELP */}
+        <button
+          type="button"
+          className="menuButton"
+        >
+          <Menu size={25} />
+        </button>
+        <div className="breadcrumbs">
+          <span>
+            Dashboard
+          </span>
+          <ChevronRight size={16} />
+          <span>
+            New Booking
+          </span>
+          <ChevronRight size={16} />
+          <strong>
+            Local Sightseeing
+          </strong>
+        </div>
+        <div className="headerRight">
           <button
             type="button"
-            className="help-button"
+            className="helpButton"
           >
-            <HelpCircle size={17} />
-            <span>Help Center</span>
+            <CircleHelp size={19} />
+            Help Center
           </button>
-          {/* NOTIFICATION */}
-          <button
-            type="button"
-            className="notification"
-            aria-label="Notifications"
-          >
+          <div className="notification">
             <Bell size={22} />
-            <span>12</span>
-          </button>
-          <div className="header-divider" />
-          {/* MANAGER */}
-          <button
-            type="button"
-            className="manager"
-            aria-label="Manager profile"
-          >
+            <span>
+              12
+            </span>
+          </div>
+          <div className="profile">
             <img
-              src={manager}
-              alt="Rohit Sharma"
+              src={profileImage}
+              alt="Profile"
             />
-            <div className="manager-details">
-              <strong>Rohit Sharma</strong>
-              <span>Reception Manager</span>
+            <div className="profileText">
+              <strong>
+                Rohit Sharma
+              </strong>
+              <small>
+                Reception Manager
+              </small>
             </div>
             <ChevronDown size={18} />
-          </button>
+          </div>
         </div>
       </header>
       {/* ===================================================
@@ -206,260 +313,300 @@ export default function LocalSightseeing() {
       <section
         className="hero"
         style={{
-          backgroundImage: `url(${vizagHero})`
+          backgroundImage: `
+            linear-gradient(
+              90deg,
+              rgba(247, 250, 249, 0.98) 0%,
+              rgba(247, 250, 249, 0.95) 28%,
+              rgba(247, 250, 249, 0.35) 56%,
+              rgba(247, 250, 249, 0.05) 100%
+            ),
+            url(${heroVizag})
+          `,
         }}
       >
-        <div className="hero-overlay" />
-        <div className="hero-text">
-          <h1>Local Sightseeing Package</h1>
+        <div className="heroContent">
+          <h1>
+            Local Sightseeing Package
+          </h1>
           <p>
-            Explore popular attractions around the city
-            with our local tour packages.
+            Explore popular attractions around
+            the city with our local tour packages.
           </p>
         </div>
         <button
           type="button"
-          className="change-service"
+          className="changeService"
+          onClick={handleChangeService}
         >
-          <ChevronLeft size={17} />
-          <span>Change Service</span>
+          ← &nbsp; Change Service
         </button>
       </section>
       {/* ===================================================
-          PAGE CONTENT
+          MAIN CONTENT
       =================================================== */}
-      <main className="page-container">
+      <main className="pageContent">
         {/* =================================================
-            LEFT CONTENT
+            LEFT COLUMN
         ================================================= */}
-        <div className="left-content">
+        <div className="leftColumn">
           {/* =================================================
-              STEP PROGRESS
+              STEPPER
           ================================================= */}
-          <div className="steps-card">
+          <div className="stepper">
             <div className="step active">
-              <span>1</span>
+              <span className="stepNumber">
+                1
+              </span>
               <strong>
-                Package &amp; Details
+                Package & Details
               </strong>
             </div>
-            <div className="step-line" />
+            <div className="stepLine" />
             <div className="step">
-              <span>2</span>
-              <p>Vehicle Selection</p>
+              <span className="stepNumber">
+                2
+              </span>
+              <strong>
+                Vehicle Selection
+              </strong>
             </div>
-            <div className="step-line" />
+            <div className="stepLine" />
             <div className="step">
-              <span>3</span>
-              <p>Guest Details</p>
+              <span className="stepNumber">
+                3
+              </span>
+              <strong>
+                Guest Details
+              </strong>
             </div>
-            <div className="step-line" />
+            <div className="stepLine" />
             <div className="step">
-              <span>4</span>
-              <p>Payment &amp; Confirm</p>
+              <span className="stepNumber">
+                4
+              </span>
+              <strong>
+                Payment & Confirm
+              </strong>
             </div>
           </div>
           {/* =================================================
-              BOOKING CARD
+              PACKAGE SECTION
           ================================================= */}
-          <section className="booking-card">
-            {/* SECTION 1 */}
-            <div className="section-title">
-              <div className="section-number">
+          <section className="contentCard packageSection">
+            <div className="sectionTitle">
+              <span className="numberBadge">
                 1
-              </div>
+              </span>
               <h2>
                 Choose Sightseeing Package
               </h2>
             </div>
-            {/* PACKAGE AREA */}
-            <div className="package-area">
-              <div className="package-list">
-                {packages.map((item) => {
-                  const isSelected =
-                    selectedPackage.id === item.id;
-                  return (
-                    <button
-                      type="button"
-                      key={item.id}
-                      className={`package-card ${
-                        isSelected ? "selected" : ""
-                      }`}
-                      onClick={() =>
-                        setSelectedPackage(item)
-                      }
-                      aria-pressed={isSelected}
-                    >
-                      {/* IMAGE */}
-                      <div
-                        className="package-image"
-                        style={{
-                          backgroundImage:
-                            `url(${item.image})`
-                        }}
-                      >
-                        {isSelected && (
-                          <div className="selected-icon">
-                            <Check
-                              size={14}
-                              strokeWidth={3}
-                            />
-                          </div>
-                        )}
-                      </div>
-                      {/* TITLE */}
-                      <h3>{item.title}</h3>
-                      {/* META */}
-                      <div className="package-meta">
-                        <span>
-                          <Clock3 size={14} />
-                          {item.duration}
-                        </span>
-                        <span>
-                          <MapPin size={14} />
-                          {item.distance}
-                        </span>
-                      </div>
-                      {/* DESCRIPTION */}
-                      <p>{item.description}</p>
-                      {/* PRICE */}
-                      <div className="package-price">
-                        ₹
-                        {item.price.toLocaleString(
-                          "en-IN"
-                        )}
-                      </div>
-                      <small>
-                        Up to 4 People
-                      </small>
-                    </button>
-                  );
-                })}
-              </div>
-              {/* NEXT */}
-              <button
-                type="button"
-                className="package-next"
-                aria-label="Next packages"
-              >
-                <ChevronRight size={22} />
-              </button>
+            <div className="packageGrid">
+              {packages.map((item) => (
+                <div
+                  key={item.id}
+                  className={`
+                    packageCard
+                    ${
+                      selectedPackage === item.id
+                        ? "selected"
+                        : ""
+                    }
+                  `}
+                  onClick={() =>
+                    setSelectedPackage(item.id)
+                  }
+                >
+                  <div className="imageWrap">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                    />
+                    {selectedPackage ===
+                      item.id && (
+                      <span className="selectedIcon">
+                        <Check size={14} />
+                      </span>
+                    )}
+                  </div>
+                  <h3>
+                    {item.name}
+                  </h3>
+                  <div className="packageMeta">
+                    <span>
+                      <Clock3 size={15} />
+                      {item.hours}
+                    </span>
+                    <span>
+                      <MapPin size={15} />
+                      {item.distance}
+                    </span>
+                  </div>
+                  <p>
+                    {item.description}
+                  </p>
+                  <div className="packagePrice">
+                    {item.price}
+                  </div>
+                  <div className="packagePeople">
+                    {item.people}
+                  </div>
+                </div>
+              ))}
             </div>
-            {/* PACKAGE INFO */}
-            <div className="package-info">
+            <div className="packageInfo">
               <Info size={17} />
               <span>
                 All packages include driver allowance,
                 fuel, toll, parking and taxes.
               </span>
             </div>
-            <div className="separator" />
-            {/* SECTION 2 */}
-            <div className="section-title trip-title">
-              <div className="section-number">
+          </section>
+          {/* =================================================
+              TRIP DETAILS
+          ================================================= */}
+          <section className="contentCard tripSection">
+            <div className="sectionTitle">
+              <span className="numberBadge">
                 2
-              </div>
-              <h2>Trip Details</h2>
+              </span>
+              <h2>
+                Trip Details
+              </h2>
             </div>
-            {/* TRIP FORM */}
-            <div className="trip-form">
-              {/* DATE */}
-              <div className="field">
-                <label htmlFor="pickup-date">
+            <div className="formGrid">
+              {/* PICKUP DATE */}
+              <div className="formField">
+                <label>
                   Pickup Date
                 </label>
-                <div className="input">
-                  <CalendarDays size={16} />
-                  <span id="pickup-date">
-                    25 May 2025
-                  </span>
+                <div className="inputBox">
+                  <div className="inputLeft">
+                    <CalendarDays size={18} />
+                    <input
+                      type="text"
+                      value={pickupDate}
+                      onChange={(e) =>
+                        setPickupDate(
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                  <ChevronDown size={17} />
                 </div>
               </div>
-              {/* TIME */}
-              <div className="field">
-                <label htmlFor="pickup-time">
+              {/* PICKUP TIME */}
+              <div className="formField">
+                <label>
                   Pickup Time
                 </label>
-                <div className="input">
-                  <Clock3 size={16} />
-                  <span id="pickup-time">
-                    09:00 AM
-                  </span>
-                  <ChevronDown
-                    size={16}
-                    className="input-arrow"
-                  />
+                <div className="inputBox">
+                  <div className="inputLeft">
+                    <Clock3 size={18} />
+                    <input
+                      type="text"
+                      value={pickupTime}
+                      onChange={(e) =>
+                        setPickupTime(
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                  <ChevronDown size={17} />
                 </div>
               </div>
-              {/* LOCATION */}
-              <div className="field">
-                <label htmlFor="pickup-location">
+              {/* PICKUP LOCATION */}
+              <div className="formField">
+                <label>
                   Pickup Location
                 </label>
-                <div className="input">
-                  <MapPin size={16} />
-                  <span id="pickup-location">
-                    Oceanview Palace Hotel
-                  </span>
-                  <ChevronDown
-                    size={16}
-                    className="input-arrow"
-                  />
+                <div className="inputBox">
+                  <div className="inputLeft">
+                    <MapPin size={18} />
+                    <input
+                      type="text"
+                      value={pickupLocation}
+                      onChange={(e) =>
+                        setPickupLocation(
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                  <ChevronDown size={17} />
                 </div>
               </div>
-              {/* PEOPLE */}
-              <div className="field">
-                <label htmlFor="passengers">
+              {/* PASSENGERS */}
+              <div className="formField">
+                <label>
                   Number of People
                 </label>
-                <div className="input">
-                  <Users size={16} />
-                  <span id="passengers">
-                    2 Adults, 1 Child
-                  </span>
-                  <ChevronDown
-                    size={16}
-                    className="input-arrow"
-                  />
+                <div className="inputBox">
+                  <div className="inputLeft">
+                    <Users size={18} />
+                    <input
+                      type="text"
+                      value={passengers}
+                      onChange={(e) =>
+                        setPassengers(
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                  <ChevronDown size={17} />
                 </div>
               </div>
               {/* DURATION */}
-              <div className="field">
-                <label htmlFor="duration">
+              <div className="formField">
+                <label>
                   Total Duration
                 </label>
-                <div className="input">
-                  <Clock3 size={16} />
-                  <span id="duration">
-                    {selectedPackage.duration}{" "}
-                    (Approx.)
-                  </span>
-                  <ChevronDown
-                    size={16}
-                    className="input-arrow"
-                  />
+                <div className="inputBox">
+                  <div className="inputLeft">
+                    <Clock3 size={18} />
+                    <input
+                      type="text"
+                      value={duration}
+                      onChange={(e) =>
+                        setDuration(
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                  <ChevronDown size={17} />
                 </div>
               </div>
               {/* SPECIAL INSTRUCTIONS */}
-              <div className="field">
-                <label htmlFor="instructions">
+              <div className="formField">
+                <label>
                   Special Instructions (Optional)
                 </label>
-                <div
-                  className="input placeholder"
-                  id="instructions"
-                >
-                  <span>
-                    Any special requests
-                  </span>
+                <div className="inputBox">
+                  <input
+                    type="text"
+                    placeholder="Any special requests"
+                    value={
+                      specialInstructions
+                    }
+                    onChange={(e) =>
+                      setSpecialInstructions(
+                        e.target.value
+                      )
+                    }
+                  />
                 </div>
               </div>
             </div>
-            {/* DRIVER MESSAGE */}
-            <div className="driver-message">
+            <div className="driverInfo">
               <Info size={17} />
               <span>
-                Our driver will contact you before pickup.
+                Our driver will contact you
+                before pickup.
               </span>
             </div>
           </section>
@@ -467,182 +614,300 @@ export default function LocalSightseeing() {
               BENEFITS
           ================================================= */}
           <section className="benefits">
-            <div className="benefit">
-              <ShieldCheck size={30} />
-              <div>
-                <strong>
-                  Free Cancellation
-                </strong>
-                <p>
-                  Cancel up to 12 hours before
-                  your scheduled trip.
-                </p>
-              </div>
-            </div>
-            <div className="benefit-divider" />
-            <div className="benefit">
-              <Headphones size={30} />
-              <div>
-                <strong>24x7 Support</strong>
-                <p>
-                  We're here to help you anytime,
-                  anywhere.
-                </p>
-              </div>
-            </div>
-            <div className="benefit-divider" />
-            <div className="benefit">
-              <CircleDollarSign size={30} />
-              <div>
-                <strong>
-                  Best Price Guarantee
-                </strong>
-                <p>
-                  Get the best price with zero
-                  hidden charges.
-                </p>
-              </div>
-            </div>
-            <div className="benefit-divider" />
-            <div className="benefit">
-              <Building2 size={30} />
-              <div>
-                <strong>
-                  Trusted by 500+ Hotels
-                </strong>
-                <p>
-                  Join hundreds of hotels who
-                  trust ZestGo Lakway Fleet.
-                </p>
-              </div>
-            </div>
+            <Benefit
+              icon={
+                <CircleArrowRight />
+              }
+              title="Free Cancellation"
+              text="Cancel up to 12 hours before your scheduled trip."
+            />
+            <Benefit
+              icon={
+                <Headphones />
+              }
+              title="24×7 Support"
+              text="We're here to help you anytime, anywhere."
+            />
+            <Benefit
+              icon={
+                <BadgeCheck />
+              }
+              title="Best Price Guarantee"
+              text="Get the best price with zero hidden charges."
+            />
+            <Benefit
+              icon={
+                <Building2 />
+              }
+              title="Trusted by 500+ Hotels"
+              text="Join hundreds of hotels who trust ZestGo Lakwa Fleet."
+            />
           </section>
         </div>
         {/* =================================================
             RIGHT SUMMARY
         ================================================= */}
-        <aside className="summary">
-          <div className="summary-header">
-            <CalendarDays size={22} />
-            <h2>
-              Booking Summary
-            </h2>
-          </div>
-          <div className="summary-content">
-            {/* SUMMARY */}
-            <SummaryRow
-              label="Service Type"
-              value="Local Sightseeing"
-            />
-            <SummaryRow
-              label="Package"
-              value={selectedPackage.title}
-            />
-            <SummaryRow
-              label="Duration"
-              value={`${selectedPackage.duration} / ${selectedPackage.distance} (Approx.)`}
-            />
-            <SummaryRow
-              label="Date & Time"
-              value="25 May 2025, 09:00 AM"
-            />
-            <SummaryRow
-              label="Pickup Location"
-              value="Oceanview Palace Hotel"
-            />
-            <SummaryRow
-              label="Passengers"
-              value="2 Adults, 1 Child"
-            />
-            {/* FARE BREAKDOWN */}
-            <div className="fare-box">
-              <h3>Fare Breakdown</h3>
-              <PriceRow
-                label="Package Fare"
-                value={money(pricing.packageFare)}
-              />
-              <PriceRow
-                label="Extra Hour (0)"
-                value={money(pricing.extraHour)}
-              />
-              <PriceRow
-                label="Extra KM (0)"
-                value={money(pricing.extraKm)}
-              />
-              <PriceRow
-                label="GST (5%)"
-                value={money(pricing.gst)}
-              />
-              <div className="fare-dotted" />
-              <PriceRow
-                label="Subtotal"
-                value={money(pricing.subtotal)}
-              />
-              <PriceRow
-                label="Hotel Commission (10%)"
-                value={`- ${money(pricing.commission)}`}
-                commission
-              />
-              <div className="grand-total">
-                <strong>
-                  Grand Total
-                </strong>
-                <span>
-                  {money(pricing.grandTotal)}
-                </span>
-              </div>
+        <aside className="summaryColumn">
+          <div className="summaryCard">
+            {/* SUMMARY HEADER */}
+            <div className="summaryHeader">
+              <CalendarDays size={22} />
+              <h2>
+                Booking Summary
+              </h2>
             </div>
-            {/* HOTEL EARNINGS */}
-            <div className="earning-box">
-              <div className="earning-heading">
-                <div>
-                  <Users size={17} />
+            <div className="summaryBody">
+              {/* SERVICE */}
+              <SummaryRow
+                label="Service Type"
+                value="Local Sightseeing"
+              />
+              {/* PACKAGE */}
+              <SummaryRow
+                label="Package"
+                value={selected.name}
+              />
+              {/* DURATION */}
+              <SummaryRow
+                label="Duration"
+                value={`${selected.hours} / ${selected.distance} (Approx.)`}
+              />
+              {/* DATE & TIME */}
+              <SummaryRow
+                label="Date & Time"
+                value={`${pickupDate}, ${pickupTime}`}
+              />
+              {/* PICKUP */}
+              <SummaryRow
+                label="Pickup Location"
+                value={pickupLocation}
+              />
+              {/* PASSENGERS */}
+              <SummaryRow
+                label="Passengers"
+                value={passengers}
+              />
+              {/* =================================================
+                  FARE BREAKDOWN
+              ================================================= */}
+              <div className="fareBox">
+                <h3>
+                  Fare Breakdown
+                </h3>
+                <FareRow
+                  label="Package Fare"
+                  value={`₹ ${packageFare.toLocaleString(
+                    "en-IN",
+                    {
+                      minimumFractionDigits: 2,
+                    }
+                  )}`}
+                />
+                <FareRow
+                  label="Extra Hour (0)"
+                  value="₹ 0.00"
+                />
+                <FareRow
+                  label="Extra KM (0)"
+                  value="₹ 0.00"
+                />
+                <FareRow
+                  label="GST (5%)"
+                  value={`₹ ${gst.toLocaleString(
+                    "en-IN",
+                    {
+                      minimumFractionDigits: 2,
+                    }
+                  )}`}
+                />
+                <div className="fareDivider" />
+                <FareRow
+                  label="Subtotal"
+                  value={`₹ ${subtotal.toLocaleString(
+                    "en-IN",
+                    {
+                      minimumFractionDigits: 2,
+                    }
+                  )}`}
+                />
+                <FareRow
+                  label="Hotel Commission (10%)"
+                  value={`- ₹ ${hotelCommission.toLocaleString(
+                    "en-IN",
+                    {
+                      minimumFractionDigits: 2,
+                    }
+                  )}`}
+                />
+                <div className="fareDivider" />
+                <div className="grandTotal">
                   <strong>
-                    Your Earnings (Estimated)
+                    Grand Total
+                  </strong>
+                  <strong>
+                    ₹{" "}
+                    {grandTotal.toLocaleString(
+                      "en-IN",
+                      {
+                        minimumFractionDigits: 2,
+                      }
+                    )}
                   </strong>
                 </div>
+              </div>
+              {/* =================================================
+                  EARNINGS
+              ================================================= */}
+              <div className="earningBox">
+                <div className="earningHeader">
+                  <span>
+                    <WalletCards size={17} />
+                    Your Earnings (Estimated)
+                  </span>
+                  <small>
+                    10% Commission
+                  </small>
+                </div>
+                <p>
+                  You will earn{" "}
+                  <strong>
+                    ₹{" "}
+                    {hotelCommission.toLocaleString(
+                      "en-IN",
+                      {
+                        minimumFractionDigits: 2,
+                      }
+                    )}
+                  </strong>{" "}
+                  on this booking
+                </p>
+              </div>
+              {/* =================================================
+                  CONTINUE BUTTON
+              ================================================= */}
+              <button
+                type="button"
+                className="continueButton"
+                onClick={handleContinue}
+              >
                 <span>
-                  10% Commission
+                  Continue to Vehicle Selection
+                </span>
+                <ArrowRight size={20} />
+              </button>
+              {/* =================================================
+                  SAVE DRAFT
+              ================================================= */}
+              <button
+                type="button"
+                className="draftButton"
+                onClick={handleSaveDraft}
+              >
+                <Bookmark size={19} />
+                Save as Draft
+              </button>
+              {/* =================================================
+                  SECURE TEXT
+              ================================================= */}
+              <div className="secureText">
+                <LockKeyhole size={16} />
+                <span>
+                  Your booking details are safe
+                  and secure
                 </span>
               </div>
-              <p>
-                You will earn{" "}
-                <strong>
-                  {money(pricing.commission)}
-                </strong>{" "}
-                on this booking.
-              </p>
-            </div>
-            {/* CONTINUE */}
-            <button
-              type="button"
-              className="continue"
-            >
-              <span>
-                Continue to Vehicle Selection
-              </span>
-              <ArrowRight size={20} />
-            </button>
-            {/* SAVE */}
-            <button
-              type="button"
-              className="save"
-            >
-              <Bookmark size={18} />
-              <span>
-                Save as Draft
-              </span>
-            </button>
-            {/* SECURITY */}
-            <div className="security">
-              <ShieldCheck size={15} />
-              <span>
-                Your booking details are safe and secure
-              </span>
             </div>
           </div>
         </aside>
       </main>
+    </div>
+  );
+}
+/* =========================================================
+   FORM FIELD COMPONENT
+========================================================= */
+function FormField({
+  label,
+  icon,
+  value,
+  arrow = false,
+}) {
+  return (
+    <div className="formField">
+      <label>
+        {label}
+      </label>
+      <div className="inputBox">
+        <div className="inputLeft">
+          {icon}
+          <span>
+            {value}
+          </span>
+        </div>
+        {arrow && (
+          <ChevronDown size={17} />
+        )}
+      </div>
+    </div>
+  );
+}
+/* =========================================================
+   SUMMARY ROW
+========================================================= */
+function SummaryRow({
+  label,
+  value,
+}) {
+  return (
+    <div className="summaryRow">
+      <span>
+        {label}
+      </span>
+      <strong>
+        {value}
+      </strong>
+    </div>
+  );
+}
+/* =========================================================
+   FARE ROW
+========================================================= */
+function FareRow({
+  label,
+  value,
+}) {
+  return (
+    <div className="fareRow">
+      <span>
+        {label}
+      </span>
+      <strong>
+        {value}
+      </strong>
+    </div>
+  );
+}
+/* =========================================================
+   BENEFIT COMPONENT
+========================================================= */
+function Benefit({
+  icon,
+  title,
+  text,
+}) {
+  return (
+    <div className="benefit">
+      <div className="benefitIcon">
+        {icon}
+      </div>
+      <div>
+        <strong>
+          {title}
+        </strong>
+        <p>
+          {text}
+        </p>
+      </div>
     </div>
   );
 }
