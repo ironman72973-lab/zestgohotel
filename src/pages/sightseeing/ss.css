@@ -350,7 +350,7 @@
       rgba(240, 248, 255, 0.15) 20%,
       rgba(240, 248, 255, 0) 45%
     ),
-    url("../assets/sightseeing/vizag-tour.jpg");
+    url("../../images/hotel1.png");
 
   background-size: cover;
   background-position: center;
@@ -1296,7 +1296,37 @@
 
   margin: 9px 0;
 }
+/* =========================================================
+   SUBTOTAL HIGHLIGHT
+   ========================================================= */
 
+.subtotal-highlight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 7px -2px 10px;
+  padding: 8px 2px;
+
+  border-top: 1px solid #d5e1dc;
+  border-bottom: 1px solid #d5e1dc;
+
+  gap: 10px;
+}
+
+.subtotal-highlight span {
+  color: #17314b;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.subtotal-highlight strong {
+  color: #14873e;
+
+  font-size: 18px;
+  font-weight: 800;
+}
 
 /* =========================================================
    GRAND TOTAL

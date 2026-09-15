@@ -22,16 +22,16 @@ import {
   Mail,
 } from "lucide-react";
 
-import "./SightSeeingForm.css";
+import "./ss.css";
 
 // ======================================================
 // IMAGE IMPORTS
 // ======================================================
 
-import vizagTour from "../assets/sightseeing/vizag-tour.jpg";
-import arakuTour from "../assets/sightseeing/araku-valley.jpg";
-import simhachalamTour from "../assets/sightseeing/simhachalam.jpg";
-import borraCaves from "../assets/sightseeing/borra-caves.jpg";
+import vizagTour from "../../images/vizag.png";
+import arakuTour from "../../images/araku.png";
+import templeTour from "../../images/vtemple.png";
+import borraCaves from "../../images/vanajangi.png";
 
 // ======================================================
 // SIGHTSEEING PACKAGE DATA
@@ -65,7 +65,7 @@ const sightseeingPackages = [
   {
     id: "simhachalam-rushikonda",
     title: "Simhachalam & Rushikonda",
-    image: simhachalamTour,
+    image: templeTour,
     hours: 6,
     km: 70,
     price: 1999,
@@ -118,7 +118,7 @@ const passengerOptions = [
 ];
 
 // ======================================================
-// CURRENCY FORMAT
+// CURRENCY FORMATTER
 // ======================================================
 
 const formatCurrency = (amount) => {
@@ -136,7 +136,7 @@ export default function SightSeeingForm() {
   const navigate = useNavigate();
 
   // ====================================================
-  // PACKAGE STATE
+  // PACKAGE
   // ====================================================
 
   const [selectedPackage, setSelectedPackage] = useState(
@@ -144,12 +144,16 @@ export default function SightSeeingForm() {
   );
 
   // ====================================================
-  // TRIP DETAILS STATE
+  // TRIP DETAILS
   // ====================================================
 
-  const [pickupDate, setPickupDate] = useState("2025-05-25");
+  const [pickupDate, setPickupDate] = useState(
+    "2025-05-25"
+  );
 
-  const [pickupTime, setPickupTime] = useState("09:00 AM");
+  const [pickupTime, setPickupTime] = useState(
+    "09:00 AM"
+  );
 
   const [pickupLocation, setPickupLocation] = useState(
     "Oceanview Palace Hotel"
@@ -163,7 +167,7 @@ export default function SightSeeingForm() {
     useState("");
 
   // ====================================================
-  // GUEST / CUSTOMER DETAILS STATE
+  // GUEST DETAILS
   // ====================================================
 
   const [guestName, setGuestName] = useState("");
@@ -172,7 +176,8 @@ export default function SightSeeingForm() {
 
   const [guestEmail, setGuestEmail] = useState("");
 
-  const [alternatePhone, setAlternatePhone] = useState("");
+  const [alternatePhone, setAlternatePhone] =
+    useState("");
 
   // ====================================================
   // UI STATE
@@ -191,25 +196,38 @@ export default function SightSeeingForm() {
 
   const extraKm = 0;
 
-  // 5% GST
+  // GST = 5%
   const gst = useMemo(() => {
     return packageFare * 0.05;
   }, [packageFare]);
 
   // Subtotal
   const subtotal = useMemo(() => {
-    return packageFare + extraHour + extraKm + gst;
-  }, [packageFare, extraHour, extraKm, gst]);
+    return (
+      packageFare +
+      extraHour +
+      extraKm +
+      gst
+    );
+  }, [
+    packageFare,
+    extraHour,
+    extraKm,
+    gst,
+  ]);
 
-  // 10% hotel commission
+  // Hotel commission = 10%
   const hotelCommission = useMemo(() => {
     return subtotal * 0.1;
   }, [subtotal]);
 
-  // Grand total after commission
+  // Grand total
   const grandTotal = useMemo(() => {
     return subtotal - hotelCommission;
-  }, [subtotal, hotelCommission]);
+  }, [
+    subtotal,
+    hotelCommission,
+  ]);
 
   // ====================================================
   // COMPLETE BOOKING DATA
@@ -226,6 +244,7 @@ export default function SightSeeingForm() {
       distance: selectedPackage.km,
       price: selectedPackage.price,
       description: selectedPackage.description,
+      people: selectedPackage.people,
     },
 
     tripDetails: {
@@ -237,10 +256,6 @@ export default function SightSeeingForm() {
       totalKm: selectedPackage.km,
       specialInstructions,
     },
-
-    // ==================================================
-    // GUEST DETAILS
-    // ==================================================
 
     guestDetails: {
       name: guestName,
@@ -267,21 +282,26 @@ export default function SightSeeingForm() {
   // ====================================================
 
   const handleContinue = () => {
+    // Guest name validation
     if (!guestName.trim()) {
       alert("Please enter guest name.");
       return;
     }
 
+    // Mobile validation
     if (!guestPhone.trim()) {
       alert("Please enter guest mobile number.");
       return;
     }
 
-    if (guestPhone.length < 10) {
-      alert("Please enter a valid 10-digit mobile number.");
+    if (guestPhone.length !== 10) {
+      alert(
+        "Please enter a valid 10-digit mobile number."
+      );
       return;
     }
 
+    // Email validation
     if (
       guestEmail.trim() &&
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
@@ -292,6 +312,18 @@ export default function SightSeeingForm() {
       return;
     }
 
+    // Alternate phone validation
+    if (
+      alternatePhone.trim() &&
+      alternatePhone.length !== 10
+    ) {
+      alert(
+        "Please enter a valid alternate mobile number."
+      );
+      return;
+    }
+
+    // Navigate with all booking information
     navigate("/vehicle-selection", {
       state: bookingData,
     });
@@ -323,6 +355,8 @@ export default function SightSeeingForm() {
 
       <header className="top-header">
 
+        {/* BRAND */}
+
         <div className="brand-section">
 
           <div className="brand-logo">
@@ -345,6 +379,9 @@ export default function SightSeeingForm() {
 
           </div>
 
+
+          {/* MENU */}
+
           <button
             type="button"
             className="menu-button"
@@ -357,7 +394,7 @@ export default function SightSeeingForm() {
         </div>
 
 
-        {/* Breadcrumb */}
+        {/* BREADCRUMB */}
 
         <div className="breadcrumb">
 
@@ -380,7 +417,7 @@ export default function SightSeeingForm() {
         </div>
 
 
-        {/* Header Right */}
+        {/* HEADER RIGHT */}
 
         <div className="header-right">
 
@@ -388,11 +425,13 @@ export default function SightSeeingForm() {
             type="button"
             className="help-button"
           >
+
             <span className="question-icon">
               ?
             </span>
 
             Help Center
+
           </button>
 
 
@@ -460,9 +499,11 @@ export default function SightSeeingForm() {
           type="button"
           className="change-service-button"
         >
+
           <ArrowRight size={17} />
 
           Change Service
+
         </button>
 
       </section>
@@ -550,7 +591,7 @@ export default function SightSeeingForm() {
         <div className="content-grid">
 
           {/* ==================================================
-              LEFT FORM AREA
+              LEFT
           ================================================== */}
 
           <section className="form-area">
@@ -608,7 +649,7 @@ export default function SightSeeingForm() {
                           }
                         >
 
-                          {/* Image */}
+                          {/* IMAGE */}
 
                           <div className="package-image-wrapper">
 
@@ -619,6 +660,7 @@ export default function SightSeeingForm() {
                             />
 
                             {isSelected && (
+
                               <div className="selected-check">
 
                                 <Check
@@ -626,12 +668,13 @@ export default function SightSeeingForm() {
                                 />
 
                               </div>
+
                             )}
 
                           </div>
 
 
-                          {/* Content */}
+                          {/* PACKAGE CONTENT */}
 
                           <div className="package-content">
 
@@ -698,8 +741,6 @@ export default function SightSeeingForm() {
                 </div>
 
 
-                {/* More Packages */}
-
                 <button
                   type="button"
                   className="package-next-button"
@@ -708,6 +749,7 @@ export default function SightSeeingForm() {
                       !showMorePackages
                     )
                   }
+                  aria-label="More packages"
                 >
 
                   <ChevronRight
@@ -719,7 +761,7 @@ export default function SightSeeingForm() {
               </div>
 
 
-              {/* Information */}
+              {/* INFORMATION BAR */}
 
               <div className="information-bar">
 
@@ -757,9 +799,7 @@ export default function SightSeeingForm() {
               <div className="trip-form-grid">
 
 
-                {/* ==================================================
-                    PICKUP DATE
-                ================================================== */}
+                {/* PICKUP DATE */}
 
                 <div className="form-group">
 
@@ -788,9 +828,7 @@ export default function SightSeeingForm() {
                 </div>
 
 
-                {/* ==================================================
-                    PICKUP TIME
-                ================================================== */}
+                {/* PICKUP TIME */}
 
                 <div className="form-group">
 
@@ -815,12 +853,14 @@ export default function SightSeeingForm() {
 
                       {timeOptions.map(
                         (time) => (
+
                           <option
                             key={time}
                             value={time}
                           >
                             {time}
                           </option>
+
                         )
                       )}
 
@@ -835,9 +875,7 @@ export default function SightSeeingForm() {
                 </div>
 
 
-                {/* ==================================================
-                    PICKUP LOCATION
-                ================================================== */}
+                {/* PICKUP LOCATION */}
 
                 <div className="form-group">
 
@@ -862,12 +900,14 @@ export default function SightSeeingForm() {
 
                       {pickupLocations.map(
                         (location) => (
+
                           <option
                             key={location}
                             value={location}
                           >
                             {location}
                           </option>
+
                         )
                       )}
 
@@ -882,9 +922,7 @@ export default function SightSeeingForm() {
                 </div>
 
 
-                {/* ==================================================
-                    NUMBER OF PEOPLE
-                ================================================== */}
+                {/* NUMBER OF PEOPLE */}
 
                 <div className="form-group">
 
@@ -909,12 +947,14 @@ export default function SightSeeingForm() {
 
                       {passengerOptions.map(
                         (item) => (
+
                           <option
                             key={item}
                             value={item}
                           >
                             {item}
                           </option>
+
                         )
                       )}
 
@@ -929,9 +969,7 @@ export default function SightSeeingForm() {
                 </div>
 
 
-                {/* ==================================================
-                    TOTAL DURATION
-                ================================================== */}
+                {/* TOTAL DURATION */}
 
                 <div className="form-group">
 
@@ -967,9 +1005,7 @@ export default function SightSeeingForm() {
                 </div>
 
 
-                {/* ==================================================
-                    SPECIAL INSTRUCTIONS
-                ================================================== */}
+                {/* SPECIAL INSTRUCTIONS */}
 
                 <div className="form-group">
 
@@ -996,7 +1032,7 @@ export default function SightSeeingForm() {
               </div>
 
 
-              {/* Driver Information */}
+              {/* DRIVER INFO */}
 
               <div className="driver-info">
 
@@ -1034,9 +1070,7 @@ export default function SightSeeingForm() {
               <div className="guest-form-grid">
 
 
-                {/* ==================================================
-                    GUEST NAME
-                ================================================== */}
+                {/* GUEST NAME */}
 
                 <div className="form-group">
 
@@ -1069,9 +1103,7 @@ export default function SightSeeingForm() {
                 </div>
 
 
-                {/* ==================================================
-                    MOBILE NUMBER
-                ================================================== */}
+                {/* MOBILE NUMBER */}
 
                 <div className="form-group">
 
@@ -1090,6 +1122,7 @@ export default function SightSeeingForm() {
 
                     <input
                       type="tel"
+                      inputMode="numeric"
                       placeholder="Enter 10-digit mobile number"
                       value={guestPhone}
                       maxLength={10}
@@ -1111,14 +1144,12 @@ export default function SightSeeingForm() {
                 </div>
 
 
-                {/* ==================================================
-                    EMAIL
-                ================================================== */}
+                {/* EMAIL */}
 
                 <div className="form-group">
 
                   <label>
-                    Email Address
+                    Email Address{" "}
                     <span>
                       (Optional)
                     </span>
@@ -1146,14 +1177,12 @@ export default function SightSeeingForm() {
                 </div>
 
 
-                {/* ==================================================
-                    ALTERNATE PHONE
-                ================================================== */}
+                {/* ALTERNATE CONTACT */}
 
                 <div className="form-group">
 
                   <label>
-                    Alternate Contact
+                    Alternate Contact{" "}
                     <span>
                       (Optional)
                     </span>
@@ -1167,6 +1196,7 @@ export default function SightSeeingForm() {
 
                     <input
                       type="tel"
+                      inputMode="numeric"
                       placeholder="Alternate mobile number"
                       value={alternatePhone}
                       maxLength={10}
@@ -1192,7 +1222,7 @@ export default function SightSeeingForm() {
               </div>
 
 
-              {/* Guest info */}
+              {/* GUEST INFO */}
 
               <div className="driver-info">
 
@@ -1214,15 +1244,16 @@ export default function SightSeeingForm() {
 
             <div className="benefits-card">
 
-
-              {/* Free Cancellation */}
+              {/* CANCELLATION */}
 
               <div className="benefit">
 
                 <div className="benefit-icon">
+
                   <RefreshCcw
                     size={27}
                   />
+
                 </div>
 
                 <div>
@@ -1244,7 +1275,7 @@ export default function SightSeeingForm() {
               <div className="benefit-divider"></div>
 
 
-              {/* Support */}
+              {/* SUPPORT */}
 
               <div className="benefit">
 
@@ -1275,7 +1306,7 @@ export default function SightSeeingForm() {
               <div className="benefit-divider"></div>
 
 
-              {/* Price */}
+              {/* PRICE */}
 
               <div className="benefit">
 
@@ -1306,7 +1337,7 @@ export default function SightSeeingForm() {
               <div className="benefit-divider"></div>
 
 
-              {/* Hotels */}
+              {/* HOTELS */}
 
               <div className="benefit">
 
@@ -1339,15 +1370,12 @@ export default function SightSeeingForm() {
 
 
           {/* ==================================================
-              BOOKING SUMMARY
+              RIGHT SIDE - BOOKING SUMMARY
           ================================================== */}
 
           <aside className="summary-card">
 
-
-            {/* ==================================================
-                SUMMARY HEADER
-            ================================================== */}
+            {/* SUMMARY HEADER */}
 
             <div className="summary-header">
 
@@ -1362,9 +1390,7 @@ export default function SightSeeingForm() {
             </div>
 
 
-            {/* ==================================================
-                SUMMARY BODY
-            ================================================== */}
+            {/* SUMMARY BODY */}
 
             <div className="summary-body">
 
@@ -1407,9 +1433,7 @@ export default function SightSeeingForm() {
               />
 
 
-              {/* ==================================================
-                  GUEST SUMMARY
-              ================================================== */}
+              {/* GUEST NAME */}
 
               {guestName && (
                 <SummaryRow
@@ -1418,6 +1442,8 @@ export default function SightSeeingForm() {
                 />
               )}
 
+
+              {/* CONTACT */}
 
               {guestPhone && (
                 <SummaryRow
@@ -1438,6 +1464,8 @@ export default function SightSeeingForm() {
                 </div>
 
 
+                {/* PACKAGE FARE */}
+
                 <FareRow
                   label="Package Fare"
                   value={formatCurrency(
@@ -1445,6 +1473,8 @@ export default function SightSeeingForm() {
                   )}
                 />
 
+
+                {/* EXTRA HOUR */}
 
                 <FareRow
                   label="Extra Hour (0)"
@@ -1454,6 +1484,8 @@ export default function SightSeeingForm() {
                 />
 
 
+                {/* EXTRA KM */}
+
                 <FareRow
                   label="Extra KM (0)"
                   value={formatCurrency(
@@ -1461,6 +1493,8 @@ export default function SightSeeingForm() {
                   )}
                 />
 
+
+                {/* GST */}
 
                 <FareRow
                   label="GST (5%)"
@@ -1470,16 +1504,31 @@ export default function SightSeeingForm() {
                 />
 
 
+                {/* ==================================================
+                    SUBTOTAL
+                ================================================== */}
+
                 <div className="fare-separator"></div>
 
 
-                <FareRow
-                  label="Subtotal"
-                  value={formatCurrency(
-                    subtotal
-                  )}
-                />
+                <div className="subtotal-highlight">
 
+                  <span>
+                    Subtotal
+                  </span>
+
+                  <strong>
+                    {formatCurrency(
+                      subtotal
+                    )}
+                  </strong>
+
+                </div>
+
+
+                {/* ==================================================
+                    COMMISSION
+                ================================================== */}
 
                 <FareRow
                   label="Hotel Commission (10%)"
@@ -1490,7 +1539,9 @@ export default function SightSeeingForm() {
                 />
 
 
-                {/* Grand Total */}
+                {/* ==================================================
+                    GRAND TOTAL
+                ================================================== */}
 
                 <div className="grand-total">
 
@@ -1546,7 +1597,7 @@ export default function SightSeeingForm() {
 
 
               {/* ==================================================
-                  CONTINUE
+                  CONTINUE BUTTON
               ================================================== */}
 
               <button
@@ -1587,7 +1638,7 @@ export default function SightSeeingForm() {
               </button>
 
 
-              {/* Secure */}
+              {/* SECURE */}
 
               <div className="secure-message">
 
@@ -1616,7 +1667,7 @@ export default function SightSeeingForm() {
 
 
 // ======================================================
-// SUMMARY ROW
+// SUMMARY ROW COMPONENT
 // ======================================================
 
 function SummaryRow({
@@ -1640,7 +1691,7 @@ function SummaryRow({
 
 
 // ======================================================
-// FARE ROW
+// FARE ROW COMPONENT
 // ======================================================
 
 function FareRow({
