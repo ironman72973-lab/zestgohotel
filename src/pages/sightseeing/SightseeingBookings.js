@@ -31,7 +31,7 @@ import "./ss.css";
 import vizagTour from "../../images/vizag.png";
 import arakuTour from "../../images/araku.png";
 import templeTour from "../../images/vtemple.png";
-import borraCaves from "../../images/vanajangi.png";
+import beachTour from "../../images/vanajangi.png";
 
 // ======================================================
 // SIGHTSEEING PACKAGE DATA
@@ -77,7 +77,7 @@ const sightseeingPackages = [
   {
     id: "borra-antharagiri",
     title: "Borra Caves & Ananthagiri",
-    image: borraCaves,
+    image: beachTour,
     hours: 9,
     km: 160,
     price: 3499,
