@@ -1,0 +1,2540 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* =========================================================
+   ROOT / RESET
+========================================================= */
+
+:root {
+  --zg-green: #008f46;
+  --zg-dark-green: #00542f;
+  --zg-light-green: #eff8f2;
+  --zg-green-soft: #e6f5ec;
+
+  --zg-orange: #ff8c00;
+  --zg-orange-soft: #fff4e5;
+
+  --zg-text: #10213d;
+  --zg-text-secondary: #334155;
+  --zg-muted: #65748b;
+  --zg-light-muted: #94a3b8;
+
+  --zg-border: #dce5ef;
+  --zg-border-light: #edf1f5;
+
+  --zg-background: #f8fafc;
+  --zg-white: #ffffff;
+
+  --zg-danger: #dc3545;
+  --zg-danger-soft: #fff1f2;
+
+  --zg-shadow: 0 8px 30px rgba(16, 33, 61, 0.07);
+  --zg-shadow-lg: 0 16px 45px rgba(16, 33, 61, 0.12);
+
+  --zg-radius: 14px;
+  --zg-radius-sm: 10px;
+
+  --zg-header-height: 72px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--zg-background);
+  color: var(--zg-text);
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+.zg-page {
+  min-height: 100vh;
+  background: var(--zg-background);
+}
+
+.zg-main {
+  width: min(1480px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 30px 0 60px;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.zg-header {
+  height: var(--zg-header-height);
+  width: 100%;
+  padding: 0 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--zg-white);
+  border-bottom: 1px solid var(--zg-border);
+
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+}
+
+.zg-header-left,
+.zg-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.zg-header-left {
+  gap: 24px;
+}
+
+.zg-header-right {
+  gap: 18px;
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.zg-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  min-width: 95px;
+}
+
+.zg-logo-main {
+  color: var(--zg-green);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.zg-logo-sub {
+  margin-top: 4px;
+  color: var(--zg-muted);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   HOTEL SELECTOR
+========================================================= */
+
+.zg-hotel-selector {
+  min-width: 210px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 8px 12px;
+
+  border: 1px solid var(--zg-border);
+  border-radius: 9px;
+
+  background: #fff;
+}
+
+.zg-hotel-selector > svg:first-child {
+  color: var(--zg-green);
+  flex-shrink: 0;
+}
+
+.zg-hotel-selector > svg:last-child {
+  margin-left: auto;
+  color: var(--zg-muted);
+}
+
+.zg-hotel-selector > div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.zg-hotel-selector strong {
+  overflow: hidden;
+  color: var(--zg-text);
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zg-hotel-selector small {
+  color: var(--zg-muted);
+  font-size: 10px;
+}
+
+/* =========================================================
+   PARTNER BADGE
+========================================================= */
+
+.zg-partner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px 10px;
+
+  color: var(--zg-green);
+  background: var(--zg-light-green);
+
+  border-radius: 7px;
+
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.zg-partner-badge svg {
+  color: var(--zg-orange);
+}
+
+/* =========================================================
+   HEADER BUTTONS
+========================================================= */
+
+.zg-header-icon-button {
+  width: 36px;
+  height: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--zg-border);
+  border-radius: 9px;
+
+  color: var(--zg-muted);
+  background: #fff;
+
+  transition: 0.2s ease;
+}
+
+.zg-header-icon-button:hover {
+  color: var(--zg-green);
+  border-color: var(--zg-green);
+  background: var(--zg-light-green);
+}
+
+.zg-help-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  border: 0;
+  background: transparent;
+
+  color: var(--zg-text-secondary);
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.zg-help-button:hover {
+  color: var(--zg-green);
+}
+
+/* =========================================================
+   USER PROFILE
+========================================================= */
+
+.zg-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.zg-user-avatar {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--zg-green);
+  background: var(--zg-light-green);
+
+  border-radius: 50%;
+}
+
+.zg-user-profile > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.zg-user-profile strong {
+  color: var(--zg-text);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.zg-user-profile small {
+  color: var(--zg-muted);
+  font-size: 9px;
+}
+
+.zg-user-profile > svg {
+  color: var(--zg-muted);
+}
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.zg-page-title {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  margin-bottom: 24px;
+}
+
+.zg-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 7px;
+
+  color: var(--zg-muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.zg-breadcrumb span {
+  color: var(--zg-light-muted);
+}
+
+.zg-page-title h1 {
+  color: var(--zg-text);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+.zg-page-title p {
+  margin-top: 6px;
+
+  color: var(--zg-muted);
+  font-size: 13px;
+}
+
+.zg-page-title-right {
+  display: flex;
+  align-items: center;
+}
+
+.zg-booking-id {
+  min-width: 145px;
+  padding: 10px 14px;
+
+  border: 1px solid var(--zg-border);
+  border-radius: 10px;
+
+  background: var(--zg-white);
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.zg-booking-id span {
+  color: var(--zg-muted);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.zg-booking-id strong {
+  color: var(--zg-text);
+  font-size: 11px;
+}
+
+/* =========================================================
+   BOOKING STEPS
+========================================================= */
+
+.zg-booking-steps {
+  width: 100%;
+  padding: 18px 22px;
+  margin-bottom: 22px;
+
+  display: flex;
+  align-items: center;
+
+  background: var(--zg-white);
+  border: 1px solid var(--zg-border);
+  border-radius: var(--zg-radius);
+
+  box-shadow: 0 3px 15px rgba(16, 33, 61, 0.035);
+}
+
+.zg-step {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: var(--zg-muted);
+
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.zg-step-number {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--zg-border);
+  border-radius: 50%;
+
+  color: var(--zg-muted);
+  background: #fff;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.zg-step.active {
+  color: var(--zg-green);
+}
+
+.zg-step.active .zg-step-number {
+  color: #fff;
+  background: var(--zg-green);
+  border-color: var(--zg-green);
+  box-shadow: 0 4px 12px rgba(0, 143, 70, 0.2);
+}
+
+.zg-step.completed {
+  color: var(--zg-green);
+}
+
+.zg-step.completed .zg-step-number {
+  color: var(--zg-green);
+  background: var(--zg-light-green);
+  border-color: #bde4cd;
+}
+
+.zg-step-line {
+  flex: 1;
+  height: 1px;
+  margin: 0 14px;
+  background: var(--zg-border);
+}
+
+.zg-step-line.completed {
+  background: var(--zg-green);
+}
+
+/* =========================================================
+   MAIN BOOKING GRID
+========================================================= */
+
+.zg-booking-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 375px;
+  gap: 22px;
+  align-items: start;
+}
+
+.zg-booking-content {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* =========================================================
+   GENERIC CARD
+========================================================= */
+
+.zg-card {
+  width: 100%;
+  padding: 22px;
+
+  background: var(--zg-white);
+  border: 1px solid var(--zg-border);
+  border-radius: var(--zg-radius);
+
+  box-shadow: var(--zg-shadow);
+}
+
+.zg-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.zg-card-header.compact {
+  margin-bottom: 16px;
+}
+
+.zg-section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 7px;
+
+  color: var(--zg-green);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+
+.zg-section-kicker svg {
+  width: 14px;
+  height: 14px;
+}
+
+.zg-card-header h2 {
+  color: var(--zg-text);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.zg-card-header p {
+  max-width: 620px;
+  margin-top: 6px;
+
+  color: var(--zg-muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   ROUTE STATUS BADGE
+========================================================= */
+
+.zg-route-status-badge {
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px 10px;
+
+  color: var(--zg-green);
+  background: var(--zg-light-green);
+
+  border: 1px solid #d5edde;
+  border-radius: 7px;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   TRIP DETAILS
+========================================================= */
+
+.zg-trip-details {
+  position: relative;
+  z-index: 100;
+}
+
+.zg-location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  margin-bottom: 18px;
+}
+
+.zg-field-group {
+  position: relative;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.zg-field-group label {
+  color: var(--zg-text-secondary);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.zg-field-help {
+  color: var(--zg-muted);
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.zg-input-wrapper {
+  position: relative;
+
+  width: 100%;
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid var(--zg-border);
+  border-radius: var(--zg-radius-sm);
+
+  background: #fff;
+
+  transition: 0.2s ease;
+}
+
+.zg-input-wrapper:hover {
+  border-color: #b9c8d8;
+}
+
+.zg-input-wrapper:focus-within {
+  border-color: var(--zg-green);
+  box-shadow: 0 0 0 3px rgba(0, 143, 70, 0.08);
+}
+
+.zg-input-wrapper > svg {
+  flex-shrink: 0;
+  margin-left: 14px;
+
+  color: var(--zg-green);
+}
+
+.zg-input-wrapper input,
+.zg-input-wrapper select {
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+
+  padding: 0 13px 0 10px;
+
+  border: 0;
+  outline: none;
+  background: transparent;
+
+  color: var(--zg-text);
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.zg-input-wrapper input[type="date"],
+.zg-input-wrapper input[type="time"] {
+  color-scheme: light;
+}
+
+.zg-input-wrapper select {
+  cursor: pointer;
+  appearance: auto;
+}
+
+/* =========================================================
+   LOCATION AUTOCOMPLETE
+========================================================= */
+
+.zg-autocomplete {
+  position: relative;
+  width: 100%;
+  z-index: 100;
+}
+
+.zg-autocomplete-input-wrapper {
+  position: relative;
+
+  width: 100%;
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+}
+
+.zg-autocomplete-icon {
+  position: absolute;
+  left: 14px;
+
+  z-index: 2;
+
+  color: var(--zg-green);
+  pointer-events: none;
+}
+
+.zg-autocomplete-input {
+  width: 100%;
+  min-height: 48px;
+
+  padding: 0 42px;
+
+  border: 1px solid var(--zg-border);
+  border-radius: var(--zg-radius-sm);
+
+  outline: none;
+
+  color: var(--zg-text);
+  background: #fff;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  transition: 0.2s ease;
+}
+
+.zg-autocomplete-input::placeholder {
+  color: var(--zg-light-muted);
+  font-weight: 400;
+}
+
+.zg-autocomplete-input:hover {
+  border-color: #b9c8d8;
+}
+
+.zg-autocomplete-input:focus {
+  border-color: var(--zg-green);
+
+  box-shadow:
+    0 0 0 3px rgba(0, 143, 70, 0.08);
+}
+
+.zg-autocomplete-loader {
+  position: absolute;
+  right: 14px;
+
+  color: var(--zg-green);
+
+  animation: zg-spin 1s linear infinite;
+}
+
+.zg-autocomplete-dropdown {
+  position: absolute;
+
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+
+  overflow: hidden;
+
+  background: #fff;
+
+  border: 1px solid var(--zg-border);
+  border-radius: 10px;
+
+  box-shadow:
+    0 14px 35px rgba(16, 33, 61, 0.15);
+
+  z-index: 99999;
+}
+
+/* =========================================================
+   CURRENT LOCATION
+========================================================= */
+
+.zg-current-location-option {
+  width: 100%;
+  min-height: 50px;
+
+  padding: 11px 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border: 0;
+  border-bottom: 1px solid var(--zg-border-light);
+
+  background: var(--zg-light-green);
+
+  color: var(--zg-green);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-align: left;
+
+  transition: 0.2s ease;
+}
+
+.zg-current-location-option:hover {
+  background: var(--zg-green-soft);
+  color: var(--zg-dark-green);
+}
+
+.zg-current-location-option:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.zg-current-location-option svg {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   AUTOCOMPLETE RESULTS
+========================================================= */
+
+.zg-autocomplete-results {
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.zg-autocomplete-results::-webkit-scrollbar {
+  width: 5px;
+}
+
+.zg-autocomplete-results::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+.zg-autocomplete-results::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+}
+
+.zg-autocomplete-item {
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  padding: 12px 14px;
+
+  border: 0;
+  border-bottom: 1px solid var(--zg-border-light);
+
+  background: #fff;
+
+  color: var(--zg-text);
+
+  text-align: left;
+
+  transition: background 0.18s ease;
+}
+
+.zg-autocomplete-item:last-child {
+  border-bottom: 0;
+}
+
+.zg-autocomplete-item:hover {
+  background: #f5faf7;
+}
+
+.zg-autocomplete-item > svg {
+  flex-shrink: 0;
+
+  margin-top: 2px;
+
+  color: var(--zg-green);
+}
+
+.zg-autocomplete-item > span {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.zg-autocomplete-item strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: var(--zg-text);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zg-autocomplete-item small {
+  display: block;
+
+  overflow: hidden;
+
+  color: var(--zg-muted);
+
+  font-size: 9px;
+  line-height: 1.4;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zg-autocomplete-empty {
+  padding: 17px 14px;
+
+  color: var(--zg-muted);
+
+  background: #fff;
+
+  font-size: 10px;
+  text-align: center;
+}
+
+.zg-autocomplete-spin {
+  animation: zg-spin 1s linear infinite;
+}
+
+@keyframes zg-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   VIA STOPS
+========================================================= */
+
+.zg-via-section {
+  margin-bottom: 20px;
+}
+
+.zg-via-header {
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.zg-via-header > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.zg-via-header label {
+  color: var(--zg-text-secondary);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.zg-via-header small {
+  color: var(--zg-muted);
+  font-size: 9px;
+}
+
+.zg-add-stop-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 7px 10px;
+
+  border: 1px solid #bde4cd;
+  border-radius: 7px;
+
+  color: var(--zg-green);
+  background: var(--zg-light-green);
+
+  font-size: 9px;
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.zg-add-stop-button:hover {
+  background: var(--zg-green-soft);
+  border-color: var(--zg-green);
+}
+
+.zg-via-row {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 27px minmax(0, 1fr) 34px;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 9px;
+}
+
+.zg-via-number {
+  width: 27px;
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--zg-green);
+  background: var(--zg-light-green);
+
+  border-radius: 50%;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.zg-remove-stop {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #f1c9cd;
+  border-radius: 8px;
+
+  color: var(--zg-danger);
+  background: var(--zg-danger-soft);
+
+  transition: 0.2s ease;
+}
+
+.zg-remove-stop:hover {
+  background: #ffe3e6;
+}
+
+/* =========================================================
+   TRIP OPTIONS
+========================================================= */
+
+.zg-trip-options-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+/* =========================================================
+   ROUTE LOADING / ERROR
+========================================================= */
+
+.zg-route-loading {
+  margin-top: 17px;
+  padding: 11px 13px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--zg-green);
+  background: var(--zg-light-green);
+
+  border: 1px solid #d7edde;
+  border-radius: 9px;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.zg-route-error {
+  margin-top: 17px;
+  padding: 11px 13px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #a33b44;
+  background: var(--zg-danger-soft);
+
+  border: 1px solid #f3d2d6;
+  border-radius: 9px;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.zg-route-error svg {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   ROUTE INFORMATION
+========================================================= */
+
+.zg-route-information {
+  margin-top: 17px;
+  padding: 14px;
+
+  background: var(--zg-light-green);
+
+  border: 1px solid #d4ecdd;
+  border-radius: 10px;
+}
+
+.zg-route-information-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+.zg-route-information-heading > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.zg-route-information-heading svg {
+  color: var(--zg-green);
+}
+
+.zg-route-information-heading strong {
+  color: var(--zg-text);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.zg-route-information-heading > span {
+  padding: 4px 7px;
+
+  color: var(--zg-green);
+  background: #fff;
+
+  border: 1px solid #cce6d7;
+  border-radius: 5px;
+
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.zg-route-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.zg-route-stats > div {
+  padding: 10px 11px;
+
+  background: #fff;
+
+  border: 1px solid #dceee3;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.zg-route-stats small {
+  color: var(--zg-muted);
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.zg-route-stats strong {
+  color: var(--zg-text);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* =========================================================
+   LEAFLET MAP
+========================================================= */
+
+.zg-route-map {
+  width: 100%;
+  height: 310px;
+
+  margin-top: 18px;
+
+  overflow: hidden;
+
+  position: relative;
+
+  border: 1px solid var(--zg-border);
+  border-radius: 12px;
+
+  background: #edf2f5;
+
+  z-index: 1;
+}
+
+.zg-route-map .leaflet-container {
+  width: 100%;
+  height: 100%;
+
+  font-family: "Inter", sans-serif;
+}
+
+.zg-leaflet-map {
+  width: 100%;
+  height: 100%;
+}
+
+.zg-route-map-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  color: var(--zg-muted);
+
+  background:
+    linear-gradient(
+      135deg,
+      #f5faf7,
+      #f8fafc
+    );
+
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.zg-route-map-empty svg {
+  color: var(--zg-green);
+}
+
+/* =========================================================
+   LEAFLET CONTROLS
+========================================================= */
+
+.zg-route-map .leaflet-control-zoom {
+  border: 0 !important;
+
+  box-shadow:
+    0 4px 12px rgba(16, 33, 61, 0.12);
+}
+
+.zg-route-map .leaflet-control-zoom a {
+  width: 30px !important;
+  height: 30px !important;
+
+  line-height: 28px !important;
+
+  color: var(--zg-text) !important;
+
+  background: #fff !important;
+
+  border: 0 !important;
+
+  font-weight: 600;
+}
+
+.zg-route-map .leaflet-control-zoom a:hover {
+  color: var(--zg-green) !important;
+  background: var(--zg-light-green) !important;
+}
+
+.zg-route-map .leaflet-control-attribution {
+  font-size: 8px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* =========================================================
+   CUSTOM MAP MARKERS
+========================================================= */
+
+.zg-map-marker-wrapper {
+  background: transparent;
+  border: 0;
+}
+
+.zg-map-marker {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 4px 12px rgba(16, 33, 61, 0.25);
+
+  position: relative;
+}
+
+.zg-map-marker::after {
+  content: "";
+
+  position: absolute;
+
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background: #fff;
+}
+
+.zg-map-marker span {
+  position: relative;
+  z-index: 2;
+
+  font-size: 12px;
+  line-height: 1;
+}
+
+.zg-map-marker-pickup {
+  background: var(--zg-green);
+  border: 3px solid #fff;
+}
+
+.zg-map-marker-pickup span {
+  color: var(--zg-green);
+}
+
+.zg-map-marker-drop {
+  background: var(--zg-orange);
+  border: 3px solid #fff;
+}
+
+.zg-map-marker-drop span {
+  color: var(--zg-orange);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+}
+
+.leaflet-popup-content {
+  margin: 9px 12px;
+
+  color: var(--zg-text);
+
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   POPULAR ROUTES
+========================================================= */
+
+.zg-popular-routes {
+  position: relative;
+  z-index: 5;
+}
+
+.zg-popular-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.zg-popular-route {
+  min-width: 0;
+
+  padding: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border: 1px solid var(--zg-border);
+  border-radius: 10px;
+
+  background: #fff;
+
+  text-align: left;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.zg-popular-route:hover {
+  border-color: #bde4cd;
+  background: var(--zg-light-green);
+
+  transform: translateY(-1px);
+}
+
+.zg-popular-icon {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--zg-light-green);
+
+  border-radius: 9px;
+
+  font-size: 17px;
+}
+
+.zg-popular-route > div:last-child {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.zg-popular-route strong {
+  overflow: hidden;
+
+  color: var(--zg-text);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zg-popular-route small {
+  overflow: hidden;
+
+  color: var(--zg-muted);
+
+  font-size: 8px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   ADDITIONAL PREFERENCES
+========================================================= */
+
+.zg-preferences-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.zg-check-card {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  padding: 13px;
+
+  border: 1px solid var(--zg-border);
+  border-radius: 10px;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.zg-check-card:hover {
+  border-color: #bde4cd;
+  background: #fbfefc;
+}
+
+.zg-check-card input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  opacity: 0;
+}
+
+.zg-custom-check {
+  width: 18px;
+  height: 18px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+
+  color: transparent;
+  background: #fff;
+
+  transition: 0.2s ease;
+}
+
+.zg-custom-check svg {
+  width: 13px;
+  height: 13px;
+}
+
+.zg-check-card input:checked
+  + .zg-custom-check {
+  color: #fff;
+  background: var(--zg-green);
+  border-color: var(--zg-green);
+}
+
+.zg-check-card > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.zg-check-card strong {
+  color: var(--zg-text);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.zg-check-card small {
+  color: var(--zg-muted);
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.zg-preference-note {
+  margin-top: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--zg-muted);
+
+  font-size: 9px;
+}
+
+.zg-preference-note svg {
+  color: var(--zg-green);
+}
+
+/* =========================================================
+   BENEFITS BANNER
+========================================================= */
+
+.zg-benefits-banner {
+  position: relative;
+
+  min-height: 130px;
+
+  overflow: hidden;
+
+  padding: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background:
+    linear-gradient(
+      120deg,
+      #00542f 0%,
+      #008f46 55%,
+      #0a9d52 100%
+    );
+
+  border-radius: var(--zg-radius);
+
+  color: #fff;
+}
+
+.zg-benefits-banner::after {
+  content: "";
+
+  position: absolute;
+
+  right: -40px;
+  bottom: -65px;
+
+  width: 250px;
+  height: 140px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.zg-benefits-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  position: relative;
+  z-index: 2;
+}
+
+.zg-benefits-icon {
+  width: 50px;
+  height: 50px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.13);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+}
+
+.zg-benefits-content > div:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.zg-benefits-content span {
+  margin-bottom: 5px;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.zg-benefits-content h3 {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.zg-benefits-content p {
+  margin-top: 5px;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 10px;
+}
+
+.zg-benefits-items {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding-right: 20px;
+}
+
+.zg-benefits-items div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.zg-benefits-items svg {
+  color: #bdf2d2;
+}
+
+/* =========================================================
+   BOOKING SUMMARY
+========================================================= */
+
+.zg-booking-summary {
+  position: sticky;
+  top: 94px;
+
+  padding: 20px;
+
+  background: #fff;
+
+  border: 1px solid var(--zg-border);
+  border-radius: var(--zg-radius);
+
+  box-shadow: var(--zg-shadow-lg);
+
+  z-index: 10;
+}
+
+.zg-summary-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+.zg-summary-header > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.zg-summary-header span {
+  color: var(--zg-muted);
+
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.zg-summary-header h2 {
+  color: var(--zg-text);
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.zg-summary-secure {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 5px 7px;
+
+  color: var(--zg-green);
+  background: var(--zg-light-green);
+
+  border-radius: 5px;
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   SUMMARY ROUTE
+========================================================= */
+
+.zg-summary-route {
+  padding: 14px;
+
+  background: #f9fbfc;
+
+  border: 1px solid var(--zg-border-light);
+  border-radius: 10px;
+}
+
+.zg-summary-route-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.zg-summary-route-row > div:last-child {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.zg-summary-route-row small {
+  color: var(--zg-muted);
+
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.zg-summary-route-row strong {
+  overflow: hidden;
+
+  color: var(--zg-text);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  line-height: 1.35;
+
+  text-overflow: ellipsis;
+}
+
+.zg-summary-dot {
+  width: 9px;
+  height: 9px;
+
+  flex-shrink: 0;
+
+  margin-top: 3px;
+
+  border-radius: 50%;
+}
+
+.zg-summary-dot.pickup {
+  background: var(--zg-green);
+  box-shadow: 0 0 0 4px #dff2e7;
+}
+
+.zg-summary-dot.drop {
+  background: var(--zg-orange);
+  box-shadow: 0 0 0 4px #fff0d9;
+}
+
+.zg-summary-route-line {
+  width: 1px;
+  height: 22px;
+
+  margin: 4px 0 4px 4px;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #cbd5e1 0,
+      #cbd5e1 3px,
+      transparent 3px,
+      transparent 6px
+    );
+}
+
+/* =========================================================
+   SUMMARY INFO
+========================================================= */
+
+.zg-summary-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 8px;
+
+  margin-top: 13px;
+}
+
+.zg-summary-info-grid > div {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px;
+
+  color: var(--zg-text-secondary);
+  background: #fff;
+
+  border: 1px solid var(--zg-border-light);
+  border-radius: 7px;
+
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.zg-summary-info-grid svg {
+  flex-shrink: 0;
+  color: var(--zg-green);
+}
+
+.zg-summary-info-grid span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   SUMMARY DISTANCE
+========================================================= */
+
+.zg-summary-distance {
+  margin-top: 10px;
+  padding: 8px 9px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--zg-green);
+  background: var(--zg-light-green);
+
+  border-radius: 7px;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.zg-summary-distance svg {
+  width: 14px;
+}
+
+/* =========================================================
+   FARE BREAKDOWN
+========================================================= */
+
+.zg-fare-breakdown {
+  margin-top: 17px;
+}
+
+.zg-fare-heading {
+  margin-bottom: 10px;
+
+  color: var(--zg-text);
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.zg-fare-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 5px 0;
+
+  color: var(--zg-muted);
+
+  font-size: 9px;
+}
+
+.zg-fare-row strong {
+  color: var(--zg-text-secondary);
+  font-size: 9px;
+}
+
+.zg-fare-divider {
+  height: 1px;
+
+  margin: 8px 0;
+
+  background: var(--zg-border-light);
+}
+
+.zg-fare-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-top: 2px;
+}
+
+.zg-fare-total span {
+  color: var(--zg-text);
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.zg-fare-total strong {
+  color: var(--zg-text);
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+/* =========================================================
+   HOTEL COMMISSION
+========================================================= */
+
+.zg-hotel-commission {
+  margin-top: 15px;
+  padding: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: var(--zg-light-green);
+
+  border: 1px solid #d5edde;
+  border-radius: 8px;
+}
+
+.zg-hotel-commission > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zg-hotel-commission > div > svg {
+  color: var(--zg-green);
+}
+
+.zg-hotel-commission span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.zg-hotel-commission strong {
+  color: var(--zg-green);
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.zg-hotel-commission small {
+  color: var(--zg-muted);
+
+  font-size: 7px;
+}
+
+.zg-hotel-commission > strong {
+  font-size: 11px;
+}
+
+/* =========================================================
+   HOTEL PAYABLE
+========================================================= */
+
+.zg-hotel-payable {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 13px;
+  padding-top: 13px;
+
+  border-top: 1px solid var(--zg-border);
+}
+
+.zg-hotel-payable span {
+  color: var(--zg-text-secondary);
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.zg-hotel-payable strong {
+  color: var(--zg-text);
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.zg-continue-button {
+  width: 100%;
+  min-height: 46px;
+
+  margin-top: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: 0;
+  border-radius: 9px;
+
+  color: #fff;
+  background: var(--zg-green);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  box-shadow:
+    0 7px 18px rgba(0, 143, 70, 0.2);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.zg-continue-button:hover {
+  background: var(--zg-dark-green);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 10px 22px rgba(0, 143, 70, 0.25);
+}
+
+.zg-draft-button {
+  width: 100%;
+  min-height: 40px;
+
+  margin-top: 8px;
+
+  border: 1px solid var(--zg-border);
+  border-radius: 9px;
+
+  color: var(--zg-text-secondary);
+  background: #fff;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.zg-draft-button:hover {
+  border-color: var(--zg-green);
+  color: var(--zg-green);
+  background: var(--zg-light-green);
+}
+
+.zg-summary-footer {
+  margin-top: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  color: var(--zg-muted);
+
+  font-size: 8px;
+}
+
+.zg-summary-footer svg {
+  color: var(--zg-green);
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1200px) {
+  .zg-main {
+    width: min(
+      100% - 32px,
+      1100px
+    );
+  }
+
+  .zg-booking-layout {
+    grid-template-columns:
+      minmax(0, 1fr) 330px;
+  }
+
+  .zg-trip-options-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .zg-popular-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .zg-header-left {
+    gap: 14px;
+  }
+
+  .zg-hotel-selector {
+    min-width: 180px;
+  }
+
+  .zg-help-button {
+    display: none;
+  }
+}
+
+/* =========================================================
+   TABLET SMALL
+========================================================= */
+
+@media (max-width: 900px) {
+  :root {
+    --zg-header-height: 64px;
+  }
+
+  .zg-header {
+    padding: 0 18px;
+  }
+
+  .zg-header-left {
+    gap: 12px;
+  }
+
+  .zg-header-right {
+    gap: 10px;
+  }
+
+  .zg-hotel-selector {
+    min-width: 155px;
+  }
+
+  .zg-partner-badge {
+    display: none;
+  }
+
+  .zg-user-profile > div:nth-child(2),
+  .zg-user-profile > svg {
+    display: none;
+  }
+
+  .zg-booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .zg-booking-summary {
+    position: relative;
+    top: auto;
+  }
+
+  .zg-trip-options-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .zg-benefits-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .zg-benefits-items {
+    padding-right: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+  .zg-main {
+    width: calc(100% - 24px);
+    padding-top: 20px;
+  }
+
+  .zg-header {
+    height: 60px;
+    padding: 0 12px;
+  }
+
+  .zg-logo-main {
+    font-size: 21px;
+  }
+
+  .zg-logo-sub {
+    font-size: 7px;
+  }
+
+  .zg-hotel-selector {
+    display: none;
+  }
+
+  .zg-header-right {
+    margin-left: auto;
+  }
+
+  .zg-header-icon-button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .zg-page-title {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .zg-page-title h1 {
+    font-size: 23px;
+  }
+
+  .zg-page-title p {
+    font-size: 11px;
+  }
+
+  .zg-page-title-right {
+    width: 100%;
+  }
+
+  .zg-booking-id {
+    width: 100%;
+  }
+
+  /* STEPS */
+
+  .zg-booking-steps {
+    padding: 12px 10px;
+
+    overflow-x: auto;
+
+    gap: 0;
+  }
+
+  .zg-step {
+    gap: 6px;
+
+    font-size: 8px;
+  }
+
+  .zg-step-number {
+    width: 25px;
+    height: 25px;
+
+    flex-shrink: 0;
+  }
+
+  .zg-step-line {
+    min-width: 18px;
+    margin: 0 6px;
+  }
+
+  /* CARDS */
+
+  .zg-card {
+    padding: 16px;
+    border-radius: 11px;
+  }
+
+  .zg-card-header {
+    gap: 10px;
+    margin-bottom: 17px;
+  }
+
+  .zg-card-header h2 {
+    font-size: 15px;
+  }
+
+  .zg-card-header p {
+    font-size: 10px;
+  }
+
+  .zg-route-status-badge {
+    display: none;
+  }
+
+  /* LOCATION */
+
+  .zg-location-grid {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .zg-trip-options-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .zg-trip-options-grid
+    .zg-field-group:last-child {
+    grid-column: span 2;
+  }
+
+  /* VIA */
+
+  .zg-via-row {
+    grid-template-columns:
+      25px minmax(0, 1fr) 32px;
+  }
+
+  /* ROUTE */
+
+  .zg-route-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .zg-route-map {
+    height: 270px;
+  }
+
+  /* POPULAR */
+
+  .zg-popular-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* PREFERENCES */
+
+  .zg-preferences-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* BENEFITS */
+
+  .zg-benefits-banner {
+    padding: 17px;
+  }
+
+  .zg-benefits-content {
+    align-items: flex-start;
+  }
+
+  .zg-benefits-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .zg-benefits-content h3 {
+    font-size: 14px;
+  }
+
+  .zg-benefits-items {
+    flex-direction: column;
+  }
+
+  /* SUMMARY */
+
+  .zg-booking-summary {
+    padding: 16px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 430px) {
+  .zg-main {
+    width: calc(100% - 18px);
+  }
+
+  .zg-header {
+    padding: 0 9px;
+  }
+
+  .zg-logo-main {
+    font-size: 20px;
+  }
+
+  .zg-user-avatar {
+    width: 33px;
+    height: 33px;
+  }
+
+  .zg-header-icon-button {
+    width: 33px;
+    height: 33px;
+  }
+
+  .zg-page-title h1 {
+    font-size: 21px;
+  }
+
+  .zg-booking-steps {
+    padding: 10px 7px;
+  }
+
+  .zg-step span {
+    display: none;
+  }
+
+  .zg-step-line {
+    min-width: 20px;
+  }
+
+  .zg-trip-options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .zg-trip-options-grid
+    .zg-field-group:last-child {
+    grid-column: auto;
+  }
+
+  .zg-route-map {
+    height: 240px;
+  }
+
+  .zg-summary-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .zg-summary-header h2 {
+    font-size: 15px;
+  }
+
+  .zg-fare-total strong {
+    font-size: 16px;
+  }
+
+  .zg-hotel-payable strong {
+    font-size: 16px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--zg-green);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

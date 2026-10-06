@@ -34,8 +34,6 @@ import LocalSightseeing from "./pages/sightseeing/LocalSightseeing";
 import SightseeingBookings from "./pages/sightseeing/SightseeingBookings";
 
 // Outstation
-import OneWay from "./pages/outstation/OneWay";
-import RoundTrip from "./pages/outstation/RoundTrip";
 import MultiDayTour from "./pages/outstation/MultiDayTour";
 import OutstationBookings from "./pages/outstation/OutstationBookings";
 
@@ -127,8 +125,6 @@ function RoutePage() {
                 <Route path="/sightseeing/bookings" element={<SightseeingBookings />} />
 
                 {/* Outstation */}
-                <Route path="/outstation/one-way" element={<OneWay />} />
-                <Route path="/outstation/round-trip" element={<RoundTrip />} />
                 <Route path="/outstation/multi-day" element={<MultiDayTour />} />
                 <Route path="/outstation/bookings" element={<OutstationBookings />} />
 
