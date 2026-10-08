@@ -24,9 +24,6 @@ import RailwayDrop from "./pages/railway/RailwayDrop";
 import RailwayBookings from "./pages/railway/RailwayBookings";
 
 // Rental
-import HourlyRental from "./pages/rental/HourlyRental";
-import HalfDayRental from "./pages/rental/HalfDayRental";
-import FullDayRental from "./pages/rental/FullDayRental";
 import RentalBookings from "./pages/rental/RentalBookings";
 
 // Sightseeing
@@ -115,9 +112,6 @@ function RoutePage() {
                 <Route path="/railway/bookings" element={<RailwayBookings />} />
 
                 {/* Rental */}
-                <Route path="/rental/hourly" element={<HourlyRental />} />
-                <Route path="/rental/half-day" element={<HalfDayRental />} />
-                <Route path="/rental/full-day" element={<FullDayRental />} />
                 <Route path="/rental/bookings" element={<RentalBookings />} />
 
                 {/* Sightseeing */}
