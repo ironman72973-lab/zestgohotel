@@ -159,9 +159,8 @@ export default function WeddingTransportBooking() {
     ac: "AC Required",
     coordinator: "",
     phone: "",
-    notes:
-      "Please ensure vehicles arrive 30 minutes before the scheduled pickup. Bridal car decoration must be completed before arrival."
-  });
+    notes: "" 
+});
 
   const [pickups, setPickups] = useState(initialPickupPoints);
   const [drops, setDrops] = useState(initialDropPoints);
@@ -771,10 +770,11 @@ export default function WeddingTransportBooking() {
 
               <Field label="Additional Wedding Instructions">
                 <textarea
-                  maxLength={500}
-                  value={form.notes}
+                  name="notes"
+                  value={form.notes || ""}
                   onChange={update("notes")}
-                  rows={3}
+                  placeholder=""
+                  rows={4}
                 />
 
                 <span className="character-count">
