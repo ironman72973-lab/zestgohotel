@@ -41,10 +41,8 @@ import Transport from "./pages/transport/Transport";
 import EventTransport from "./pages/events/EventTransport";
 import WeddingTransport from "./pages/events/WeddingTransport";
 import CorporateTransport from "./pages/events/CorporateTransport";
-import ConferenceTransport from "./pages/events/ConferenceTransport";
 import ExhibitionTransport from "./pages/events/ExhibitionTransport";
 import VIPGuestTransport from "./pages/events/VIPGuestTransport";
-import EventShuttle from "./pages/events/EventShuttle";
 import CustomEvent from "./pages/events/CustomEvent";
 
 // Booking Management
@@ -129,10 +127,8 @@ function RoutePage() {
                 <Route path="/events/transport" element={<EventTransport />} />
                 <Route path="/events/wedding" element={<WeddingTransport />} />
                 <Route path="/events/corporate" element={<CorporateTransport />} />
-                <Route path="/events/conference" element={<ConferenceTransport />} />
                 <Route path="/events/exhibition" element={<ExhibitionTransport />} />
                 <Route path="/events/vip" element={<VIPGuestTransport />} />
-                <Route path="/events/shuttle" element={<EventShuttle />} />
                 <Route path="/events/custom" element={<CustomEvent />} />
 
                 {/* Booking Management */}
